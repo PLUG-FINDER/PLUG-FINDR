@@ -1,0 +1,337 @@
+.feedback-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.feedback-modal {
+  background: var(--card-bg, white);
+  border-radius: 16px;
+  padding: 2rem;
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.feedback-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.feedback-modal-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: var(--text-primary, #1a1a1a);
+  font-weight: 700;
+}
+
+.feedback-modal-close {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: var(--text-secondary, #666);
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.feedback-modal-close:hover {
+  background-color: var(--gray-100, #f3f4f6);
+  color: var(--text-primary, #1a1a1a);
+}
+
+.feedback-modal-description {
+  margin: 0 0 1.5rem 0;
+  color: var(--text-secondary, #666);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.feedback-form-field {
+  margin-bottom: 1.5rem;
+}
+
+.feedback-form-field label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--text-primary, #1a1a1a);
+  font-size: 0.9rem;
+}
+
+.required {
+  color: var(--error, #ef4444);
+}
+
+.feedback-select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  background-color: white;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.feedback-select:focus {
+  outline: none;
+  border-color: var(--primary-500, #6366f1);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.feedback-phone-input {
+  display: flex;
+  gap: 0.5rem;
+  align-items: stretch;
+}
+
+.feedback-country-code {
+  padding: 0.75rem 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-family: inherit;
+  background-color: white;
+  cursor: pointer;
+  min-width: 70px;
+  max-width: 85px;
+  transition: border-color 0.2s ease;
+}
+
+.feedback-country-code:focus {
+  outline: none;
+  border-color: var(--primary-500, #6366f1);
+}
+
+.feedback-phone-number {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  transition: border-color 0.2s ease;
+}
+
+.feedback-phone-number:focus {
+  outline: none;
+  border-color: var(--primary-500, #6366f1);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.feedback-textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 120px;
+  transition: border-color 0.2s ease;
+}
+
+.feedback-textarea:focus {
+  outline: none;
+  border-color: var(--primary-500, #6366f1);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.feedback-form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 2rem;
+}
+
+.feedback-cancel-btn {
+  padding: 0.75rem 1.5rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: white;
+  color: var(--text-primary, #1a1a1a);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.feedback-cancel-btn:hover {
+  background-color: var(--gray-50, #f9fafb);
+  border-color: #bbb;
+}
+
+.feedback-submit-btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #10b981;
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.feedback-submit-btn:hover:not(:disabled) {
+  background-color: #059669;
+}
+
+.feedback-submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.feedback-success-message {
+  padding: 1.5rem;
+  background-color: #d1fae5;
+  color: #065f46;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.feedback-error-message {
+  padding: 0.75rem;
+  background-color: #fee2e2;
+  color: #991b1b;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .feedback-modal {
+    max-width: 95vw;
+    padding: 1.5rem;
+  }
+
+  .feedback-modal-header h2 {
+    font-size: 1.25rem;
+  }
+
+  .feedback-form-field {
+    margin-bottom: 1.25rem;
+  }
+
+  .feedback-phone-input {
+    gap: 0.375rem;
+  }
+
+  .feedback-country-code {
+    min-width: 60px;
+    max-width: 70px;
+    padding: 0.75rem 0.375rem;
+    font-size: 0.75rem;
+  }
+
+  .feedback-phone-number {
+    padding: 0.75rem;
+    font-size: 0.95rem;
+  }
+
+  .feedback-textarea {
+    padding: 0.75rem;
+    font-size: 0.95rem;
+    min-height: 100px;
+  }
+
+  .feedback-form-actions {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .feedback-cancel-btn,
+  .feedback-submit-btn {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .feedback-modal {
+    max-width: 100%;
+    padding: 1.25rem;
+    border-radius: 12px;
+  }
+
+  .feedback-modal-header h2 {
+    font-size: 1.1rem;
+  }
+
+  .feedback-modal-description {
+    font-size: 0.85rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .feedback-form-field label {
+    font-size: 0.8rem;
+  }
+
+  .feedback-select,
+  .feedback-phone-number,
+  .feedback-textarea {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+
+  .feedback-phone-input {
+    gap: 0.25rem;
+  }
+
+  .feedback-country-code {
+    min-width: 55px;
+    max-width: 65px;
+    padding: 0.625rem 0.375rem;
+    font-size: 0.7rem;
+  }
+
+  .feedback-phone-number {
+    padding: 0.625rem;
+  }
+
+  .feedback-textarea {
+    min-height: 80px;
+    padding: 0.625rem;
+  }
+
+  .feedback-form-actions {
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+
+  .feedback-cancel-btn,
+  .feedback-submit-btn {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 0.85rem;
+    min-height: 44px;
+  }
+}
+
+
+
+
+

@@ -1,0 +1,759 @@
+/* Responsive Design System - Mobile First Approach */
+
+/* ============================================
+   CRITICAL MOBILE FIXES - GLOBAL
+   ============================================ */
+
+/* Ensure all elements respect viewport width */
+* {
+  max-width: 100%;
+}
+
+html {
+  overflow-x: hidden;
+  width: 100%;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+body {
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
+}
+
+/* Prevent horizontal scroll on all screen sizes */
+#root {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+}
+
+/* ============================================
+   STANDARD BREAKPOINTS
+   ============================================
+   
+   These breakpoints are defined in theme.css as CSS custom properties:
+   - --bp-mobile: 480px
+   - --bp-tablet: 768px
+   - --bp-desktop: 1024px
+   - --bp-large-desktop: 1280px
+   - --bp-xl-desktop: 1536px
+   
+   Note: CSS custom properties cannot be used directly in media queries,
+   so use these exact pixel values for consistency across all files.
+   
+   Breakpoint Ranges:
+   - Mobile: 0-480px (small phones)
+   - Large Mobile: 481-768px (large phones, small tablets)
+   - Tablet: 769-1024px (tablets)
+   - Desktop: 1025px-1279px (desktops)
+   - Large Desktop: 1280px-1535px (large desktops)
+   - XL Desktop: 1536px+ (extra large screens)
+   
+   Usage Example:
+   @media (max-width: 768px) { ... }  // Mobile and below
+   @media (min-width: 1280px) { ... } // Large desktop and above
+*/
+
+/* ============================================
+   BASE MOBILE STYLES (0-768px) - MOBILE FIRST
+   ============================================ */
+
+/* All containers, forms, and inputs should be mobile-friendly by default */
+.page-container,
+.layout-main,
+.auth-container,
+.profile-form,
+.upload-form,
+.flyers-section,
+.auth-card {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Form elements - ensure they fit on mobile */
+.form-field,
+.auth-field {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.form-field input,
+.form-field textarea,
+.form-field select,
+.auth-field input,
+.auth-field textarea,
+.auth-field select {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* Phone input wrapper - stack on mobile */
+.phone-input-wrapper {
+  flex-direction: column;
+  width: 100%;
+}
+
+.phone-input-wrapper select {
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.phone-input-wrapper input {
+  width: 100%;
+}
+
+/* Buttons - full width on mobile */
+button,
+.submit-button,
+.auth-button,
+.search-btn,
+.category-btn,
+.subcategory-btn {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Grids - single column on mobile */
+.vendors-grid-modern,
+.dashboard-cards,
+.dashboard-stats,
+.features-grid,
+.categories-grid,
+.hiw-grid,
+.testimonials-grid,
+.flyers-grid {
+  grid-template-columns: 1fr;
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Cards - full width on mobile */
+.vendor-card-modern,
+.stat-card,
+.quick-action-card,
+.recommendation-card,
+.recent-activity-card {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Tables - scrollable on mobile */
+table {
+  width: 100%;
+  max-width: 100%;
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Images - responsive */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Prevent text overflow */
+h1, h2, h3, h4, h5, h6, p, span, div {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Search bars - stack on mobile */
+.search-bar {
+  flex-direction: column;
+  width: 100%;
+}
+
+.search-input-main {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Category buttons - stack on mobile */
+.category-buttons,
+.subcategory-buttons {
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Form rows - single column on mobile */
+.form-row {
+  grid-template-columns: 1fr;
+  width: 100%;
+  gap: 1rem;
+}
+
+/* ============================================
+   MOBILE BREAKPOINT (max-width: 768px)
+   ============================================ */
+@media screen and (max-width: 768px) {
+  /* Ensure all containers fit */
+  .page-container,
+  .layout-main {
+    padding: 1.5rem 0.75rem 0.75rem 0.75rem; /* Top padding for navbar spacing */
+    width: 100%;
+    max-width: 100vw;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  /* Forms - ensure inputs fit */
+  .profile-form,
+  .upload-form,
+  .flyers-section,
+  .auth-card {
+    padding: 1rem;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  .auth-container {
+    padding: 0.75rem;
+    width: 100%;
+    max-width: 100vw;
+  }
+
+  /* Typography */
+  .page-title {
+    font-size: 1.5rem;
+    padding: 0 0.5rem;
+    word-wrap: break-word;
+  }
+
+  .page-subtitle {
+    font-size: 0.95rem;
+    padding: 0 0.5rem;
+  }
+
+  /* Form elements - ensure they don't overflow */
+  .form-field input,
+  .form-field textarea,
+  .form-field select,
+  .auth-field input,
+  .auth-field textarea,
+  .auth-field select {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    font-size: 16px; /* Prevents zoom on iOS */
+    padding: 0.875rem;
+    min-height: 44px;
+  }
+
+  /* Phone input - stack vertically */
+  .phone-input-wrapper {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .phone-input-wrapper select {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  .phone-input-wrapper input {
+    width: 100%;
+  }
+
+  /* Buttons - full width */
+  .submit-button,
+  .auth-button,
+  .search-btn,
+  .category-btn {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    min-height: 44px;
+    box-sizing: border-box;
+  }
+
+  /* Grids - single column */
+  .vendors-grid-modern,
+  .dashboard-cards,
+  .dashboard-stats {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  /* Cards */
+  .vendor-card-modern,
+  .stat-card {
+    width: 100%;
+    max-width: 100%;
+    padding: 1.25rem;
+    box-sizing: border-box;
+  }
+
+  /* Search */
+  .search-bar {
+    flex-direction: column;
+    padding: 0.5rem;
+    width: 100%;
+  }
+
+  .search-input-main {
+    width: 100%;
+    padding: 0.875rem;
+    box-sizing: border-box;
+  }
+
+  .search-btn {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+
+  /* Category buttons */
+  .category-buttons,
+  .subcategory-buttons {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.75rem;
+  }
+
+  .category-btn,
+  .subcategory-btn {
+    width: 100%;
+    padding: 1rem;
+  }
+
+  /* Form rows */
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    width: 100%;
+  }
+}
+
+/* ============================================
+   SMALL MOBILE (max-width: 480px)
+   ============================================ */
+@media screen and (max-width: 480px) {
+  /* Even tighter padding */
+  .page-container,
+  .layout-main {
+    padding: 1.25rem 0.5rem 0.5rem 0.5rem; /* Top padding for navbar spacing */
+    width: 100%;
+    max-width: 100vw;
+  }
+
+  .auth-container {
+    padding: 0.5rem;
+  }
+
+  .profile-form,
+  .upload-form,
+  .flyers-section,
+  .auth-card {
+    padding: 1rem 0.75rem;
+    border-radius: 12px;
+  }
+
+  /* Typography - smaller */
+  .page-title {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    padding: 0 0.5rem;
+  }
+
+  .page-subtitle {
+    font-size: 0.875rem;
+    padding: 0 0.5rem;
+  }
+
+  .auth-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Form elements - ensure fit */
+  .form-field input,
+  .form-field textarea,
+  .form-field select,
+  .auth-field input,
+  .auth-field textarea,
+  .auth-field select {
+    padding: 0.875rem;
+    font-size: 16px; /* Prevents zoom on iOS */
+    min-height: 44px;
+  }
+
+  /* Buttons */
+  .submit-button,
+  .auth-button {
+    padding: 0.875rem;
+    font-size: 0.95rem;
+    min-height: 44px;
+  }
+
+  /* Cards - tighter */
+  .vendor-card-modern,
+  .stat-card {
+    padding: 1rem;
+    border-radius: 12px;
+  }
+
+  /* Flyers */
+  .flyers-grid {
+    grid-template-columns: 1fr;
+    gap: 0.875rem;
+  }
+
+  .flyer-image {
+    height: 180px;
+  }
+}
+
+/* ============================================
+   LARGE MOBILE & SMALL TABLETS (481px - 768px)
+   ============================================ */
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .page-container {
+    padding: 1rem;
+  }
+
+  .page-title {
+    font-size: 1.75rem;
+  }
+
+  /* Can use 2 columns for some grids */
+  .dashboard-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+/* ============================================
+   TABLETS (769px - 1024px)
+   ============================================ */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  /* Containers - more padding */
+  .page-container {
+    padding: 1.5rem;
+    max-width: 100%;
+  }
+
+  .layout-main {
+    padding: 2rem;
+  }
+
+  /* Forms - can use more padding */
+  .profile-form,
+  .upload-form,
+  .flyers-section,
+  .auth-card {
+    padding: 2rem;
+    max-width: 100%;
+  }
+
+  /* Grids - 2 columns */
+  .vendors-grid-modern {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .dashboard-cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .dashboard-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  /* Form rows - 2 columns */
+  .form-row {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  /* Buttons - auto width */
+  .submit-button,
+  .auth-button {
+    width: auto;
+    min-width: 200px;
+  }
+
+  /* Phone input - side by side */
+  .phone-input-wrapper {
+    flex-direction: row;
+  }
+
+  .phone-input-wrapper select {
+    width: auto;
+    min-width: 120px;
+    margin-bottom: 0;
+    margin-right: 0.5rem;
+  }
+
+  .phone-input-wrapper input {
+    flex: 1;
+  }
+
+  /* Search bar - horizontal */
+  .search-bar {
+    flex-direction: row;
+  }
+
+  .search-input-main {
+    flex: 1;
+  }
+
+  .search-btn {
+    width: auto;
+    margin-top: 0;
+    margin-left: 0.5rem;
+  }
+
+  /* Category buttons - horizontal */
+  .category-buttons {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .category-btn {
+    width: auto;
+    flex: 1;
+    min-width: 150px;
+  }
+}
+
+
+/* Touch-friendly interactions for mobile */
+@media (hover: none) and (pointer: coarse) {
+  /* Larger touch targets */
+  button,
+  a,
+  .sidebar-item,
+  .contact-icon {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Remove hover effects on touch devices */
+  .sidebar-item:hover {
+    transform: none;
+  }
+
+  /* Better spacing for touch */
+  .vendor-card-contacts {
+    gap: 0.75rem;
+  }
+
+  .form-field {
+    margin-bottom: 1rem;
+  }
+}
+
+/* Landscape mobile orientation */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+  .hero-section {
+    height: 300px;
+  }
+
+  .login-hero {
+    min-height: auto;
+    height: 100vh;
+  }
+
+  .sidebar {
+    max-height: 200px;
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .flyer-image,
+  .vendor-card-image-modern img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* ============================================
+   DESKTOP (1025px - 1279px)
+   ============================================ */
+@media screen and (min-width: 1025px) {
+  /* Restore desktop layouts */
+  .page-container {
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .layout-main {
+    padding: 2.5rem;
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+
+  /* Grids - multiple columns */
+  .vendors-grid-modern {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .dashboard-cards {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+
+  .dashboard-stats {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+  }
+
+  /* Form rows - multiple columns */
+  .form-row {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+
+  /* Buttons - auto width */
+  .submit-button,
+  .auth-button {
+    width: auto;
+    min-width: 200px;
+  }
+
+  /* Phone input - side by side */
+  .phone-input-wrapper {
+    flex-direction: row;
+  }
+
+  .phone-input-wrapper select {
+    width: auto;
+    min-width: 120px;
+    margin-bottom: 0;
+    margin-right: 0.5rem;
+  }
+
+  .phone-input-wrapper input {
+    flex: 1;
+  }
+
+  /* Search bar - horizontal */
+  .search-bar {
+    flex-direction: row;
+  }
+
+  .search-input-main {
+    flex: 1;
+  }
+
+  .search-btn {
+    width: auto;
+    margin-top: 0;
+    margin-left: 0.5rem;
+  }
+
+  /* Category buttons - horizontal */
+  .category-buttons {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .category-btn {
+    width: auto;
+    flex: 1;
+    min-width: 150px;
+  }
+}
+
+/* ============================================
+   LARGE DESKTOP (1280px - 1535px)
+   ============================================ */
+@media screen and (min-width: 1280px) {
+  .page-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2.5rem;
+  }
+
+  .vendors-grid-modern {
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 2.5rem;
+  }
+
+  .dashboard-cards {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+  }
+
+  .dashboard-stats {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+
+  .layout-main {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 3rem;
+  }
+
+  .form-row {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+}
+
+/* Extra Large Desktop (1536px+) */
+@media screen and (min-width: 1536px) {
+  .page-container {
+    max-width: 1600px;
+    padding: 3rem;
+  }
+
+  .vendors-grid-modern {
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 3rem;
+  }
+
+  .dashboard-cards {
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: 2.5rem;
+  }
+
+  .layout-main {
+    max-width: 1800px;
+    padding: 3.5rem;
+  }
+
+  .page-title {
+    font-size: 2.75rem;
+  }
+}
+
+/* Print styles */
+@media print {
+  .navbar,
+  .sidebar,
+  .remove-button,
+  .submit-button,
+  .auth-button {
+    display: none;
+  }
+
+  .page-container {
+    max-width: 100%;
+    padding: 0;
+  }
+}
+

@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400&display=swap');
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.logo-container:hover {
+  opacity: 0.9;
+  transform: scale(1.02);
+}
+
+.logo-icon {
+  flex-shrink: 0;
+  filter: drop-shadow(0 2px 4px rgba(255, 107, 43, 0.2));
+  transition: filter 0.3s ease;
+}
+
+.logo-container:hover .logo-icon {
+  filter: drop-shadow(0 4px 8px rgba(255, 107, 43, 0.3));
+}
+
+.logo-text-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.logotype {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1;
+}
+
+.logotype .plug {
+  color: white;
+}
+
+.logotype .findr {
+  color: #818cf8;
+}
+
+.logotype-dark .plug {
+  color: #1e1b4b;
+}
+
+.logotype-dark .findr {
+  color: #ff6b2b;
+}
+
+.logotype-blue .plug {
+  color: white;
+}
+
+.logotype-blue .findr {
+  color: #ffb347;
+}
+
+.tagline {
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #ff6b2b;
+  font-weight: 400;
+  font-family: 'DM Sans', sans-serif;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+.tagline-light {
+  color: #6b7280;
+}
+
+.tagline-blue-var {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+[data-theme="dark"] .logotype .plug {
+  color: white;
+}
+
+[data-theme="dark"] .logotype .findr {
+  color: #ff6b2b;
+}
+
+[data-theme="dark"] .tagline {
+  color: #ff6b2b;
+}
+
+/* Navbar variant styling */
+.logo-navbar .logo-icon {
+  filter: drop-shadow(0 2px 4px rgba(26, 145, 209, 0.2));
+}
+
+.logo-navbar:hover .logo-icon {
+  filter: drop-shadow(0 4px 8px rgba(26, 145, 209, 0.3));
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .logo-container {
+    gap: 0.5rem !important;
+  }
+  
+  .logotype {
+    font-size: 1.25rem !important;
+  }
+  
+  .tagline {
+    font-size: 8px !important;
+  }
+}
+
+/* Ensure logo text is visible on navbar */
+.navbar-brand .logotype {
+  color: white;
+}
+
+.navbar-brand .tagline {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+
+
+

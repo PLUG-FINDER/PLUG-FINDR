@@ -1,0 +1,400 @@
+/* Import Theme System */
+@import './styles/theme.css';
+
+/* Legacy color variables for backward compatibility */
+:root {
+  /* Primary Colors - Brand Orange (mapped to new theme) */
+  --primary-50: rgba(255,107,43,0.1);
+  --primary-100: rgba(255,107,43,0.15);
+  --primary-200: rgba(255,107,43,0.2);
+  --primary-300: rgba(255,107,43,0.3);
+  --primary-400: #ff8c55;
+  --primary-500: #ff6b2b;
+  --primary-600: #ff6b2b;
+  --primary-700: #e8521a;
+  --primary-800: #e8521a;
+  --primary-900: #d43d0a;
+  
+  /* Secondary Colors - Pink/Magenta */
+  --secondary-50: #fdf4ff;
+  --secondary-100: #fae8ff;
+  --secondary-200: #f5d0fe;
+  --secondary-300: #f0abfc;
+  --secondary-400: #e879f9;
+  --secondary-500: #d946ef;
+  --secondary-600: #c026d3;
+  --secondary-700: #a21caf;
+  
+  /* Neutral Colors */
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+  
+  /* Semantic Colors */
+  --success: #10b981;
+  --success-light: #d1fae5;
+  --warning: #f59e0b;
+  --warning-light: #fef3c7;
+  --error: #ef4444;
+  --error-light: #fee2e2;
+  --info: #3b82f6;
+  --info-light: #dbeafe;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  
+  /* Gradients - More Professional */
+  --gradient-primary: #ff6b2b;
+  --gradient-secondary: #ff8c55;
+  --gradient-soft: #fff4f0;
+
+  /* Theme-aware colors - Light mode (mapped to new theme) */
+  --bg-primary: var(--bg);
+  --bg-secondary: var(--bg2);
+  --text-primary: var(--text);
+  --text-secondary: var(--text2);
+  --border-color: var(--border);
+  --card-bg: var(--surface);
+  --navbar-bg: var(--nav-bg);
+}
+
+/* Dark mode - Mapped to new theme */
+[data-theme="dark"] {
+  --bg-primary: var(--bg);
+  --bg-secondary: var(--bg2);
+  --text-primary: var(--text);
+  --text-secondary: var(--text2);
+  --border-color: var(--border);
+  --card-bg: var(--surface);
+  --navbar-bg: var(--nav-bg);
+
+  /* Vibrant accent colors for dark mode */
+  --primary-50: rgba(255,107,43,0.1);
+  --primary-100: rgba(255,107,43,0.15);
+  --primary-200: rgba(255,107,43,0.2);
+  --primary-300: rgba(255,107,43,0.3);
+  --primary-400: #ff8c55;
+  --primary-500: #ff6b2b;
+  --primary-600: #ff6b2b;
+  --primary-700: #e8521a;
+  --primary-800: #e8521a;
+  --primary-900: #d43d0a;
+
+  /* Enhanced grays for dark mode */
+  --gray-50: #111009;
+  --gray-100: #1c1a15;
+  --gray-200: #252219;
+  --gray-300: #2e2b22;
+  --gray-400: #3d3a2f;
+  --gray-500: #a09a90;
+  --gray-600: #f0ede6;
+  --gray-700: #ffffff;
+  --gray-800: #ffffff;
+  --gray-900: #ffffff;
+
+  /* Enhanced shadows with glow effects for dark mode */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5), 0 0 4px rgba(255, 107, 43, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.6), 0 2px 4px -1px rgba(0, 0, 0, 0.5), 0 0 8px rgba(255, 107, 43, 0.15);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.7), 0 4px 6px -2px rgba(0, 0, 0, 0.6), 0 0 12px rgba(255, 107, 43, 0.2);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.8), 0 10px 10px -5px rgba(0, 0, 0, 0.7), 0 0 16px rgba(255, 107, 43, 0.25);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.9), 0 0 20px rgba(255, 107, 43, 0.3);
+
+  /* Vibrant gradients for dark mode */
+  --gradient-primary: linear-gradient(135deg, #ff6b2b 0%, #ff8c55 50%, #ffb347 100%);
+  --gradient-secondary: linear-gradient(135deg, #ff8c55 0%, #ff6b2b 100%);
+  --gradient-soft: #111009;
+  
+  /* Enhanced semantic colors for dark mode */
+  --success: #10b981;
+  --success-light: rgba(16, 185, 129, 0.2);
+  --warning: #f59e0b;
+  --warning-light: rgba(245, 158, 11, 0.2);
+  --error: #ef4444;
+  --error-light: rgba(239, 68, 68, 0.2);
+  --info: #3b82f6;
+  --info-light: rgba(59, 130, 246, 0.2);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* Scrollbar styling - hidden by default, shown on hover/scroll */
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+/* ============================================
+   MOBILE-FIRST GLOBAL FIXES
+   ============================================ */
+
+/* Prevent horizontal overflow on all screen sizes */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+  position: relative;
+}
+
+/* Ensure all containers respect viewport width */
+.container,
+.page-container,
+.layout-main,
+.auth-container {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Ensure all form elements fit on mobile */
+input,
+textarea,
+select,
+button {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Prevent images from overflowing */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Prevent tables from causing horizontal scroll */
+table {
+  width: 100%;
+  max-width: 100%;
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Show scrollbar on hover or when scrolling */
+*:hover,
+*:focus-within {
+  scrollbar-color: rgba(255, 107, 43, 0.3) transparent;
+}
+
+/* Webkit browsers (Chrome, Safari, Edge) - for all elements */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+*:hover::-webkit-scrollbar-thumb,
+*:focus-within::-webkit-scrollbar-thumb,
+*:active::-webkit-scrollbar-thumb {
+  background: rgba(255, 107, 43, 0.3);
+}
+
+*:hover::-webkit-scrollbar-thumb:hover,
+*:focus-within::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 107, 43, 0.5);
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 16px;
+  line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Apply to all scrollable elements */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+*:hover,
+*:focus-within {
+  scrollbar-color: rgba(255, 107, 43, 0.3) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+*:hover::-webkit-scrollbar-thumb,
+*:focus-within::-webkit-scrollbar-thumb,
+*:active::-webkit-scrollbar-thumb {
+  background: rgba(255, 107, 43, 0.3);
+}
+
+*:hover::-webkit-scrollbar-thumb:hover,
+*:focus-within::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 107, 43, 0.5);
+}
+
+code {
+  font-family: 'Fira Code', source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+a {
+  color: var(--primary-600);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--primary-700);
+  text-decoration: underline;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none !important;
+  outline: none;
+  border: none;
+}
+
+button:focus,
+button:active,
+button:hover {
+  text-decoration: none !important;
+  outline: none;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--primary-500);
+  outline-offset: 2px;
+}
+
+input,
+textarea,
+select {
+  font-family: inherit;
+  transition: all 0.2s ease;
+  text-decoration: none !important;
+  -webkit-text-decoration: none !important;
+  -moz-text-decoration: none !important;
+  text-underline-offset: 0 !important;
+  text-decoration-line: none !important;
+  text-decoration-style: none !important;
+  text-decoration-color: transparent !important;
+}
+
+input:hover,
+input:focus,
+input:active,
+input:focus-visible,
+input:visited,
+textarea:hover,
+textarea:focus,
+textarea:active,
+textarea:focus-visible,
+textarea:visited,
+select:hover,
+select:focus,
+select:active,
+select:focus-visible,
+select:visited {
+  text-decoration: none !important;
+  -webkit-text-decoration: none !important;
+  -moz-text-decoration: none !important;
+  text-underline-offset: 0 !important;
+  text-decoration-line: none !important;
+  text-decoration-style: none !important;
+  text-decoration-color: transparent !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  text-decoration: none !important;
+  -webkit-text-decoration: none !important;
+  -moz-text-decoration: none !important;
+  text-underline-offset: 0 !important;
+  text-decoration-line: none !important;
+}
+
+/* Prevent text decoration on input text content */
+input::selection,
+textarea::selection {
+  text-decoration: none !important;
+  -webkit-text-decoration: none !important;
+}
+
+/* Prevent any underline on input text */
+input *,
+textarea * {
+  text-decoration: none !important;
+  -webkit-text-decoration: none !important;
+}
+
+/* Prevent underlines on buttons and button-like elements */
+button,
+button:hover,
+button:focus,
+button:active,
+button:focus-visible,
+a.button,
+a[role="button"],
+a[role="button"]:hover,
+a[role="button"]:focus,
+a[role="button"]:active,
+a.create-button,
+a.hero-login-btn,
+a.vendor-card-link,
+a.dashboard-card,
+a.submit-button,
+a.search-btn,
+a.category-btn {
+  text-decoration: none !important;
+}
+
+/* Additional rule to prevent browser default underline on click */
+*:focus {
+  outline: none;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--primary-500);
+  outline-offset: 2px;
+}
+
+

@@ -1,0 +1,347 @@
+/* PlugFindr v2 - Theme System */
+
+/* ============================================
+   PRIMARY THEME COLORS
+   ============================================ */
+
+:root {
+  /* Brand Colors (Primary) */
+  --brand: #ff6b2b;
+  --brand-light: #ff8c55;
+  --brand-dark: #e8521a;
+  --brand-glow: rgba(255,107,43,0.25);
+  
+  /* Secondary Accent Colors */
+  --electric: #00d4aa;
+  --electric-dim: rgba(0,212,170,0.15);
+  --violet: #7c3aed;
+  --gold: #f59e0b;
+
+  /* Background Colors - Light Theme */
+  --bg: #fafaf8;
+  --bg2: #f3f2ee;
+  --surface: #ffffff;
+  --surface2: #f8f7f4;
+  
+  /* Border Colors - Light Theme */
+  --border: #e8e6e1;
+  --border2: #d4d1cb;
+  
+  /* Text Colors - Light Theme */
+  --text: #1a1814;
+  --text2: #5c5751;
+  --text3: #9b9690;
+  
+  /* Navigation */
+  --nav-bg: #1a1814;
+  
+  /* Shadows - Light Theme */
+  --shadow: 0 1px 12px rgba(26,24,20,0.06);
+  --shadow-md: 0 4px 24px rgba(26,24,20,0.1);
+  --shadow-lg: 0 12px 48px rgba(26,24,20,0.14);
+  --shadow-xl: 0 24px 80px rgba(26,24,20,0.18);
+  
+  /* Border Radius */
+  --radius: 14px;
+  --radius-lg: 22px;
+  --radius-xl: 32px;
+
+  /* Typography */
+  --font-primary: 'Plus Jakarta Sans', sans-serif;
+  --font-display: 'Clash Display', sans-serif;
+  --font-serif: 'Instrument Serif', serif;
+  
+  /* Responsive Breakpoints */
+  --bp-mobile: 480px;
+  --bp-tablet: 768px;
+  --bp-desktop: 1024px;
+  --bp-large-desktop: 1280px;
+  --bp-xl-desktop: 1536px;
+}
+
+/* ============================================
+   DARK THEME
+   ============================================ */
+
+[data-theme="dark"] {
+  /* Background Colors - Dark Theme */
+  --bg: #111009;
+  --bg2: #111009;
+  --surface: #111009;
+  --surface2: #1c1a15;
+  
+  /* Border Colors - Dark Theme */
+  --border: #2e2b22;
+  --border2: #3d3a2f;
+  
+  /* Text Colors - Dark Theme */
+  --text: #f0ede6;
+  --text2: #a09a90;
+  --text3: #5c5751;
+  
+  /* Navigation - Dark Theme */
+  --nav-bg: #21140D;
+  
+  /* Shadows - Dark Theme (darker) */
+  --shadow: 0 1px 12px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 24px rgba(0,0,0,0.35);
+  --shadow-lg: 0 12px 48px rgba(0,0,0,0.45);
+  --shadow-xl: 0 24px 80px rgba(0,0,0,0.55);
+}
+
+/* ============================================
+   CATEGORY-SPECIFIC COLORS
+   ============================================ */
+
+.cat-food {
+  background: rgba(245,158,11,.12);
+  color: #b45309;
+}
+
+.cat-fashion {
+  background: rgba(236,72,153,.12);
+  color: #be185d;
+}
+
+.cat-services {
+  background: rgba(0,212,170,.12);
+  color: #0d9488;
+}
+
+.cat-tech {
+  background: rgba(124,58,237,.12);
+  color: #7c3aed;
+}
+
+.cat-medicine {
+  background: rgba(5,150,105,.12);
+  color: #059669;
+}
+
+/* ============================================
+   BUTTON COMPONENTS
+   ============================================ */
+
+.btn-primary {
+  background: var(--brand);
+  color: #fff;
+  box-shadow: 0 4px 16px var(--brand-glow);
+  border: none;
+  border-radius: var(--radius);
+  padding: 0.62rem 1.4rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: var(--font-primary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: var(--brand-light);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px var(--brand-glow);
+}
+
+.btn-sm {
+  padding: 0.34rem 0.85rem;
+  font-size: 0.78rem;
+}
+
+.btn-lg {
+  padding: 0.9rem 2.2rem;
+  font-size: 1rem;
+}
+
+.btn-xl {
+  padding: 1.05rem 2.6rem;
+  font-size: 1.05rem;
+}
+
+/* ============================================
+   CARD COMPONENTS
+   ============================================ */
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ============================================
+   BADGE COMPONENTS
+   ============================================ */
+
+.badge-primary {
+  background: rgba(255,107,43,.1);
+  color: var(--brand);
+  padding: 0.25rem 0.75rem;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-family: var(--font-primary);
+}
+
+.badge-success {
+  background: rgba(5,150,105,.1);
+  color: #059669;
+}
+
+.badge-warning {
+  background: rgba(245,158,11,.1);
+  color: #f59e0b;
+}
+
+.badge-danger {
+  background: rgba(220,38,38,.1);
+  color: #dc2626;
+}
+
+.badge-info {
+  background: rgba(0,212,170,.12);
+  color: #00a887;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseDot {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: .4;
+    transform: scale(1.5);
+  }
+}
+
+@keyframes scanMove {
+  0% {
+    top: 20%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    top: 85%;
+    opacity: 0;
+  }
+}
+
+@keyframes floatA {
+  0%, 100% {
+    transform: translateY(0) rotate(-1deg);
+  }
+  50% {
+    transform: translateY(-9px) rotate(1deg);
+  }
+}
+
+@keyframes floatB {
+  0%, 100% {
+    transform: translateY(0) rotate(1deg);
+  }
+  50% {
+    transform: translateY(-7px) rotate(-1deg);
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes ddIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+
+body {
+  font-family: var(--font-primary);
+  color: var(--text);
+  background: var(--bg);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-primary);
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.04em;
+}
+
+/* Serif accent for special text */
+.serif-accent {
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
