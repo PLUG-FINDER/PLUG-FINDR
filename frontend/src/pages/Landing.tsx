@@ -244,6 +244,14 @@ const Landing: React.FC = () => {
     }
   ];
 
+  const categories = [
+    { key: 'Food', icon: '🍕', label: 'Food', description: 'Meals, snacks, drinks & meal prep plugs.' },
+    { key: 'Fashion', icon: '👕', label: 'Fashion', description: 'Clothing, sneakers, jewelry & styling.' },
+    { key: 'Services', icon: '🎓', label: 'Services', description: 'Tutoring, printing, laundry and more.' },
+    { key: 'Tech', icon: '💻', label: 'Tech', description: 'Phones, laptops, repairs & accessories.' },
+    { key: 'Medicine', icon: '🏥', label: 'Medicine', description: 'Pharmacy, first‑aid and health services.' },
+  ];
+
   return (
     <div className="landing-page">
       <Navbar />
@@ -481,26 +489,19 @@ const Landing: React.FC = () => {
           </h2>
           
           <div className="categories-grid">
-            <div className="cat-tile">
-              <div className="cat-icon">🍕</div>
-              <h3>Food</h3>
-            </div>
-            <div className="cat-tile">
-              <div className="cat-icon">👕</div>
-              <h3>Fashion</h3>
-            </div>
-            <div className="cat-tile">
-              <div className="cat-icon">🎓</div>
-              <h3>Services</h3>
-            </div>
-            <div className="cat-tile">
-              <div className="cat-icon">💻</div>
-              <h3>Tech</h3>
-            </div>
-            <div className="cat-tile">
-              <div className="cat-icon">🏥</div>
-              <h3>Medicine</h3>
-            </div>
+            {categories.map((cat) => (
+              <Link
+                key={cat.key}
+                to={`/login?category=${encodeURIComponent(cat.key)}`}
+                className="cat-tile-link"
+              >
+                <div className="cat-tile">
+                  <div className="cat-icon">{cat.icon}</div>
+                  <h3>{cat.label}</h3>
+                  <p className="cat-description">{cat.description}</p>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>

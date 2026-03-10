@@ -6,6 +6,7 @@
   color: var(--text);
   position: relative;
   overflow-x: hidden;
+  font-size: 1.7rem;
 }
 
 /* ============================================
@@ -136,7 +137,7 @@
 
 .hero-desc {
   color: rgba(255,255,255,.55);
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   line-height: 1.7;
   max-width: 480px;
   margin-bottom: 2rem;
@@ -360,7 +361,7 @@
 .section-h2 {
   font-family: var(--font-primary);
   font-weight: 800;
-  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-size: clamp(2rem, 3.2vw, 2.8rem);
   letter-spacing: -0.04em;
   line-height: 1.15;
   color: var(--text);
@@ -520,7 +521,7 @@
 }
 
 .feature-tile p {
-  font-size: 0.87rem;
+  font-size: 0.95rem;
   color: var(--text2);
   line-height: 1.5;
 }
@@ -535,9 +536,21 @@
 
 .categories-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 1rem;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
   text-align: center;
+}
+
+.cat-tile-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.cat-tile-link:hover,
+.cat-tile-link:focus,
+.cat-tile-link:active {
+  text-decoration: none;
+  color: inherit;
 }
 
 .cat-tile {
@@ -568,10 +581,27 @@
 }
 
 .cat-tile h3 {
-  font-size: 1rem;
+  font-size: 1.05rem;
   font-weight: 700;
   color: var(--text);
+  margin: 0 0 0.35rem 0;
+}
+
+.cat-description {
+  font-size: 0.98rem;
+  color: var(--text2);
   margin: 0;
+  line-height: 1.5;
+}
+
+/* Force 2-column grid for categories on tablet/desktop and above */
+@media (min-width: 769px) {
+  .section-categories .categories-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 1.5rem;
+    width: 100%;
+  }
 }
 
 /* ============================================
@@ -611,7 +641,7 @@
 }
 
 .t-text {
-  font-size: 0.88rem;
+  font-size: 0.96rem;
   font-style: italic;
   color: var(--text2);
   line-height: 1.7;
@@ -780,7 +810,7 @@
 
 .faq-a {
   color: var(--text2);
-  font-size: 0.87rem;
+  font-size: 0.95rem;
   line-height: 1.75;
   margin-top: 1rem;
   padding-right: 2rem;
@@ -853,9 +883,7 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .categories-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
+  /* keep two columns on tablet */
 
   .testimonials-grid {
     grid-template-columns: 1fr;
@@ -1188,8 +1216,8 @@
   }
 
   .categories-grid {
-    grid-template-columns: repeat(5, 1fr);
-    gap: 2rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.75rem;
   }
 
   .hiw-grid {

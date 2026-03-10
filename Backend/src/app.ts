@@ -12,6 +12,7 @@ import studentRoutes from "./routes/studentRoutes";
 import adminRoutes from "./routes/adminRoutes";
 import uploadRoutes from "./routes/uploadRoutes";
 import imageRoutes from "./routes/imageRoutes";
+import aiRoutes from "./routes/aiRoutes";
 import { errorHandler, notFound } from "./middleware/errorHandler";
 import { getPublicVendors } from "./controllers/studentController";
 
@@ -36,6 +37,7 @@ export const createApp = async (): Promise<Application> => {
   app.use("/api/vendor", vendorRoutes);
   app.use("/api/student", studentRoutes);
   app.use("/api/admin", adminRoutes);
+  app.use("/api/ai", aiRoutes);
   app.use("/api/uploads", uploadRoutes);
   app.use("/api/images", imageRoutes); // Serve images from GridFS - must be before static routes
 

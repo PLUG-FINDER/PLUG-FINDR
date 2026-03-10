@@ -566,3 +566,33 @@ export const deleteFlyer = async (req: AuthRequest, res: Response): Promise<void
     res.status(500).json({ message: "Server error" });
   }
 };
+
+export const resetVendorViewsByEmail = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { email } = req.body;
+
+    // Find the user by email
+    const user = await User.findOne({ email });
+    if (!user) {
+      res.status(404).json({ message: "User not found" });
+      return;
+    }
+
+    // Find the vendor profile associated with the user
+    const vendorProfile = await VendorProfile.findOne({ user: user._id });
+    if (!vendorProfile) {
+      res.status(404).json({ message: "Vendor profile not found" });
+      return;
+    }
+
+    // Reset the view count and viewedBy array
+    vendorProfile.viewCount = 0;
+    vendorProfile.viewedBy = [];
+    await vendorProfile.save();
+
+    res.status(200).json({ message: "Vendor views reset successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
