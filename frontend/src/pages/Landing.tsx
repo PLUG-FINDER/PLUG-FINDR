@@ -435,6 +435,10 @@ const Landing: React.FC = () => {
       {/* Features Grid Section */}
       <section className="section-features">
         <div className="section-inner">
+          <div className="section-eyebrow">Why It Works</div>
+          <h2 className="section-h2">
+            Powerful, <em>Student‑First Features</em>
+          </h2>
           <div className="features-grid">
             <div className="feature-tile">
               <div className="feature-icon-wrap">🔍</div>

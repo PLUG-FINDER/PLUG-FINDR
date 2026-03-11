@@ -139,8 +139,17 @@
    MOBILE-FIRST GLOBAL FIXES
    ============================================ */
 
+/* Normalize base font size for scaling at 100% zoom */
+html {
+  font-size: 14px;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+  position: relative;
+}
+
 /* Prevent horizontal overflow on all screen sizes */
-html, body {
+body {
   overflow-x: hidden;
   width: 100%;
   max-width: 100vw;
@@ -222,8 +231,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background: var(--bg-primary);
   color: var(--text-primary);
-  font-size: 18px;
-  line-height: 1.6;
+  font-size: 0.95rem;
+  line-height: 1.5;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -302,7 +311,7 @@ button:hover {
 
 button:focus-visible {
   outline: 2px solid var(--primary-500);
-  outline-offset: 2px;
+  outline-offset: 0.14rem;
 }
 
 input,
@@ -394,7 +403,7 @@ a.category-btn {
 
 *:focus-visible {
   outline: 2px solid var(--primary-500);
-  outline-offset: 2px;
+  outline-offset: 0.14rem;
 }
 
 

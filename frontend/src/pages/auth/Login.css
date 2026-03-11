@@ -21,13 +21,13 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 24px 32px;
+  padding: 1.7rem 2.3rem;
   z-index: 10;
 }
 
 .login-badge {
-  width: 80px;
-  height: 80px;
+  width: 5.7rem;
+  height: 5.7rem;
   border-radius: 9999px;
   background: rgba(255, 255, 255, 0.95);
   box-shadow: var(--shadow-2xl);
@@ -43,8 +43,8 @@
 }
 
 .login-badge img {
-  width: 64px;
-  height: 64px;
+  width: 4.57rem;
+  height: 4.57rem;
   object-fit: contain;
   display: block;
 }
@@ -55,15 +55,15 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
   font-weight: 800;
-  font-size: 12px;
+  font-size: 0.85rem;
   letter-spacing: 0.5px;
 }
 
 .login-pill {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 14px 24px;
+  gap: 0.7rem;
+  padding: 1rem 1.7rem;
   border: 0;
   border-radius: 9999px;
   background: rgba(255, 255, 255, 0.95);
@@ -77,7 +77,7 @@
 }
 
 .login-pill:hover {
-  transform: translateY(-2px);
+  transform: translateY(-0.14rem);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
   background: white;
 }
@@ -87,8 +87,8 @@
 }
 
 .login-pill svg {
-  width: 20px;
-  height: 20px;
+  width: 1.43rem;
+  height: 1.43rem;
 }
 
 .login-center {
@@ -96,35 +96,35 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: min(1200px, calc(100% - 48px));
+  width: min(1200px, calc(100% - 3.4rem));
   text-align: center;
 }
 
 .login-title {
-  font-size: clamp(48px, 7vw, 72px);
+  font-size: clamp(3.4rem, 7vw, 5.1rem);
   font-weight: 900;
   line-height: 1.1;
   color: white;
   text-shadow: 
-    2px 2px 0 #ff6b2b,
-    -2px -2px 0 #ff6b2b,  
-    2px -2px 0 #ff6b2b,
-    -2px 2px 0 #ff6b2b,
-    0 10px 40px rgba(0, 0, 0, 0.4);
-  letter-spacing: -1px;
-  margin-bottom: 1rem;
+    0.14rem 0.14rem 0 #ff6b2b,
+    -0.14rem -0.14rem 0 #ff6b2b,  
+    0.14rem -0.14rem 0 #ff6b2b,
+    -0.14rem 0.14rem 0 #ff6b2b,
+    0 0.71rem 2.8rem rgba(0, 0, 0, 0.4);
+  letter-spacing: -0.07rem;
+  margin-bottom: 0.71rem;
 }
 
 .login-tagline {
-  margin-top: 1rem;
-  font-size: clamp(18px, 2.5vw, 24px);
+  margin-top: 0.71rem;
+  font-size: clamp(1.28rem, 2.5vw, 1.71rem);
   color: rgba(255, 255, 255, 0.95);
   text-shadow: 
-    1px 1px 0 #ff6b2b,
-    -1px -1px 0 #ff6b2b,  
-    1px -1px 0 #ff6b2b,
-    -1px 1px 0 #ff6b2b,
-    0 4px 12px rgba(0, 0, 0, 0.3);
+    0.07rem 0.07rem 0 #ff6b2b,
+    -0.07rem -0.07rem 0 #ff6b2b,  
+    0.07rem -0.07rem 0 #ff6b2b,
+    -0.07rem 0.07rem 0 #ff6b2b,
+    0 0.28rem 0.85rem rgba(0, 0, 0, 0.3);
   font-weight: 500;
   max-width: 700px;
   margin-left: auto;
@@ -135,26 +135,26 @@
 
 @media (max-width: 520px) {
   .login-topbar {
-    padding: 20px;
+    padding: 1.4rem;
   }
 
   .login-badge {
-    width: 68px;
-    height: 68px;
+    width: 3.4rem;
+    height: 3.4rem;
   }
 
   .login-badge img {
-    width: 56px;
-    height: 56px;
+    width: 2.8rem;
+    height: 2.8rem;
   }
 
   .login-center {
-    bottom: 40px;
-    width: calc(100% - 32px);
+    bottom: 2.85rem;
+    width: calc(100% - 2.3rem);
   }
   
   .login-pill {
-    padding: 12px 20px;
-    font-size: 0.9rem;
+    padding: 0.85rem 1.43rem;
+    font-size: 0.75rem;
   }
 }

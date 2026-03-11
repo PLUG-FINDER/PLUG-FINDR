@@ -1,13 +1,13 @@
 .sidebar {
-  width: 280px;
+  width: 14.2rem;
   background: var(--card-bg) !important;
   border-right: 1px solid var(--border-color);
-  min-height: calc(100vh - 80px);
-  padding: 2rem 0;
+  min-height: calc(100vh - 5.7rem);
+  padding: 1.4rem 0;
   box-shadow: var(--shadow-sm, 0 1px 2px 0 rgba(0, 0, 0, 0.05));
   position: sticky;
-  top: 80px;
-  height: calc(100vh - 80px);
+  top: 5.7rem;
+  height: calc(100vh - 5.7rem);
   overflow-y: auto;
   display: block !important;
   visibility: visible !important;
@@ -17,21 +17,21 @@
 .sidebar-nav {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  padding: 0 1rem;
+  gap: 0.36rem;
+  padding: 0 0.7rem;
 }
 
 .sidebar-item {
   display: flex !important;
   align-items: center;
-  padding: 0.75rem 1rem;
+  padding: 0.5rem 0.7rem;
   color: var(--text-primary) !important;
   text-decoration: none !important;
   transition: background-color 0.2s ease;
-  border-radius: 4px;
-  margin: 0 0.5rem;
+  border-radius: 0.3rem;
+  margin: 0 0.36rem;
   font-weight: 500;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   position: relative;
   overflow: hidden;
   visibility: visible !important;
@@ -43,11 +43,11 @@
   left: 0;
   top: 0;
   bottom: 0;
-  width: 4px;
+  width: 0.28rem;
   background: linear-gradient(180deg, #6366f1 0%, #818cf8 100%);
   opacity: 0;
   transition: all 0.3s ease;
-  box-shadow: 0 0 8px rgba(129, 140, 248, 0.6);
+  box-shadow: 0 0 0.57rem rgba(129, 140, 248, 0.6);
 }
 
 .sidebar-item:hover {
@@ -80,12 +80,12 @@
 }
 
 .sidebar-icon {
-  margin-right: 0.75rem;
+  margin-right: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 20px;
-  height: 20px;
+  width: 1.43rem;
+  height: 1.43rem;
   flex-shrink: 0;
 }
 
@@ -103,7 +103,7 @@
 
 /* Scrollbar styling */
 .sidebar::-webkit-scrollbar {
-  width: 6px;
+  width: 0.43rem;
 }
 
 .sidebar::-webkit-scrollbar-track {
@@ -112,7 +112,7 @@
 
 .sidebar::-webkit-scrollbar-thumb {
   background: var(--gray-300);
-  border-radius: 3px;
+  border-radius: 0.2rem;
 }
 
 .sidebar::-webkit-scrollbar-thumb:hover {
@@ -121,7 +121,7 @@
 
 @media (max-width: 1024px) {
   .sidebar {
-    width: 240px;
+    width: 17rem;
   }
 }
 

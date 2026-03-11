@@ -1,10 +1,10 @@
 .about-container {
-  padding: 2rem;
+  padding: 1.4rem;
   max-width: 1400px;
   margin: 0 auto;
   background: rgba(255, 255, 255, 0.98);
   backdrop-filter: blur(10px);
-  border-radius: 20px;
+  border-radius: 1.4rem;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
   border: 2px solid rgba(99, 102, 241, 0.3);
   position: relative;
@@ -23,12 +23,12 @@
 }
 
 .about-title {
-  font-size: 2.75rem;
+  font-size: 1.96rem;
   color: #0c1220;
-  margin-bottom: 2rem;
+  margin-bottom: 1.4rem;
   text-align: center;
   border-bottom: 3px solid var(--primary-color);
-  padding-bottom: 1rem;
+  padding-bottom: 0.7rem;
   font-weight: 700;
 }
 
@@ -42,9 +42,9 @@
 }
 
 .about-section h2 {
-  font-size: 2rem;
+  font-size: 1.43rem;
   color: #0c1220;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   font-weight: 700;
 }
 
@@ -53,10 +53,10 @@
 }
 
 .about-section h3 {
-  font-size: 1.5rem;
+  font-size: 1.07rem;
   color: #0c1220;
-  margin-top: 1.5rem;
-  margin-bottom: 0.8rem;
+  margin-top: 1rem;
+  margin-bottom: 0.57rem;
   font-weight: 600;
 }
 
@@ -65,8 +65,8 @@
 }
 
 .about-section p {
-  margin-bottom: 1rem;
-  font-size: 1.05rem;
+  margin-bottom: 0.7rem;
+  font-size: 0.95rem;
   color: #1e293b;
   text-align: justify;
   font-weight: 500;

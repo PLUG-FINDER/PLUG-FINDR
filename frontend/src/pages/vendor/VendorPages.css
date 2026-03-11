@@ -1,7 +1,7 @@
 .page-container {
-  max-width: 1400px;
+  max-width: 85.7rem;
   margin: 0 auto;
-  padding-top: 2rem;
+  padding-top: 1.4rem;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -9,8 +9,8 @@
 
 .page-title {
   color: var(--text-primary);
-  margin-bottom: 0.5rem;
-  font-size: 2rem;
+  margin-bottom: 0.36rem;
+  font-size: 1.43rem;
   font-weight: 700;
   letter-spacing: 0;
   transition: color 0.3s ease;
@@ -25,8 +25,8 @@
 
 .page-subtitle {
   color: var(--text-secondary);
-  margin-bottom: 2rem;
-  font-size: 1rem;
+  margin-bottom: 1.4rem;
+  font-size: 0.9rem;
   font-weight: 400;
   letter-spacing: 0;
   transition: color 0.3s ease;
@@ -38,26 +38,26 @@
 
 /* Quick Actions Section */
 .quick-actions-section {
-  margin-top: 2.5rem;
+  margin-top: 1.8rem;
 }
 
 .quick-actions-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 .quick-action-card {
   background: rgba(255, 255, 255, 0.98);
-  border-radius: 20px;
-  padding: 1.75rem;
+  border-radius: 1.4rem;
+  padding: 1.25rem;
   text-decoration: none !important;
   color: inherit;
   border: 2px solid rgba(99, 102, 241, 0.3);
   transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.7rem;
   cursor: pointer;
 }
 
@@ -79,9 +79,9 @@
 }
 
 .quick-action-icon {
-  width: 56px;
-  height: 56px;
-  border-radius: 12px;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 0.9rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -90,7 +90,7 @@
 
 .quick-action-card h3 {
   margin: 0;
-  font-size: 1.25rem;
+  font-size: 0.9rem;
   font-weight: 700;
   color: var(--text-primary);
 }
@@ -101,7 +101,7 @@
 
 .quick-action-card p {
   margin: 0;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   color: var(--text-secondary);
   line-height: 1.6;
 }
@@ -118,9 +118,9 @@
 
 .no-profile {
   text-align: center;
-  padding: 4rem 3rem;
+  padding: 2.8rem 2rem;
   background: rgba(255, 255, 255, 0.98);
-  border-radius: 20px;
+  border-radius: 1.4rem;
   box-shadow: var(--shadow-lg);
   border: 2px solid rgba(99, 102, 241, 0.3);
   transition: all 0.3s ease;
@@ -143,12 +143,12 @@
 
 .create-button {
   display: inline-block;
-  margin-top: 1.5rem;
-  padding: 0.75rem 2rem;
+  margin-top: 0.71rem;
+  padding: 0.35rem 1rem;
   background: var(--primary-600);
   color: white;
   text-decoration: none !important;
-  border-radius: 4px;
+  border-radius: 0.28rem;
   font-weight: 500;
   transition: all 0.3s ease;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
@@ -177,12 +177,12 @@
 /* New Mobile-First No Profile Card Design */
 .no-profile-card {
   background: white;
-  border-radius: 24px;
-  padding: 3rem 2rem;
+  border-radius: 1.7rem;
+  padding: 2.1rem 1.4rem;
   text-align: center;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   border: 1px solid rgba(255, 107, 43, 0.2);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.07rem;
   position: relative;
   overflow: hidden;
 }
@@ -225,14 +225,14 @@
 .create-profile-button {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 1rem 2rem;
+  gap: 0.36rem;
+  padding: 0.71rem 1.4rem;
   background: #ff6b2b;
   color: white;
   text-decoration: none !important;
-  border-radius: 12px;
+  border-radius: 0.9rem;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 0.71rem;
   transition: all 0.3s ease;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   border: none;
@@ -265,8 +265,8 @@
 
 .stat-card {
   background: rgba(255, 255, 255, 0.98);
-  padding: 2rem;
-  border-radius: 20px;
+  padding: 1.4rem;
+  border-radius: 1.4rem;
   box-shadow: var(--shadow-md);
   border: 2px solid rgba(99, 102, 241, 0.3);
   transition: all 0.3s ease;
@@ -291,7 +291,7 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 4px;
+  height: 0.28rem;
   background: var(--gradient-primary);
   transform: scaleX(0);
   transition: transform 0.3s ease;
@@ -507,7 +507,7 @@
 
 .form-field textarea {
   resize: vertical;
-  min-height: 120px;
+  min-height: 8.5rem;
 }
 
 .field-requirement {
@@ -525,10 +525,10 @@
 }
 
 .char-count {
-  font-size: 0.85rem;
+  font-size: 0.6rem;
   font-weight: 500;
-  padding: 0.25rem 0.75rem;
-  border-radius: 6px;
+  padding: 0.18rem 0.53rem;
+  border-radius: 0.43rem;
   transition: all 0.2s ease;
 }
 
@@ -591,9 +591,9 @@
 .location-form-grid .form-field select {
   background: white !important;
   border: 1px solid #d1d5db !important;
-  border-radius: 4px;
-  padding: 0.75rem 1rem;
-  font-size: 1.05rem;
+  border-radius: 0.28rem;
+  padding: 0.53rem 0.71rem;
+  font-size: 0.75rem;
   font-family: inherit;
   color: #0c1220;
   font-weight: 500;
@@ -648,16 +648,16 @@
 }
 
 .submit-button {
-  padding: 0.75rem 2rem;
+  padding: 0.53rem 1.4rem;
   background: var(--primary-600);
   color: white;
   border: none;
-  border-radius: 4px;
-  font-size: 0.95rem;
+  border-radius: 0.28rem;
+  font-size: 0.68rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-top: 1.5rem;
+  margin-top: 1.07rem;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   letter-spacing: 0;
 }
@@ -686,11 +686,11 @@
 
 .upload-form {
   background: rgba(255, 255, 255, 0.98);
-  padding: 2.5rem;
-  border-radius: 20px;
+  padding: 1.8rem;
+  border-radius: 1.4rem;
   box-shadow: var(--shadow-lg);
   border: 1px solid var(--border-color);
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.8rem;
   transition: all 0.3s ease;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -712,8 +712,8 @@
 
 .flyers-section {
   background: rgba(255, 255, 255, 0.98);
-  padding: 2.5rem;
-  border-radius: 20px;
+  padding: 1.8rem;
+  border-radius: 1.4rem;
   box-shadow: var(--shadow-lg);
   border: 1px solid var(--border-color);
   transition: all 0.3s ease;
@@ -737,13 +737,13 @@
 
 .flyers-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(15.7rem, 1fr));
+  gap: 1.4rem;
 }
 
 .flyer-item {
   position: relative;
-  border-radius: 12px;
+  border-radius: 0.9rem;
   overflow: hidden;
   box-shadow: var(--shadow-md);
   transition: all 0.3s ease;
@@ -771,9 +771,9 @@
 
 .flyer-image {
   width: 100%;
-  height: 220px;
+  height: 15.7rem;
   object-fit: cover;
-  border-radius: 12px;
+  border-radius: 0.9rem;
   display: block;
   image-rendering: -webkit-optimize-contrast;
   image-rendering: auto;
@@ -785,15 +785,15 @@
 
 .remove-button {
   position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
+  top: 0.53rem;
+  right: 0.53rem;
   background: var(--error);
   color: white;
   border: none;
-  padding: 0.625rem;
-  border-radius: 8px;
+  padding: 0.44rem;
+  border-radius: 0.57rem;
   cursor: pointer;
-  font-size: 0.85rem;
+  font-size: 0.6rem;
   font-weight: 600;
   box-shadow: var(--shadow-md);
   transition: all 0.2s ease;
@@ -829,8 +829,8 @@
   }
 
   .flyers-grid {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(14.3rem, 1fr));
+    gap: 1.07rem;
   }
 
   .profile-form,
@@ -843,7 +843,7 @@
 /* Large Desktop (1280px+) */
 @media (min-width: 1280px) {
   .page-container {
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 2.5rem;
   }
@@ -878,7 +878,7 @@
 /* Extra Large Desktop (1536px+) */
 @media (min-width: 1536px) {
   .page-container {
-    max-width: 1600px;
+    max-width: 1200px;
     padding: 3rem;
   }
 

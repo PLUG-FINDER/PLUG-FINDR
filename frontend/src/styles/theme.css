@@ -183,7 +183,7 @@
   background: rgba(255,107,43,.1);
   color: var(--brand);
   padding: 0.25rem 0.75rem;
-  border-radius: 50px;
+  border-radius: 3.57rem;
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -217,7 +217,7 @@
 @keyframes fadeSlideUp {
   from {
     opacity: 0;
-    transform: translateY(28px);
+    transform: translateY(2rem);
   }
   to {
     opacity: 1;
@@ -258,7 +258,7 @@
     transform: translateY(0) rotate(-1deg);
   }
   50% {
-    transform: translateY(-9px) rotate(1deg);
+    transform: translateY(-0.65rem) rotate(1deg);
   }
 }
 
@@ -267,7 +267,7 @@
     transform: translateY(0) rotate(1deg);
   }
   50% {
-    transform: translateY(-7px) rotate(-1deg);
+    transform: translateY(-0.5rem) rotate(-1deg);
   }
 }
 
@@ -283,7 +283,7 @@
 @keyframes ddIn {
   from {
     opacity: 0;
-    transform: translateY(-8px);
+    transform: translateY(-0.57rem);
   }
   to {
     opacity: 1;
@@ -305,7 +305,7 @@
 @keyframes modalIn {
   from {
     opacity: 0;
-    transform: scale(0.95) translateY(-10px);
+    transform: scale(0.95) translateY(-0.71rem);
   }
   to {
     opacity: 1;
@@ -330,7 +330,7 @@ body {
   font-family: var(--font-primary);
   color: var(--text);
   background: var(--bg);
-  font-size: 17px;
+  font-size: 0.95rem;
 }
 
 h1, h2, h3, h4, h5, h6 {

@@ -110,7 +110,27 @@ const HostelAutocomplete: React.FC<HostelAutocompleteProps> = ({
       className={className}
       required={required}
       autoComplete="off"
-      style={{ borderRadius: '8px' }}
+      style={{ 
+        width: '100%',
+        padding: '0.875rem 1rem',
+        borderRadius: '12px',
+        border: '2px solid var(--gray-200)',
+        fontSize: '1rem',
+        backgroundColor: 'var(--gray-50)',
+        color: 'var(--text-primary)',
+        fontFamily: 'inherit',
+        boxSizing: 'border-box',
+        transition: 'all 0.2s ease',
+        outline: 'none'
+      }}
+      onFocus={(e) => {
+        e.currentTarget.style.borderColor = 'var(--primary-500)';
+        e.currentTarget.style.boxShadow = '0 0 0 4px var(--primary-50)';
+      }}
+      onBlur={(e) => {
+        e.currentTarget.style.borderColor = 'var(--gray-200)';
+        e.currentTarget.style.boxShadow = 'none';
+      }}
     />
   );
 };

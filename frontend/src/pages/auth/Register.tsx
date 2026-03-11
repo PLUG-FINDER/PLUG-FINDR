@@ -594,7 +594,7 @@ const Register: React.FC = () => {
               </p>
             </div>
             <button onClick={() => setShowTermsModal(false)} className="close-terms-btn">
-              Close & Agree
+              Close (Terms and Conditions)
             </button>
           </div>
         </div>

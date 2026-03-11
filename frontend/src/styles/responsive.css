@@ -231,7 +231,7 @@ h1, h2, h3, h4, h5, h6, p, span, div {
 
   /* Typography */
   .page-title {
-    font-size: 1.7rem;
+    font-size: 1.4rem;
     padding: 0 0.5rem;
     word-wrap: break-word;
   }
@@ -251,9 +251,9 @@ h1, h2, h3, h4, h5, h6, p, span, div {
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
-    font-size: 16px; /* Prevents zoom on iOS */
-    padding: 0.875rem;
-    min-height: 44px;
+    font-size: 1.14rem; /* ~16px - Prevents zoom on iOS */
+    padding: 0.625rem;
+    min-height: 3.1rem;
   }
 
   /* Phone input - stack vertically */
@@ -361,13 +361,13 @@ h1, h2, h3, h4, h5, h6, p, span, div {
   .upload-form,
   .flyers-section,
   .auth-card {
-    padding: 1rem 0.75rem;
-    border-radius: 12px;
+    padding: 0.71rem 0.53rem;
+    border-radius: 0.9rem;
   }
 
   /* Typography - smaller */
   .page-title {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     margin-bottom: 1rem;
     padding: 0 0.5rem;
   }
@@ -389,24 +389,24 @@ h1, h2, h3, h4, h5, h6, p, span, div {
   .auth-field input,
   .auth-field textarea,
   .auth-field select {
-    padding: 0.875rem;
-    font-size: 16px; /* Prevents zoom on iOS */
-    min-height: 44px;
+    padding: 0.625rem;
+    font-size: 1.14rem; /* ~16px - Prevents zoom on iOS */
+    min-height: 3.1rem;
   }
 
   /* Buttons */
   .submit-button,
   .auth-button {
-    padding: 0.875rem;
-    font-size: 0.95rem;
-    min-height: 44px;
+    padding: 0.625rem;
+    font-size: 0.68rem;
+    min-height: 3.1rem;
   }
 
   /* Cards - tighter */
   .vendor-card-modern,
   .stat-card {
-    padding: 1rem;
-    border-radius: 12px;
+    padding: 0.71rem;
+    border-radius: 0.9rem;
   }
 
   /* Flyers */
@@ -416,7 +416,7 @@ h1, h2, h3, h4, h5, h6, p, span, div {
   }
 
   .flyer-image {
-    height: 180px;
+    height: 12.8rem;
   }
 }
 
@@ -429,7 +429,7 @@ h1, h2, h3, h4, h5, h6, p, span, div {
   }
 
   .page-title {
-    font-size: 1.9rem;
+    font-size: 1.6rem;
   }
 
   /* Can use 2 columns for some grids */
@@ -543,8 +543,8 @@ h1, h2, h3, h4, h5, h6, p, span, div {
   a,
   .sidebar-item,
   .contact-icon {
-    min-height: 44px;
-    min-width: 44px;
+    min-height: 3.1rem;
+    min-width: 3.1rem;
   }
 
   /* Remove hover effects on touch devices */
@@ -565,7 +565,7 @@ h1, h2, h3, h4, h5, h6, p, span, div {
 /* Landscape mobile orientation */
 @media screen and (max-width: 768px) and (orientation: landscape) {
   .hero-section {
-    height: 300px;
+    height: 21.4rem;
   }
 
   .login-hero {
@@ -574,7 +574,7 @@ h1, h2, h3, h4, h5, h6, p, span, div {
   }
 
   .sidebar {
-    max-height: 200px;
+    max-height: 14.3rem;
   }
 }
 
@@ -737,7 +737,7 @@ h1, h2, h3, h4, h5, h6, p, span, div {
   }
 
   .page-title {
-    font-size: 3rem;
+    font-size: 2.4rem;
   }
 }
 

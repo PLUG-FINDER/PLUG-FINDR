@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthContext';
+import { useTheme } from '../../contexts/ThemeContext';
 import { studentAPI, DashboardData } from '../../api/student';
 import { vendorAPI, VendorProfile } from '../../api/vendor';
 import Icons from '../../components/Icons';
@@ -293,6 +294,8 @@ const HostelHubSection: React.FC<{
 
 const StudentDashboard: React.FC = () => {
   const { user } = useAuth();
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
   const [dashboardData, setDashboardData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -514,15 +517,17 @@ const StudentDashboard: React.FC = () => {
             )}
           </div>
           <div className="recent-activity-section" style={{
-            backgroundColor: 'white',
+            backgroundColor: isDark ? '#111009' : 'white',
             borderRadius: '16px',
             padding: '1.75rem',
-            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-            border: '1px solid #f0f0f0',
+            boxShadow: isDark 
+              ? '0 4px 6px -1px rgba(0, 0, 0, 0.6), 0 2px 4px -1px rgba(0, 0, 0, 0.5), 0 0 12px rgba(255, 107, 43, 0.15)'
+              : '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+            border: isDark ? '2px solid rgba(255, 107, 43, 0.2)' : '1px solid #f0f0f0',
             width: '100%',
             boxSizing: 'border-box'
           }}>
-            <h3 style={{ margin: '0 0 1.25rem 0', fontSize: '0.8rem', color: '#6b7280', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.8px' }}>
+            <h3 style={{ margin: '0 0 1.25rem 0', fontSize: '0.8rem', color: isDark ? '#94a3b8' : '#6b7280', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.8px' }}>
               Recent Searches
             </h3>
             {dashboardData.recentSearches.length > 0 ? (
@@ -534,23 +539,23 @@ const StudentDashboard: React.FC = () => {
                     justifyContent: 'space-between',
                     alignItems: 'center',
                     padding: '0.875rem 1rem',
-                    backgroundColor: '#f8f9fa',
+                    backgroundColor: isDark ? 'rgba(0, 0, 0, 0.3)' : '#f8f9fa',
                     borderRadius: '10px',
                     width: '100%',
                     boxSizing: 'border-box',
                     gap: '0.75rem',
                     flexWrap: 'wrap',
-                    border: '1px solid #e9ecef',
+                    border: isDark ? '1px solid rgba(255, 107, 43, 0.2)' : '1px solid #e9ecef',
                     transition: 'all 0.2s ease',
                     cursor: 'pointer'
                   }} 
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = '#f0f4f9';
-                    e.currentTarget.style.borderColor = '#d4dce8';
+                    e.currentTarget.style.backgroundColor = isDark ? 'rgba(0, 0, 0, 0.5)' : '#f0f4f9';
+                    e.currentTarget.style.borderColor = isDark ? 'rgba(255, 107, 43, 0.4)' : '#d4dce8';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = '#f8f9fa';
-                    e.currentTarget.style.borderColor = '#e9ecef';
+                    e.currentTarget.style.backgroundColor = isDark ? 'rgba(0, 0, 0, 0.3)' : '#f8f9fa';
+                    e.currentTarget.style.borderColor = isDark ? 'rgba(255, 107, 43, 0.2)' : '#e9ecef';
                   }}>
                     <div style={{ 
                       display: 'flex', 
@@ -565,7 +570,7 @@ const StudentDashboard: React.FC = () => {
                       </span>
                       <span style={{ 
                         fontWeight: 500, 
-                        color: '#1f2937',
+                        color: isDark ? '#cbd5e1' : '#1f2937',
                         wordBreak: 'break-word',
                         overflowWrap: 'break-word',
                         maxWidth: '100%',
@@ -578,14 +583,14 @@ const StudentDashboard: React.FC = () => {
                         return category && typeof category === 'string' ? (
                           <span style={{
                             fontSize: '0.8rem',
-                            color: '#6366f1',
-                            backgroundColor: '#eef2ff',
+                            color: isDark ? '#a78bfa' : '#6366f1',
+                            backgroundColor: isDark ? 'rgba(167, 139, 250, 0.1)' : '#eef2ff',
                             padding: '0.375rem 0.625rem',
                             borderRadius: '6px',
                             fontWeight: 500,
                             whiteSpace: 'nowrap',
                             flexShrink: 0,
-                            border: '1px solid #c7d2fe'
+                            border: isDark ? '1px solid rgba(167, 139, 250, 0.3)' : '1px solid #c7d2fe'
                           }}>
                             {category}
                           </span>
@@ -594,7 +599,7 @@ const StudentDashboard: React.FC = () => {
                     </div>
                     <span style={{ 
                       fontSize: '0.85rem', 
-                      color: '#9ca3af', 
+                      color: isDark ? '#64748b' : '#9ca3af', 
                       fontWeight: 400,
                       whiteSpace: 'nowrap',
                       flexShrink: 0
@@ -608,8 +613,8 @@ const StudentDashboard: React.FC = () => {
               <div style={{ 
                 padding: '2.5rem 1.75rem', 
                 textAlign: 'center', 
-                color: '#9ca3af',
-                backgroundColor: '#f3f4f6',
+                color: isDark ? '#64748b' : '#9ca3af',
+                backgroundColor: isDark ? 'rgba(0, 0, 0, 0.2)' : '#f3f4f6',
                 borderRadius: '10px'
               }}>
                 <p style={{ margin: 0, fontSize: '0.95rem', fontWeight: 500 }}>

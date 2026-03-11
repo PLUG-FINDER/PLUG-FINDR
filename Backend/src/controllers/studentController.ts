@@ -2,6 +2,7 @@ import { Response, Request } from "express";
 import mongoose from "mongoose";
 import { AuthRequest } from "../middleware/authMiddleware";
 import { VendorProfile } from "../models/VendorProfile";
+import { VendorView } from "../models/VendorView";
 import { Review } from "../models/Review";
 import { SearchLog } from "../models/SearchLog";
 import { Complaint } from "../models/Complaint";
@@ -31,6 +32,9 @@ const mapVendorForStudent = async (profile: any) => {
 
   const stat = stats[0];
 
+  // Calculate unique view count from VendorView records
+  const viewCount = await VendorView.countDocuments({ vendor: vendorId });
+
   return {
     _id: profile._id,
     userId: profile.user,
@@ -50,7 +54,7 @@ const mapVendorForStudent = async (profile: any) => {
     flyerImages: profile.flyers || [],
     rating: stat?.avgRating ? Math.round(stat.avgRating * 10) / 10 : 0, // Round to 1 decimal place
     reviewCount: stat?.reviewCount || 0,
-    viewCount: profile.viewCount || 0,
+    viewCount,
     status: profile.approved ? "APPROVED" : profile.rejectedReason ? "REJECTED" : "PENDING",
     isMetaVerified: profile.isMetaVerified,
     createdAt: profile.createdAt,
@@ -163,9 +167,15 @@ export const getVendorsByHostel = async (req: AuthRequest, res: Response): Promi
   }
 };
 
-export const getVendorById = async (req: Request, res: Response): Promise<void> => {
+export const getVendorById = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
+
+    // Validate user is authenticated
+    if (!req.user || !req.user.id) {
+      res.status(401).json({ message: "Not authenticated" });
+      return;
+    }
 
     const vendor = await VendorProfile.findById(id);
     // Check if vendor exists, is approved, and is not frozen
@@ -174,9 +184,25 @@ export const getVendorById = async (req: Request, res: Response): Promise<void> 
       return;
     }
 
-    // Increment view count when student views vendor details
-    vendor.viewCount = (vendor.viewCount || 0) + 1;
-    await vendor.save();
+    // Check if this user has already viewed this vendor
+    const existingView = await VendorView.findOne({
+      vendor: vendor._id,
+      user: req.user.id
+    });
+
+    // If this is a new view, create a record and increment view count
+    if (!existingView) {
+      await VendorView.create({
+        vendor: vendor._id,
+        user: req.user.id,
+        viewedAt: new Date()
+      });
+
+      // Increment the vendor's view count
+      vendor.viewCount = (vendor.viewCount || 0) + 1;
+      await vendor.save();
+    }
+    // If view already exists, do not increment
 
     const mapped = await mapVendorForStudent(vendor);
     res.json(mapped);

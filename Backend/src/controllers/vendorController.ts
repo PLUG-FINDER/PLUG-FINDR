@@ -2,9 +2,11 @@ import { Response } from "express";
 import { AuthRequest } from "../middleware/authMiddleware";
 import { Product } from "../models/Product";
 import { VendorProfile } from "../models/VendorProfile";
+import { VendorView } from "../models/VendorView";
 import { Review } from "../models/Review";
 import { Complaint } from "../models/Complaint";
 import { Feedback } from "../models/Feedback";
+import { User } from "../models/User";
 import { uploadToGridFS, deleteFromGridFS } from "../utils/gridfs";
 
 export const addProduct = async (req: AuthRequest, res: Response): Promise<void> => {
@@ -185,6 +187,9 @@ const mapVendorProfile = async (profile: any) => {
 
   const stat = stats[0];
 
+  // Calculate unique view count from VendorView records
+  const viewCount = await VendorView.countDocuments({ vendor: vendorId });
+
   const status: "PENDING" | "APPROVED" | "REJECTED" = profile.approved
     ? "APPROVED"
     : profile.rejectedReason
@@ -210,7 +215,7 @@ const mapVendorProfile = async (profile: any) => {
     flyerImages: profile.flyers || [],
     rating: stat?.avgRating ? Math.round(stat.avgRating * 10) / 10 : 0, // Round to 1 decimal place
     reviewCount: stat?.reviewCount || 0,
-    viewCount: profile.viewCount || 0,
+    viewCount,
     status,
     isMetaVerified: profile.isMetaVerified,
     createdAt: profile.createdAt,
@@ -585,10 +590,12 @@ export const resetVendorViewsByEmail = async (req: Request, res: Response): Prom
       return;
     }
 
-    // Reset the view count and viewedBy array
+    // Reset the view count and delete all VendorView records for this vendor
     vendorProfile.viewCount = 0;
-    vendorProfile.viewedBy = [];
     await vendorProfile.save();
+    
+    // Delete all view records for this vendor
+    await VendorView.deleteMany({ vendor: vendorProfile._id });
 
     res.status(200).json({ message: "Vendor views reset successfully" });
   } catch (error) {
