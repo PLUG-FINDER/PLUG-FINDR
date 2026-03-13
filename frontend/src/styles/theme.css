@@ -18,10 +18,10 @@
   --gold: #f59e0b;
 
   /* Background Colors - Light Theme */
-  --bg: #fafaf8;
-  --bg2: #f3f2ee;
-  --surface: #ffffff;
-  --surface2: #f8f7f4;
+  --bg: #fbf9f7;
+  --bg2: #f7f5f3;
+  --surface: #fdfcfb;
+  --surface2: #faf8f6;
   
   /* Border Colors - Light Theme */
   --border: #e8e6e1;
@@ -34,6 +34,11 @@
   
   /* Navigation */
   --nav-bg: #1a1814;
+  
+  /* Hero Section - Light Theme */
+  --hero-bg: #f5ede6;
+  --hero-text: #1a1814;
+  --hero-text-secondary: rgba(26,24,20,0.65);
   
   /* Shadows - Light Theme */
   --shadow: 0 1px 12px rgba(26,24,20,0.06);
@@ -59,6 +64,17 @@
   --bp-xl-desktop: 1536px;
 }
 
+/* Mobile override - pure white backgrounds on smaller screens */
+@media (max-width: 1023px) {
+  :root {
+    --bg: #ffffff;
+    --bg2: #fafaf8;
+    --surface: #ffffff;
+    --surface2: #f8f7f4;
+    --hero-bg: #ffffff;
+  }
+}
+
 /* ============================================
    DARK THEME
    ============================================ */
@@ -81,6 +97,11 @@
   
   /* Navigation - Dark Theme */
   --nav-bg: #21140D;
+  
+  /* Hero Section - Dark Theme */
+  --hero-bg: #2d1f16;
+  --hero-text: #ffffff;
+  --hero-text-secondary: rgba(255,255,255,0.55);
   
   /* Shadows - Dark Theme (darker) */
   --shadow: 0 1px 12px rgba(0,0,0,0.3);

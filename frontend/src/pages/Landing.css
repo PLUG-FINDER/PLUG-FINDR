@@ -14,7 +14,7 @@
 
 .landing-page .hero-section {
  min-height: calc(100vh - 64px);
- background: #2d1f16 !important;
+ background: var(--hero-bg) !important;
  position: relative;
  overflow: hidden;
  display: flex;
@@ -132,7 +132,7 @@
  font-size: clamp(2.4rem, 4.5vw, 3.6rem);
  line-height: 1.08;
  letter-spacing: -0.04em;
- color: #fff;
+ color: var(--hero-text);
  margin-bottom: 1.5rem;
 }
 
@@ -147,12 +147,16 @@
 .hero-h1 .serif-accent {
  font-family: var(--font-serif);
  font-style: italic;
- color: rgba(255, 255, 255, 0.5);
+ color: rgba(26, 24, 20, 0.5);
  font-size: 0.9em;
 }
 
+[data-theme="dark"] .hero-h1 .serif-accent {
+ color: rgba(255, 255, 255, 0.5);
+}
+
 .hero-desc {
- color: rgba(255, 255, 255, 0.55);
+ color: var(--hero-text-secondary);
  font-size: 1.1rem;
  line-height: 1.7;
  max-width: 480px;
@@ -171,8 +175,8 @@
 
 .btn-glass {
  background: rgba(255, 255, 255, 0.08);
- color: #fff;
- border: 1.5px solid rgba(255, 255, 255, 0.2);
+ color: var(--hero-text);
+ border: 1.5px solid rgba(26, 24, 20, 0.1);
  border-radius: var(--radius);
  padding: 1.05rem 2.6rem;
  font-size: 1.05rem;
@@ -183,23 +187,36 @@
  backdrop-filter: blur(8px);
 }
 
+[data-theme="dark"] .btn-glass {
+ background: rgba(255, 255, 255, 0.08);
+ border-color: rgba(255, 255, 255, 0.2);
+}
+
 .btn-glass:hover {
  background: rgba(255, 255, 255, 0.12);
- border-color: rgba(255, 255, 255, 0.3);
+ border-color: rgba(26, 24, 20, 0.2);
  transform: translateY(-2px);
  text-decoration: none;
- color: #fff;
+ color: var(--hero-text);
+}
+
+[data-theme="dark"] .btn-glass:hover {
+ border-color: rgba(255, 255, 255, 0.3);
 }
 
 .hero-stats {
  display: flex;
  gap: 2.5rem;
  padding-top: 2rem;
- border-top: 1px solid rgba(255, 255, 255, 0.08);
+ border-top: 1px solid rgba(26, 24, 20, 0.08);
  flex-wrap: wrap;
  width: 100%;
  max-width: 100%;
  box-sizing: border-box;
+}
+
+[data-theme="dark"] .hero-stats {
+ border-top-color: rgba(255, 255, 255, 0.08);
 }
 
 .stat-item {
@@ -211,7 +228,7 @@
 .stat-num {
  font-size: 1.4rem;
  font-weight: 800;
- color: #fff;
+ color: var(--hero-text);
  font-family: var(--font-primary);
 }
 
@@ -222,9 +239,13 @@
 
 .stat-label {
  font-size: 0.75rem;
- color: rgba(255, 255, 255, 0.4);
+ color: rgba(26, 24, 20, 0.4);
  text-transform: uppercase;
  letter-spacing: 0.05em;
+}
+
+[data-theme="dark"] .stat-label {
+ color: rgba(255, 255, 255, 0.4);
 }
 
 /* Hero Right - Preview Card */
@@ -234,12 +255,17 @@
 }
 
 .preview-card {
- background: rgba(255, 255, 255, 0.04);
- border: 1px solid rgba(255, 255, 255, 0.1);
+ background: rgba(26, 24, 20, 0.04);
+ border: 1px solid rgba(26, 24, 20, 0.1);
  border-radius: var(--radius-xl);
  padding: 1.5rem;
  backdrop-filter: blur(12px);
  position: relative;
+}
+
+[data-theme="dark"] .preview-card {
+ background: rgba(255, 255, 255, 0.04);
+ border-color: rgba(255, 255, 255, 0.1);
 }
 
 .live-badge {
@@ -260,11 +286,16 @@
 .map-canvas {
  height: 100%;
  width: 100px;
- background: rgba(255, 255, 255, 0.03);
- border: 1px solid rgba(255, 255, 255, 0.06);
+ background: rgba(26, 24, 20, 0.03);
+ border: 1px solid rgba(26, 24, 20, 0.06);
  border-radius: var(--radius);
  margin-bottom: 1rem;
  overflow: hidden;
+}
+
+[data-theme="dark"] .map-canvas {
+ background: rgba(255, 255, 255, 0.03);
+ border-color: rgba(255, 255, 255, 0.06);
 }
 
 .vendor-rows {
@@ -277,12 +308,17 @@
  display: flex;
  align-items: center;
  gap: 0.75rem;
- background: rgba(255, 255, 255, 0.04);
- border: 1px solid rgba(255, 255, 255, 0.07);
+ background: rgba(26, 24, 20, 0.04);
+ border: 1px solid rgba(26, 24, 20, 0.07);
  border-radius: var(--radius);
  padding: 0.75rem;
  transition: all 0.3s ease;
  cursor: pointer;
+}
+
+[data-theme="dark"] .vendor-row {
+ background: rgba(255, 255, 255, 0.04);
+ border-color: rgba(255, 255, 255, 0.07);
 }
 
 .vendor-row:hover {
@@ -294,13 +330,17 @@
  width: 34px;
  height: 34px;
  border-radius: 9px;
- background: rgba(255, 255, 255, 0.08);
+ background: rgba(26, 24, 20, 0.08);
  display: flex;
  align-items: center;
  justify-content: center;
  font-size: 1.2rem;
  flex-shrink: 0;
  color: var(--brand);
+}
+
+[data-theme="dark"] .vendor-icon {
+ background: rgba(255, 255, 255, 0.08);
 }
 
 .vendor-icon svg {
@@ -316,7 +356,7 @@
 .vendor-name {
  font-size: 0.85rem;
  font-weight: 600;
- color: #fff;
+ color: var(--hero-text);
  margin-bottom: 0.15rem;
 }
 
