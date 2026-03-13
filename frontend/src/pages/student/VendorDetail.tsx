@@ -44,6 +44,10 @@ const VendorDetail: React.FC = () => {
   const [productSuccess, setProductSuccess] = useState<Record<string, boolean>>({});
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
+  // Login Prompt State
+  const [showLoginPrompt, setShowLoginPrompt] = useState(false);
+  const [pendingAction, setPendingAction] = useState<() => void | null>(null);
+
   // Feedback Modal State
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
   const [feedbackMessage, setFeedbackMessage] = useState('');
@@ -104,6 +108,14 @@ const VendorDetail: React.FC = () => {
 
   const handleFeedbackSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!user) {
+      setShowFeedbackModal(false);
+      setPendingAction(() => () => setShowFeedbackModal(true));
+      setShowLoginPrompt(true);
+      return;
+    }
+    
     if (!id || !feedbackMessage.trim() || !feedbackPhone.trim()) return;
 
     setFeedbackSubmitting(true);
@@ -216,6 +228,17 @@ const VendorDetail: React.FC = () => {
   };
 
   const handleProductReviewSubmit = async (productId: string) => {
+    if (!user) {
+      setPendingAction(() => () => {
+        // Scroll to the product after login
+        setTimeout(() => {
+          document.querySelector(`[data-product-id="${productId}"]`)?.scrollIntoView({ behavior: 'smooth' });
+        }, 500);
+      });
+      setShowLoginPrompt(true);
+      return;
+    }
+    
     const productRating = productRatings[productId] || 0;
     const productComment = productComments[productId] || '';
 
@@ -280,6 +303,18 @@ const VendorDetail: React.FC = () => {
 
   const handleSubmitReview = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!user) {
+      setPendingAction(() => () => {
+        // Refocus on review form after login
+        setTimeout(() => {
+          document.querySelector('.review-form')?.scrollIntoView({ behavior: 'smooth' });
+        }, 500);
+      });
+      setShowLoginPrompt(true);
+      return;
+    }
+    
     if (!id) return;
 
     if (rating === 0) {
@@ -358,7 +393,17 @@ const VendorDetail: React.FC = () => {
               </span>
             )}
           </h1>
-          <button onClick={() => setShowFeedbackModal(true)} className="report-btn">
+          <button 
+            onClick={() => {
+              if (!user) {
+                setPendingAction(() => () => setShowFeedbackModal(true));
+                setShowLoginPrompt(true);
+              } else {
+                setShowFeedbackModal(true);
+              }
+            }} 
+            className="report-btn"
+          >
             Feedback
           </button>
         </div>
@@ -551,6 +596,7 @@ const VendorDetail: React.FC = () => {
                   <div 
                     key={product._id} 
                     className="flyer-image-wrapper"
+                    data-product-id={product._id}
                     style={{ display: 'flex', flexDirection: 'column' }}
                   >
                     <img 
@@ -670,79 +716,123 @@ const VendorDetail: React.FC = () => {
 
                         {/* Write Product Review Form */}
                         <div style={{ marginTop: '1rem' }}>
-                          <div style={{ marginBottom: '0.5rem' }}>
-                            <label style={{ fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.25rem', display: 'block' }}>
-                              Your Rating
-                            </label>
-                            <div style={{ display: 'flex', gap: '0.25rem' }}>
-                              {[1, 2, 3, 4, 5].map((star) => (
-                                <button
-                                  key={star}
-                                  type="button"
-                                  onClick={() => handleProductStarClick(product._id, star)}
-                                  onMouseEnter={() => setProductHoveredRatings(prev => ({ ...prev, [product._id]: star }))}
-                                  onMouseLeave={() => setProductHoveredRatings(prev => ({ ...prev, [product._id]: 0 }))}
+                          {!user ? (
+                            <div style={{
+                              backgroundColor: 'rgba(99, 102, 241, 0.05)',
+                              border: '1px solid rgba(99, 102, 241, 0.2)',
+                              borderRadius: '0.7rem',
+                              padding: '1rem',
+                              textAlign: 'center'
+                            }}>
+                              <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', margin: '0.5rem 0' }}>
+                                Sign in to leave a review
+                              </p>
+                              <button
+                                onClick={() => {
+                                  setPendingAction(() => () => {
+                                    document.querySelector(`[data-product-id="${product._id}"]`)?.scrollIntoView({ behavior: 'smooth' });
+                                  });
+                                  setShowLoginPrompt(true);
+                                }}
+                                style={{
+                                  marginTop: '0.5rem',
+                                  padding: '0.5rem 1rem',
+                                  backgroundColor: 'var(--primary-600)',
+                                  color: 'white',
+                                  border: 'none',
+                                  borderRadius: '0.6rem',
+                                  fontSize: '0.85rem',
+                                  fontWeight: 600,
+                                  cursor: 'pointer',
+                                  transition: 'all 0.2s ease'
+                                }}
+                                onMouseEnter={(e) => {
+                                  e.currentTarget.style.backgroundColor = 'var(--primary-700)';
+                                }}
+                                onMouseLeave={(e) => {
+                                  e.currentTarget.style.backgroundColor = 'var(--primary-600)';
+                                }}
+                              >
+                                Sign In
+                              </button>
+                            </div>
+                          ) : (
+                            <>
+                              <div style={{ marginBottom: '0.5rem' }}>
+                                <label style={{ fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.25rem', display: 'block' }}>
+                                  Your Rating
+                                </label>
+                                <div style={{ display: 'flex', gap: '0.25rem' }}>
+                                  {[1, 2, 3, 4, 5].map((star) => (
+                                    <button
+                                      key={star}
+                                      type="button"
+                                      onClick={() => handleProductStarClick(product._id, star)}
+                                      onMouseEnter={() => setProductHoveredRatings(prev => ({ ...prev, [product._id]: star }))}
+                                      onMouseLeave={() => setProductHoveredRatings(prev => ({ ...prev, [product._id]: 0 }))}
+                                      style={{
+                                        background: 'none',
+                                        border: 'none',
+                                        cursor: 'pointer',
+                                        padding: 0,
+                                        fontSize: '1.5rem',
+                                        color: star <= (productHoveredRating || productRating) ? '#fbbf24' : '#d1d5db',
+                                        transition: 'color 0.2s'
+                                      }}
+                                      title={productRating === star ? 'Click to unrate' : `Rate ${star} star${star > 1 ? 's' : ''}`}
+                                    >
+                                      ★
+                                    </button>
+                                  ))}
+                                </div>
+                              </div>
+                              <div style={{ marginBottom: '0.5rem' }}>
+                                <textarea
+                                  value={productComment}
+                                  onChange={(e) => setProductComments(prev => ({ ...prev, [product._id]: e.target.value }))}
+                                  placeholder="Write your review..."
                                   style={{
-                                    background: 'none',
-                                    border: 'none',
-                                    cursor: 'pointer',
-                                    padding: 0,
-                                    fontSize: '1.5rem',
-                                    color: star <= (productHoveredRating || productRating) ? '#fbbf24' : '#d1d5db',
-                                    transition: 'color 0.2s'
+                                    width: '100%',
+                                    padding: '0.5rem',
+                                    border: '1px solid #ddd',
+                                    borderRadius: '8px',
+                                    fontSize: '0.85rem',
+                                    minHeight: '60px',
+                                    resize: 'vertical',
+                                    fontFamily: 'inherit'
                                   }}
-                                  title={productRating === star ? 'Click to unrate' : `Rate ${star} star${star > 1 ? 's' : ''}`}
-                                >
-                                  ★
-                                </button>
-                              ))}
-                            </div>
-                          </div>
-                          <div style={{ marginBottom: '0.5rem' }}>
-                            <textarea
-                              value={productComment}
-                              onChange={(e) => setProductComments(prev => ({ ...prev, [product._id]: e.target.value }))}
-                              placeholder="Write your review..."
-                              style={{
-                                width: '100%',
-                                padding: '0.5rem',
-                                border: '1px solid #ddd',
-                                borderRadius: '8px',
-                                fontSize: '0.85rem',
-                                minHeight: '60px',
-                                resize: 'vertical',
-                                fontFamily: 'inherit'
-                              }}
-                            />
-                          </div>
-                          {productError && (
-                            <div style={{ color: 'var(--error)', fontSize: '0.8rem', marginBottom: '0.5rem' }}>
-                              {productError}
-                            </div>
+                                />
+                              </div>
+                              {productError && (
+                                <div style={{ color: 'var(--error)', fontSize: '0.8rem', marginBottom: '0.5rem' }}>
+                                  {productError}
+                                </div>
+                              )}
+                              {productSuccessMsg && (
+                                <div style={{ color: 'var(--success)', fontSize: '0.8rem', marginBottom: '0.5rem' }}>
+                                  Review submitted successfully!
+                                </div>
+                              )}
+                              <button
+                                onClick={() => handleProductReviewSubmit(product._id)}
+                                disabled={isProductSubmitting || !productRating}
+                                style={{
+                                  width: '100%',
+                                  padding: '0.5rem',
+                                  backgroundColor: productRating ? 'var(--primary-600)' : '#ccc',
+                                  color: 'white',
+                                  border: 'none',
+                                  borderRadius: '8px',
+                                  fontSize: '0.85rem',
+                                  fontWeight: 600,
+                                  cursor: isProductSubmitting || !productRating ? 'not-allowed' : 'pointer',
+                                  opacity: isProductSubmitting ? 0.6 : 1
+                                }}
+                              >
+                                {isProductSubmitting ? 'Submitting...' : 'Submit Review'}
+                              </button>
+                            </>
                           )}
-                          {productSuccessMsg && (
-                            <div style={{ color: 'var(--success)', fontSize: '0.8rem', marginBottom: '0.5rem' }}>
-                              Review submitted successfully!
-                            </div>
-                          )}
-                          <button
-                            onClick={() => handleProductReviewSubmit(product._id)}
-                            disabled={isProductSubmitting || !productRating}
-                            style={{
-                              width: '100%',
-                              padding: '0.5rem',
-                              backgroundColor: productRating ? 'var(--primary-600)' : '#ccc',
-                              color: 'white',
-                              border: 'none',
-                              borderRadius: '8px',
-                              fontSize: '0.85rem',
-                              fontWeight: 600,
-                              cursor: isProductSubmitting || !productRating ? 'not-allowed' : 'pointer',
-                              opacity: isProductSubmitting ? 0.6 : 1
-                            }}
-                          >
-                            {isProductSubmitting ? 'Submitting...' : 'Submit Review'}
-                          </button>
                         </div>
                       </div>
                     </div>
@@ -865,42 +955,172 @@ const VendorDetail: React.FC = () => {
         {/* Write Review Form */}
         <div className="review-form-section">
           <h2>Write a Review</h2>
-          {success && (
-            <div className="success-message">
-              ✓ Review submitted successfully! Thank you for your feedback.
+          {!user ? (
+            <div className="login-prompt-inline" style={{
+              backgroundColor: 'rgba(99, 102, 241, 0.05)',
+              border: '2px solid rgba(99, 102, 241, 0.2)',
+              borderRadius: '1rem',
+              padding: '2rem',
+              textAlign: 'center',
+              marginBottom: '1rem'
+            }}>
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--primary-600)" strokeWidth="1.5" style={{ marginBottom: '1rem', display: 'inline-block' }}>
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+              <p style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--text-primary)', margin: '0.5rem 0' }}>
+                Sign in to share your review
+              </p>
+              <p style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', margin: '0.5rem 0 1rem 0' }}>
+                Log in or create an account to leave a review and help other students find great vendors.
+              </p>
+              <button
+                onClick={() => {
+                  setPendingAction(() => () => {
+                    document.querySelector('.review-form')?.scrollIntoView({ behavior: 'smooth' });
+                  });
+                  setShowLoginPrompt(true);
+                }}
+                style={{
+                  padding: '0.75rem 1.5rem',
+                  backgroundColor: 'var(--primary-600)',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '0.7rem',
+                  fontSize: '1rem',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = 'var(--primary-700)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'var(--primary-600)';
+                }}
+              >
+                Sign In
+              </button>
             </div>
+          ) : (
+            <>
+              {success && (
+                <div className="success-message">
+                  ✓ Review submitted successfully! Thank you for your feedback.
+                </div>
+              )}
+              {error && <div className="error-message">{error}</div>}
+              <form onSubmit={handleSubmitReview} className="review-form">
+                <div className="form-field">
+                  <label>Your Rating <span style={{ color: 'var(--error)' }}>*</span></label>
+                  <div className="star-rating-selector">
+                    {renderStars(rating, true)}
+                    <span className="rating-text">
+                      {rating === 0 ? 'Click to rate' : rating === 1 ? 'Poor' : rating === 2 ? 'Fair' : rating === 3 ? 'Good' : rating === 4 ? 'Very Good' : 'Excellent'}
+                    </span>
+                  </div>
+                </div>
+                <div className="form-field">
+                  <label>Your Comment</label>
+                  <textarea
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                    rows={5}
+                    required
+                    placeholder="Share your experience with this vendor..."
+                    minLength={10}
+                  />
+                  <span className="char-count">{comment.length} characters</span>
+                </div>
+                <button type="submit" className="submit-button" disabled={submitting || !comment.trim() || rating === 0}>
+                  {submitting ? 'Submitting...' : 'Submit Review'}
+                </button>
+              </form>
+            </>
           )}
-          {error && <div className="error-message">{error}</div>}
-          <form onSubmit={handleSubmitReview} className="review-form">
-            <div className="form-field">
-              <label>Your Rating <span style={{ color: 'var(--error)' }}>*</span></label>
-              <div className="star-rating-selector">
-                {renderStars(rating, true)}
-                <span className="rating-text">
-                  {rating === 0 ? 'Click to rate' : rating === 1 ? 'Poor' : rating === 2 ? 'Fair' : rating === 3 ? 'Good' : rating === 4 ? 'Very Good' : 'Excellent'}
-                </span>
-              </div>
-            </div>
-            <div className="form-field">
-              <label>Your Comment</label>
-              <textarea
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
-                rows={5}
-                required
-                placeholder="Share your experience with this vendor..."
-                minLength={10}
-              />
-              <span className="char-count">{comment.length} characters</span>
-            </div>
-            <button type="submit" className="submit-button" disabled={submitting || !comment.trim() || rating === 0}>
-              {submitting ? 'Submitting...' : 'Submit Review'}
-            </button>
-          </form>
         </div>
 
+        {/* Login Prompt Modal */}
+        {showLoginPrompt && (
+          <div className="share-modal-backdrop" onClick={() => setShowLoginPrompt(false)}>
+            <div className="share-modal-content" onClick={(e) => e.stopPropagation()}>
+              <div className="share-modal-header">
+                <h2>Sign In Required</h2>
+                <button 
+                  className="share-modal-close" 
+                  onClick={() => setShowLoginPrompt(false)}
+                >
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                  </svg>
+                </button>
+              </div>
+
+              <div className="share-modal-body">
+                <p className="share-modal-description">
+                  You need to be signed in to perform this action. Create an account or log in to your existing account to continue.
+                </p>
+
+                <div style={{ display: 'flex', gap: '1rem', flexDirection: 'column', marginTop: '1.5rem' }}>
+                  <button
+                    onClick={() => {
+                      setShowLoginPrompt(false);
+                      navigate('/auth/login');
+                    }}
+                    style={{
+                      padding: '0.75rem 1.5rem',
+                      backgroundColor: 'var(--primary-600)',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '0.7rem',
+                      fontSize: '1rem',
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = 'var(--primary-700)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = 'var(--primary-600)';
+                    }}
+                  >
+                    Sign In
+                  </button>
+                  
+                  <button
+                    onClick={() => {
+                      setShowLoginPrompt(false);
+                      navigate('/auth/register');
+                    }}
+                    style={{
+                      padding: '0.75rem 1.5rem',
+                      backgroundColor: 'transparent',
+                      color: 'var(--primary-600)',
+                      border: '2px solid var(--primary-600)',
+                      borderRadius: '0.7rem',
+                      fontSize: '1rem',
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = 'var(--primary-50)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = 'transparent';
+                    }}
+                  >
+                    Create Account
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Feedback Modal */}
-        {showFeedbackModal && (
+        {showFeedbackModal && user && (
           <div className="report-modal-backdrop" onClick={() => setShowFeedbackModal(false)}>
             <div className="report-modal vendor-feedback-modal" onClick={(e) => e.stopPropagation()}>
               <h2>Submit Feedback</h2>

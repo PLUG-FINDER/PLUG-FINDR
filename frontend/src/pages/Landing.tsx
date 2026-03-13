@@ -3,6 +3,22 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../auth/AuthContext';
 import { vendorAPI, VendorProfile } from '../api/vendor';
 import { getApiBaseUrl } from '../utils/imageUtils';
+import {
+  getCategoryIconComponent,
+  getFeatureIconComponent,
+  StarIcon,
+  RocketIcon,
+  CheckIcon,
+  SearchIcon,
+  VerifiedIcon,
+  ChatIcon,
+  MobileIcon,
+  SecurityIcon,
+  LocationIcon,
+  TimeIcon,
+  FeedbackIcon,
+  StarsRating
+} from '../utils/svgIcons';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import './Landing.css';
@@ -201,18 +217,7 @@ const Landing: React.FC = () => {
     fetchVendors();
   }, [user, userLocation]);
 
-  // Get category emoji
-  const getCategoryEmoji = (category: string): string => {
-    const categoryMap: { [key: string]: string } = {
-      'Food': '🍕',
-      'Fashion': '👕',
-      'Services': '🎓',
-      'Tech': '💻',
-      'Medicine': '🏥'
-    };
-    return categoryMap[category] || '📍';
-  };
-
+  // Category icons are now handled by SVG components imported from utils/svgIcons
   const toggleFaq = (index: number) => {
     setOpenFaq(openFaq === index ? null : index);
   };
@@ -245,11 +250,11 @@ const Landing: React.FC = () => {
   ];
 
   const categories = [
-    { key: 'Food', icon: '🍕', label: 'Food', description: 'Meals, snacks, drinks & meal prep plugs.' },
-    { key: 'Fashion', icon: '👕', label: 'Fashion', description: 'Clothing, sneakers, jewelry & styling.' },
-    { key: 'Services', icon: '🎓', label: 'Services', description: 'Tutoring, printing, laundry and more.' },
-    { key: 'Tech', icon: '💻', label: 'Tech', description: 'Phones, laptops, repairs & accessories.' },
-    { key: 'Medicine', icon: '🏥', label: 'Medicine', description: 'Pharmacy, first‑aid and health services.' },
+    { key: 'Food', label: 'Food', description: 'Meals, snacks, drinks & meal prep plugs.' },
+    { key: 'Fashion', label: 'Fashion', description: 'Clothing, sneakers, jewelry & styling.' },
+    { key: 'Services', label: 'Services', description: 'Tutoring, printing, laundry and more.' },
+    { key: 'Tech', label: 'Tech', description: 'Phones, laptops, repairs & accessories.' },
+    { key: 'Medicine', label: 'Medicine', description: 'Pharmacy, first‑aid and health services.' },
   ];
 
   return (
@@ -350,7 +355,7 @@ const Landing: React.FC = () => {
                 ) : nearbyVendors.length > 0 ? (
                   nearbyVendors.slice(0, 3).map((vendor) => (
                     <div key={vendor._id} className="vendor-row">
-                      <div className="vendor-icon">{getCategoryEmoji(vendor.category || '')}</div>
+                      <div className="vendor-icon">{getCategoryIconComponent(vendor.category || '')}</div>
                       <div className="vendor-info">
                         <div className="vendor-name">{vendor.businessName}</div>
                         <div className="vendor-distance">{calculateDistance(vendor)}</div>
@@ -369,13 +374,16 @@ const Landing: React.FC = () => {
             {nearbyVendors.length > 0 && (
               <>
                 <div className="float-el float-1">
-                  <span>⭐ {nearbyVendors[0]?.rating?.toFixed(1) || '4.8'}</span>
+                  <span className="float-icon"><StarIcon /></span>
+                  <span>{nearbyVendors[0]?.rating?.toFixed(1) || '4.8'}</span>
                 </div>
                 <div className="float-el float-2">
-                  <span>🚀 Fast</span>
+                  <span className="float-icon"><RocketIcon /></span>
+                  <span>Fast</span>
                 </div>
                 <div className="float-el float-3">
-                  <span>✓ Verified</span>
+                  <span className="float-icon"><CheckIcon /></span>
+                  <span>Verified</span>
                 </div>
               </>
             )}
@@ -441,42 +449,42 @@ const Landing: React.FC = () => {
           </h2>
           <div className="features-grid">
             <div className="feature-tile">
-              <div className="feature-icon-wrap">🔍</div>
+              <div className="feature-icon-wrap"><SearchIcon /></div>
               <h3>Easy Search</h3>
               <p>Find vendors by category, location, or hostel</p>
             </div>
             <div className="feature-tile">
-              <div className="feature-icon-wrap">⭐</div>
+              <div className="feature-icon-wrap"><VerifiedIcon /></div>
               <h3>Verified Vendors</h3>
               <p>All vendors are verified and reviewed</p>
             </div>
             <div className="feature-tile">
-              <div className="feature-icon-wrap">💬</div>
+              <div className="feature-icon-wrap"><ChatIcon /></div>
               <h3>Direct Contact</h3>
               <p>Connect instantly via WhatsApp</p>
             </div>
             <div className="feature-tile">
-              <div className="feature-icon-wrap">📱</div>
+              <div className="feature-icon-wrap"><MobileIcon /></div>
               <h3>Mobile Friendly</h3>
               <p>Works perfectly on all devices</p>
             </div>
             <div className="feature-tile">
-              <div className="feature-icon-wrap">🔒</div>
+              <div className="feature-icon-wrap"><SecurityIcon /></div>
               <h3>Safe & Secure</h3>
               <p>Your data is protected</p>
             </div>
             <div className="feature-tile">
-              <div className="feature-icon-wrap">📍</div>
+              <div className="feature-icon-wrap"><LocationIcon /></div>
               <h3>Location-Based</h3>
               <p>Find vendors near your hostel</p>
             </div>
             <div className="feature-tile">
-              <div className="feature-icon-wrap">⏰</div>
+              <div className="feature-icon-wrap"><TimeIcon /></div>
               <h3>24/7 Access</h3>
               <p>Browse anytime, anywhere</p>
             </div>
             <div className="feature-tile">
-              <div className="feature-icon-wrap">💡</div>
+              <div className="feature-icon-wrap"><FeedbackIcon /></div>
               <h3>Feedback System</h3>
               <p>Share your thoughts and suggestions</p>
             </div>
@@ -500,7 +508,7 @@ const Landing: React.FC = () => {
                 className="cat-tile-link"
               >
                 <div className="cat-tile">
-                  <div className="cat-icon">{cat.icon}</div>
+                  <div className="cat-icon">{getCategoryIconComponent(cat.key)}</div>
                   <h3>{cat.label}</h3>
                   <p className="cat-description">{cat.description}</p>
                 </div>
@@ -525,7 +533,7 @@ const Landing: React.FC = () => {
                 PlugFindr made finding vendors so easy! I found a great food vendor right in my hostel area. 
                 The WhatsApp integration is super convenient.
               </p>
-              <div className="t-stars">⭐⭐⭐⭐⭐</div>
+              <StarsRating count={5} />
               <div className="t-author">
                 <div className="t-avatar">AK</div>
                 <div>
@@ -540,7 +548,7 @@ const Landing: React.FC = () => {
                 As a vendor, PlugFindr has helped me reach so many students. The platform is user-friendly 
                 and I've seen a huge increase in customers!
               </p>
-              <div className="t-stars">⭐⭐⭐⭐⭐</div>
+              <StarsRating count={5} />
               <div className="t-author">
                 <div className="t-avatar">JM</div>
                 <div>
@@ -555,7 +563,7 @@ const Landing: React.FC = () => {
                 The search feature is amazing! I can filter by category and hostel. Found exactly what I 
                 needed in seconds. Highly recommend!
               </p>
-              <div className="t-stars">⭐⭐⭐⭐⭐</div>
+              <StarsRating count={5} />
               <div className="t-author">
                 <div className="t-avatar">SA</div>
                 <div>
