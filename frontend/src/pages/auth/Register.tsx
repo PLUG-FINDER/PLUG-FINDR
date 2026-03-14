@@ -426,7 +426,16 @@ const Register: React.FC = () => {
         </form>
         <div style={{ margin: '1.5rem 0', textAlign: 'center' }}>
           <p style={{ color: '#64748b', fontSize: '0.9rem', marginBottom: '1rem' }}>Or continue with</p>
-          <GoogleSignInButton role={currentRole} isSignUp={true} />
+          {currentRole === 'STUDENT' && !watch('whatsappNumber') && (
+            <div style={{ color: '#dc2626', fontSize: '0.875rem', marginBottom: '0.75rem', textAlign: 'center' }}>
+              Please enter your WhatsApp number above to use Google Sign-Up
+            </div>
+          )}
+          <GoogleSignInButton 
+            role={currentRole} 
+            isSignUp={true} 
+            whatsappNumber={currentRole === 'STUDENT' ? `${whatsappCountryCode}${watch('whatsappNumber') || ''}`.replace(/^\+\d+/, whatsappCountryCode) : undefined}
+          />
         </div>
         <p className="auth-link">
           Already have an account? <a href="/login">Login here</a>

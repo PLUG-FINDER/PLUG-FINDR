@@ -42,12 +42,24 @@ const GoogleSignInButton: React.FC<GoogleSignInButtonProps> = ({
    console.log("✅ ID Token retrieved");
 
    // Call backend to verify and create/update user
-   const response = await authAPI.googleAuth({
-    idToken,
-    role: isSignUp ? role : undefined,
-    whatsappNumber: isSignUp ? whatsappNumber : undefined,
-   });
-   console.log("✅ Backend verification successful");
+   let response;
+   if (isSignUp) {
+    // For signup: use googleRegister endpoint
+    response = await authAPI.googleRegister({
+     firebaseUID: firebaseUser.uid,
+     name: firebaseUser.displayName || "",
+     email: firebaseUser.email || "",
+     role,
+     whatsappNumber,
+    });
+    console.log("✅ Backend registration successful");
+   } else {
+    // For login: use googleAuth endpoint
+    response = await authAPI.googleAuth({
+     idToken,
+    });
+    console.log("✅ Backend verification successful");
+   }
 
    // Store token and user data
    localStorage.setItem("token", response.token);
@@ -85,12 +97,14 @@ const GoogleSignInButton: React.FC<GoogleSignInButtonProps> = ({
  };
 
  return (
-  <button
-   type="button"
-   onClick={handleGoogleAuth}
-   disabled={loading}
-   className="google-signin-btn"
-   style={{
+  <div>
+   {error && <div style={{ color: '#dc2626', fontSize: '0.875rem', marginBottom: '0.5rem', textAlign: 'center' }}>{error}</div>}
+   <button
+    type="button"
+    onClick={handleGoogleAuth}
+    disabled={loading}
+    className="google-signin-btn"
+    style={{
     width: "100%",
     padding: "0.75rem",
     border: "1px solid #ddd",
@@ -141,8 +155,9 @@ const GoogleSignInButton: React.FC<GoogleSignInButtonProps> = ({
      </clipPath>
     </defs>
    </svg>
-   {loading ? "Signing in..." : isSignUp ? "Sign Up with Google" : "Sign In with Google"}
-  </button>
+    {loading ? "Signing in..." : isSignUp ? "Sign Up with Google" : "Sign In with Google"}
+   </button>
+  </div>
  );
 };
 
