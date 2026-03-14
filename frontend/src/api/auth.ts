@@ -15,6 +15,20 @@ export interface RegisterData {
   firebaseUID?: string;
 }
 
+export interface GoogleAuthData {
+  idToken: string;
+  role?: 'STUDENT' | 'VENDOR' | 'ADMIN';
+  whatsappNumber?: string;
+}
+
+export interface GoogleRegisterData {
+  firebaseUID: string;
+  name: string;
+  email: string;
+  role: 'STUDENT' | 'VENDOR' | 'ADMIN';
+  whatsappNumber?: string;
+}
+
 export interface AuthResponse {
   token: string;
   user: {
@@ -42,6 +56,16 @@ export const authAPI = {
 
   register: async (data: RegisterData): Promise<{ message: string; user: UserInfo }> => {
     const response = await apiClient.post('/auth/register', data);
+    return response.data;
+  },
+
+  googleAuth: async (data: GoogleAuthData): Promise<AuthResponse> => {
+    const response = await apiClient.post('/auth/google', data);
+    return response.data;
+  },
+
+  googleRegister: async (data: GoogleRegisterData): Promise<AuthResponse> => {
+    const response = await apiClient.post('/auth/google-register', data);
     return response.data;
   },
 

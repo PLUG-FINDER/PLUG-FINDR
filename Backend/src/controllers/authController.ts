@@ -519,5 +519,143 @@ export const checkEmailVerification = async (req: Request, res: Response): Promi
   }
 };
 
+export const googleAuth = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { idToken } = req.body as { idToken: string };
+
+    if (!idToken) {
+      res.status(400).json({ message: "ID token is required" });
+      return;
+    }
+
+    if (admin.apps.length === 0) {
+      res.status(500).json({ message: "Firebase Admin SDK not configured" });
+      return;
+    }
+
+    try {
+      // Verify the ID token with Firebase
+      const decodedToken = await admin.auth().verifyIdToken(idToken);
+      const firebaseUID = decodedToken.uid;
+      const email = decodedToken.email || "";
+      const name = decodedToken.name || email.split("@")[0];
+
+      if (!email) {
+        res.status(400).json({ message: "Email not available from Google account" });
+        return;
+      }
+
+      // Check if user already exists
+      let user = await User.findOne({ email });
+
+      if (user) {
+        // User exists, update firebase UID if needed
+        if (!user.firebaseUID) {
+          user.firebaseUID = firebaseUID;
+          user.emailVerified = true; // Google accounts are pre-verified
+          await user.save();
+        }
+      } else {
+        res.status(404).json({ message: "User not found. Please register first." });
+        return;
+      }
+
+      // Generate JWT token
+      const token = signToken({ id: user._id.toString(), role: user.role });
+
+      res.status(200).json({
+        token,
+        user: {
+          _id: user._id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
+          whatsappNumber: user.whatsappNumber,
+        },
+      });
+    } catch (firebaseError: any) {
+      console.error("Firebase verification error:", firebaseError);
+      res.status(401).json({ message: "Invalid or expired token. Please sign in again." });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+export const googleRegister = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const {
+      firebaseUID,
+      name,
+      email,
+      role,
+      whatsappNumber,
+    } = req.body as {
+      firebaseUID: string;
+      name: string;
+      email: string;
+      role: "STUDENT" | "VENDOR" | "ADMIN";
+      whatsappNumber?: string;
+    };
+
+    if (!firebaseUID || !name || !email || !role) {
+      res.status(400).json({ message: "Firebase UID, name, email, and role are required" });
+      return;
+    }
+
+    // Check if email already exists
+    const existing = await User.findOne({ email });
+    if (existing) {
+      res.status(400).json({ message: "Email already in use. Please login instead." });
+      return;
+    }
+
+    // WhatsApp number required for students
+    if (role === "STUDENT" && !whatsappNumber) {
+      res.status(400).json({ message: "WhatsApp number is required for students" });
+      return;
+    }
+
+    // Create new user
+    const user = await User.create({
+      name,
+      email,
+      role,
+      firebaseUID,
+      whatsappNumber,
+      emailVerified: true, // Google accounts are pre-verified
+      password: crypto.randomBytes(32).toString("hex"), // Generate random password for Google users
+    });
+
+    // Create student profile if role is STUDENT
+    if (role === "STUDENT") {
+      await StudentProfile.create({ user: user._id });
+    }
+
+    // Generate JWT token
+    const token = signToken({ id: user._id.toString(), role: user.role });
+
+    res.status(201).json({
+      message: "Google registration successful",
+      token,
+      user: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        whatsappNumber: user.whatsappNumber,
+      },
+    });
+  } catch (error: any) {
+    console.error(error);
+    if (error.code === 11000) {
+      res.status(400).json({ message: "Email already in use" });
+    } else {
+      res.status(500).json({ message: "Server error" });
+    }
+  }
+};
+
 
 

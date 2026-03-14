@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useSearchParams, Link } from 'react-router-dom';
+import { useAuth } from '../../auth/AuthContext';
 import { authAPI } from '../../api/auth';
+import GoogleSignInButton from '../../components/GoogleSignInButton';
 import { registerSchema, type RegisterFormData } from '../../validation/authSchemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -21,6 +23,7 @@ const Register: React.FC = () => {
   const [adminPin, setAdminPin] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [whatsappCountryCode, setWhatsappCountryCode] = useState('+1');
+  const { googleSignUp } = useAuth();
   const navigate = useNavigate();
   const adminPinInputRef = useRef<HTMLInputElement>(null);
   const authCardRef = useRef<HTMLDivElement>(null);
@@ -421,6 +424,10 @@ const Register: React.FC = () => {
             {loading ? 'Registering...' : 'Register'}
           </button>
         </form>
+        <div style={{ margin: '1.5rem 0', textAlign: 'center' }}>
+          <p style={{ color: '#64748b', fontSize: '0.9rem', marginBottom: '1rem' }}>Or continue with</p>
+          <GoogleSignInButton role={currentRole} isSignUp={true} />
+        </div>
         <p className="auth-link">
           Already have an account? <a href="/login">Login here</a>
         </p>

@@ -3,6 +3,7 @@ import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthContext';
 import { authAPI } from '../../api/auth';
 import Loader from '../../components/Loader';
+import GoogleSignInButton from '../../components/GoogleSignInButton';
 import { loginSchema, type LoginFormData } from '../../validation/authSchemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -216,6 +217,10 @@ const Login: React.FC = () => {
             {loading ? <Loader size="small" /> : 'Login'}
           </button>
         </form>
+        <div style={{ margin: '1.5rem 0', textAlign: 'center' }}>
+          <p style={{ color: '#64748b', fontSize: '0.9rem', marginBottom: '1rem' }}>Or continue with</p>
+          <GoogleSignInButton />
+        </div>
         <p className="auth-link">
           Don't have an account? <Link to="/register">Register here</Link>
         </p>

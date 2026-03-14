@@ -14,6 +14,7 @@ interface AuthContextType {
   token: string | null;
   login: (email: string, password: string) => Promise<void>;
   register: (email: string, password: string, role: 'STUDENT' | 'VENDOR' | 'ADMIN', name?: string, whatsappNumber?: string, adminPin?: string) => Promise<void>;
+  googleSignUp: (firebaseUID: string, name: string, email: string, role: 'STUDENT' | 'VENDOR' | 'ADMIN', whatsappNumber?: string) => Promise<void>;
   logout: () => void;
   updateUser: (userData: User) => void;
   loading: boolean;
@@ -69,7 +70,25 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     whatsappNumber?: string,
     adminPin?: string
   ) => {
-    const response: AuthResponse = await authAPI.register({ email, password, role, name, whatsappNumber, adminPin });
+    const response = await authAPI.register({ email, password, role, name, whatsappNumber, adminPin });
+    // Note: register doesn't return a token - email verification is required first
+    localStorage.setItem('user', JSON.stringify(response.user));
+  };
+
+  const googleSignUp = async (
+    firebaseUID: string,
+    name: string,
+    email: string,
+    role: 'STUDENT' | 'VENDOR' | 'ADMIN',
+    whatsappNumber?: string
+  ) => {
+    const response: AuthResponse = await authAPI.googleRegister({ 
+      firebaseUID, 
+      name, 
+      email, 
+      role, 
+      whatsappNumber 
+    });
     setToken(response.token);
     setUser(response.user);
     localStorage.setItem('token', response.token);
@@ -89,7 +108,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, login, register, logout, updateUser, loading }}>
+    <AuthContext.Provider value={{ user, token, login, register, googleSignUp, logout, updateUser, loading }}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,11 +1,13 @@
 import { Router } from "express";
-import { register, login, getMe, updateProfile, forgotPassword, resetPassword, syncEmailVerification, resendVerificationEmail, checkEmailVerification } from "../controllers/authController";
+import { register, login, getMe, updateProfile, forgotPassword, resetPassword, syncEmailVerification, resendVerificationEmail, checkEmailVerification, googleAuth, googleRegister } from "../controllers/authController";
 import { protect } from "../middleware/authMiddleware";
 
 const router = Router();
 
 router.post("/register", register);
 router.post("/login", login);
+router.post("/google", googleAuth);
+router.post("/google-register", googleRegister);
 router.post("/forgot-password", forgotPassword);
 router.post("/reset-password", resetPassword);
 router.post("/sync-verification", syncEmailVerification);
