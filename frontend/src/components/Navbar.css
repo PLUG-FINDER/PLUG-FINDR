@@ -1130,7 +1130,7 @@
   .navbar-login,
   .navbar-register {
     padding: 0.5rem 0.75rem;
-    font-size: 0.8rem;
+    font-size: 1.4rem;
     white-space: nowrap;
     flex-shrink: 0;
   }

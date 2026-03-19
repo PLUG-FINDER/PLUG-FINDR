@@ -157,10 +157,17 @@
 
 .hero-desc {
  color: var(--hero-text-secondary);
- font-size: 1.1rem;
+ font-size: 1.2rem;
  line-height: 1.7;
  max-width: 480px;
  margin-bottom: 1.4rem;
+}
+
+@media (max-width: 600px) {
+   .hero-desc {
+      font-size: 1.5rem;
+      line-height: 1.8;
+   }
 }
 
 .hero-cta {

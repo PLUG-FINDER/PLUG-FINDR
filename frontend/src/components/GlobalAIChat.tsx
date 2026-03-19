@@ -13,9 +13,13 @@ interface ConversationMessage extends ChatMessage {
 
 const GlobalAIChat: React.FC = () => {
   const { user } = useAuth();
+  // System prompt for strict zero-knowledge, role-based, tool-only, deterministic AI
+  const SYSTEM_PROMPT = `You are the official AI assistant for a multi-role platform that serves students, vendors, and admin, and your sole responsibility is to provide accurate, role-specific information strictly from the platform’s internal database and approved system tools. You must operate under a zero-knowledge policy, meaning you are strictly forbidden from using any external knowledge, assumptions, or general training data—every response must be based only on data retrieved through the provided tools such as database queries or internal APIs. For every user request related to platform data (including vendors, student records, feedback, orders, analytics, or system activity), you must first invoke the appropriate tool before generating a response. If no relevant data is returned, you must respond exactly with: “I’m sorry, I don’t have any information on that within our records.” Do not guess, infer, or fabricate any missing information. You must enforce strict role-based access control, ensuring that students, vendors, and admin can only access data they are authorized to view, and you must never expose restricted or sensitive information across roles. Maintain a professional, concise, and direct tone, and present retrieved data clearly, including all relevant fields where available. Do not mention tools, the database, or that you are an AI—respond as the official voice of the platform. The system must operate in a fully deterministic mode, equivalent to a temperature setting of 0.0, ensuring zero creativity, no variation in responses, and strict adherence to instructions.`;
   const [mode, setMode] = useState<ChatMode>('button');
   const [size, setSize] = useState<ChatWindowSize>('compact');
   const [messages, setMessages] = useState<ConversationMessage[]>([]);
+  const [editingMessageId, setEditingMessageId] = useState<string | null>(null);
+  const [editingContent, setEditingContent] = useState<string>('');
   const [input, setInput] = useState('');
   const [isSending, setIsSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -53,8 +57,48 @@ const GlobalAIChat: React.FC = () => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    const content = input.trim();
+    const content = (editingMessageId ? editingContent : input).trim();
     if (!content || isSending) return;
+
+    // Always inject the system prompt as the first message in the chat history
+    const systemMessage: ChatMessage = {
+      role: 'system',
+      content: SYSTEM_PROMPT,
+    };
+
+    if (editingMessageId) {
+      // Edit mode: update the message and re-send to AI
+      setIsSending(true);
+      setError(null);
+      const updatedMessages = messages.map((msg) =>
+        msg.id === editingMessageId ? { ...msg, content } : msg
+      );
+      setMessages(updatedMessages);
+      setEditingMessageId(null);
+      setEditingContent('');
+
+      try {
+        const history: ChatMessage[] = [
+          systemMessage,
+          ...updatedMessages.map(({ role, content }) => ({ role, content })),
+        ];
+        const aiReply = await aiAPI.sendChat(history);
+        const assistantMessage: ConversationMessage = {
+          id: `assistant-${Date.now()}`,
+          role: 'assistant',
+          content: aiReply.content,
+          createdAt: Date.now(),
+        };
+        setMessages((prev) => [...prev, assistantMessage]);
+        if (mode === 'button') setHasUnread(true);
+      } catch (err: any) {
+        const friendly = err?.response?.data?.message || 'Something went wrong talking to the assistant. Please try again.';
+        setError(friendly);
+      } finally {
+        setIsSending(false);
+      }
+      return;
+    }
 
     const userMessage: ConversationMessage = {
       id: `user-${Date.now()}`,
@@ -69,10 +113,11 @@ const GlobalAIChat: React.FC = () => {
     setError(null);
 
     try {
-      const history: ChatMessage[] = [...messages, userMessage].map(({ role, content }) => ({
-        role,
-        content,
-      }));
+      const history: ChatMessage[] = [
+        systemMessage,
+        ...messages.map(({ role, content }) => ({ role, content })),
+        { role: 'user', content },
+      ];
 
       const aiReply = await aiAPI.sendChat(history);
 
@@ -98,11 +143,7 @@ const GlobalAIChat: React.FC = () => {
   };
 
   const placeholder =
-    user.role === 'STUDENT'
-      ? 'Ask about finding vendors, reviews, or using PlugFindr…'
-      : user.role === 'VENDOR'
-      ? 'Ask about managing your profile, products, or customer feedback…'
-      : 'Ask about monitoring vendors, feedback, or admin tools…';
+    'Ask your question…';
 
   if (mode === 'button') {
     return (
@@ -239,20 +280,85 @@ const GlobalAIChat: React.FC = () => {
         </div>
 
         <div className="ai-assistant-messages">
-          {messages.map((message) => (
-            <div
-              key={message.id}
-              className={`ai-assistant-message-row ${message.role === 'user' ? 'user' : 'assistant'}`}
-            >
+          {messages.map((message) => {
+            const isEditable =
+              message.role === 'user' && Date.now() - message.createdAt < 15 * 60 * 1000;
+            let editHandlers: any = {};
+            if (isEditable) {
+              editHandlers = {
+                onContextMenu: (e: React.MouseEvent) => {
+                  e.preventDefault();
+                  setEditingMessageId(message.id);
+                  setEditingContent(message.content);
+                },
+                onTouchStart: (e: React.TouchEvent) => {
+                  let timer: NodeJS.Timeout;
+                  const touchEnd = () => {
+                    clearTimeout(timer);
+                    window.removeEventListener('touchend', touchEnd);
+                    window.removeEventListener('touchmove', touchEnd);
+                  };
+                  timer = setTimeout(() => {
+                    setEditingMessageId(message.id);
+                    setEditingContent(message.content);
+                  }, 600); // 600ms for long-press
+                  window.addEventListener('touchend', touchEnd);
+                  window.addEventListener('touchmove', touchEnd);
+                }
+              };
+            }
+            return (
               <div
-                className={`ai-assistant-message-bubble ${
-                  message.role === 'user' ? 'user' : 'assistant'
-                }`}
+                key={message.id}
+                className={`ai-assistant-message-row ${message.role === 'user' ? 'user' : 'assistant'}`}
               >
-                {message.content}
+                <div className={`ai-assistant-message-bubble ${message.role === 'user' ? 'user' : 'assistant'}`}>
+                  {editingMessageId === message.id ? (
+                    <form onSubmit={handleSubmit} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <input
+                        type="text"
+                        value={editingContent}
+                        onChange={e => setEditingContent(e.target.value)}
+                        autoFocus
+                        maxLength={500}
+                        placeholder="Edit your message..."
+                        style={{ flex: 1, fontSize: '1rem', padding: '0.4rem 0.5rem', border: '1px solid #ccc', borderRadius: 4 }}
+                      />
+                      <button type="submit" style={{ marginLeft: 4, padding: '0.3rem 0.8rem', borderRadius: 4, border: '1px solid #ccc', background: '#f3f3f3', cursor: 'pointer' }}>Save</button>
+                      <button type="button" style={{ marginLeft: 4, padding: '0.3rem 0.8rem', borderRadius: 4, border: '1px solid #ccc', background: '#fff', cursor: 'pointer' }} onClick={() => { setEditingMessageId(null); setEditingContent(''); }}>Cancel</button>
+                    </form>
+                  ) : (
+                    <span
+                      {...(isEditable ? {
+                        onContextMenu: (e: React.MouseEvent) => {
+                          e.preventDefault();
+                          setEditingMessageId(message.id);
+                          setEditingContent(message.content);
+                        },
+                        onTouchStart: (e: React.TouchEvent) => {
+                          let timer: NodeJS.Timeout;
+                          const touchEnd = () => {
+                            clearTimeout(timer);
+                            window.removeEventListener('touchend', touchEnd);
+                            window.removeEventListener('touchmove', touchEnd);
+                          };
+                          timer = setTimeout(() => {
+                            setEditingMessageId(message.id);
+                            setEditingContent(message.content);
+                          }, 600);
+                          window.addEventListener('touchend', touchEnd);
+                          window.addEventListener('touchmove', touchEnd);
+                        }
+                      } : {})}
+                      style={{ width: '100%', display: 'inline-block' }}
+                    >
+                      {message.content}
+                    </span>
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
           {isSending && (
             <div className="ai-assistant-message-row assistant">
               <div className="ai-assistant-message-bubble assistant">

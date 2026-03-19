@@ -415,8 +415,8 @@ const Register: React.FC = () => {
               checked={termsAccepted}
               onChange={(e) => setTermsAccepted(e.target.checked)}
             />
-            <label htmlFor="terms">
-              I agree to the <button type="button" className="text-link" onClick={() => setShowTermsModal(true)}>Terms and Conditions</button>
+            <label htmlFor="terms" style={{ fontSize: window.innerWidth <= 768 ? '1.2rem' : undefined, fontWeight: 500 }}>
+              I agree to the <button type="button" className="text-link" onClick={() => setShowTermsModal(true)} style={{ fontSize: window.innerWidth <= 768 ? '1.2rem' : undefined }}>Terms and Conditions</button>
             </label>
           </div>
 
@@ -425,9 +425,9 @@ const Register: React.FC = () => {
           </button>
         </form>
         <div style={{ margin: '1.5rem 0', textAlign: 'center' }}>
-          <p style={{ color: '#64748b', fontSize: '0.9rem', marginBottom: '1rem' }}>Or continue with</p>
+          <p style={{ color: '#64748b', fontSize: window.innerWidth <= 768 ? '1.2rem' : '0.9rem', marginBottom: '1rem' }}>Or continue with</p>
           {currentRole === 'STUDENT' && !watch('whatsappNumber') && (
-            <div style={{ color: '#dc2626', fontSize: '0.875rem', marginBottom: '0.75rem', textAlign: 'center' }}>
+            <div style={{ color: '#dc2626', fontSize: window.innerWidth <= 768 ? '1.2rem' : '0.875rem', marginBottom: '0.75rem', textAlign: 'center', fontWeight: 500 }}>
               Please enter your WhatsApp number above to use Google Sign-Up
             </div>
           )}
@@ -438,7 +438,9 @@ const Register: React.FC = () => {
           />
         </div>
         <p className="auth-link">
-          Already have an account? <a href="/login">Login here</a>
+          <span style={{ fontSize: window.innerWidth <= 768 ? '1.2rem' : undefined, fontWeight: 500 }}>
+            Already have an account? <a href="/login" style={{ fontSize: window.innerWidth <= 768 ? '1.2rem' : undefined }}>Login here</a>
+          </span>
         </p>
       </div>
 
@@ -528,25 +530,25 @@ const Register: React.FC = () => {
       {showTermsModal && (
         <div className="terms-modal-backdrop" onClick={() => setShowTermsModal(false)}>
           <div className="terms-modal" onClick={(e) => e.stopPropagation()}>
-            <h2>Terms and Conditions & Privacy Policy</h2>
+            <h2 style={{ fontSize: window.innerWidth <= 768 ? '2rem' : undefined }}>Terms and Conditions & Privacy Policy</h2>
             <div className="terms-content">
-              <h3>1. Acceptance of Terms</h3>
-              <p>
+              <h3 style={{ fontSize: window.innerWidth <= 768 ? '1.4rem' : undefined }}>1. Acceptance of Terms</h3>
+              <p style={{ fontSize: window.innerWidth <= 768 ? '1.15rem' : undefined }}>
                 By accessing and using PlugFindr ("the Platform"), you accept and agree to be bound by the terms and provision of this agreement. 
                 In addition, when using this Platform's particular services, you shall be subject to any posted guidelines or rules applicable to such services.
                 Any participation in this service will constitute acceptance of this agreement. If you do not agree to abide by the above, please do not use this service.
               </p>
 
-              <h3>2. User Accounts and Registration</h3>
-              <p>
+              <h3 style={{ fontSize: window.innerWidth <= 768 ? '1.4rem' : undefined }}>2. User Accounts and Registration</h3>
+              <p style={{ fontSize: window.innerWidth <= 768 ? '1.15rem' : undefined }}>
                 To access certain features of the Platform, you may be required to register for an account. You agree to provide accurate, current, and complete information during the registration process 
                 and to update such information to keep it accurate, current, and complete. You are responsible for safeguarding your password and you agree not to disclose your password to any third party. 
                 You are responsible for any activities or actions under your account, whether or not you have authorized such activities or actions. 
                 PlugFindr reserves the right to terminate accounts that are inactive for an extended period or that violate our policies.
               </p>
 
-              <h3>3. Vendor Responsibilities</h3>
-              <p>
+              <h3 style={{ fontSize: window.innerWidth <= 768 ? '1.4rem' : undefined }}>3. Vendor Responsibilities</h3>
+              <p style={{ fontSize: window.innerWidth <= 768 ? '1.15rem' : undefined }}>
                 Vendors on PlugFindr certify that they have the legal right to sell the products or services listed. 
                 Vendors must ensure that all product descriptions, prices, and availability are accurate and up-to-date. 
                 Misrepresentation of products or services is strictly prohibited and may result in immediate account suspension.
@@ -554,21 +556,21 @@ const Register: React.FC = () => {
                 PlugFindr acts as a facilitator and is not a party to the actual transaction between buyers and sellers.
               </p>
 
-              <h3>4. Student/Buyer Responsibilities</h3>
-              <p>
+              <h3 style={{ fontSize: window.innerWidth <= 768 ? '1.4rem' : undefined }}>4. Student/Buyer Responsibilities</h3>
+              <p style={{ fontSize: window.innerWidth <= 768 ? '1.15rem' : undefined }}>
                 Students and other buyers agree to use the Platform for lawful purposes only. 
                 Harassment of vendors, posting of false reviews, or fraudulent activities are grounds for account termination.
                 Buyers should exercise due diligence before making purchases. While PlugFindr verifies vendors, we cannot guarantee the quality or safety of every item or service listed.
               </p>
 
-              <h3>5. Intellectual Property</h3>
-              <p>
+              <h3 style={{ fontSize: window.innerWidth <= 768 ? '1.4rem' : undefined }}>5. Intellectual Property</h3>
+              <p style={{ fontSize: window.innerWidth <= 768 ? '1.15rem' : undefined }}>
                 The Platform and its original content, features, and functionality are owned by PlugFindr and are protected by international copyright, trademark, patent, trade secret, and other intellectual property or proprietary rights laws.
                 Users retain ownership of content they upload (such as flyers or reviews) but grant PlugFindr a non-exclusive, worldwide, royalty-free license to use, reproduce, and display such content in connection with the Platform.
               </p>
 
-              <h3>6. Limitation of Liability</h3>
-              <p>
+              <h3 style={{ fontSize: window.innerWidth <= 768 ? '1.4rem' : undefined }}>6. Limitation of Liability</h3>
+              <p style={{ fontSize: window.innerWidth <= 768 ? '1.15rem' : undefined }}>
                 In no event shall PlugFindr, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential or punitive damages, 
                 including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from (i) your access to or use of or inability to access or use the Service; 
                 (ii) any conduct or content of any third party on the Service; (iii) any content obtained from the Service; and (iv) unauthorized access, use or alteration of your transmissions or content, 
@@ -577,39 +579,39 @@ const Register: React.FC = () => {
 
               <hr style={{ margin: '2rem 0', border: '0', borderTop: '1px solid #eee' }} />
 
-              <h3>7. Data Collection and Usage</h3>
-              <p>
+              <h3 style={{ fontSize: window.innerWidth <= 768 ? '1.4rem' : undefined }}>7. Data Collection and Usage</h3>
+              <p style={{ fontSize: window.innerWidth <= 768 ? '1.15rem' : undefined }}>
                 We collect information you provide directly to us, such as when you create or modify your account, request on-demand services, contact customer support, or otherwise communicate with us. 
                 This information may include: name, email, phone number, postal address, profile picture, payment method, items requested (for delivery services), delivery notes, and other information you choose to provide.
                 We use this data to facilitate transactions, improve our services, and communicate with you about updates and promotions.
               </p>
 
-              <h3>8. Information Sharing</h3>
-              <p>
+              <h3 style={{ fontSize: window.innerWidth <= 768 ? '1.4rem' : undefined }}>8. Information Sharing</h3>
+              <p style={{ fontSize: window.innerWidth <= 768 ? '1.15rem' : undefined }}>
                 We may share the information we collect about you as described in this Statement or as described at the time of collection or sharing, including as follows:
                 Through the Platform: We may share your information with other Users to enable them to provide the Services you request. For example, we share your name and delivery location with the Vendor.
                 We do not sell your personal data to third parties for direct marketing purposes.
               </p>
 
-              <h3>9. Security</h3>
-              <p>
+              <h3 style={{ fontSize: window.innerWidth <= 768 ? '1.4rem' : undefined }}>9. Security</h3>
+              <p style={{ fontSize: window.innerWidth <= 768 ? '1.15rem' : undefined }}>
                 We take reasonable measures to help protect information about you from loss, theft, misuse and unauthorized access, disclosure, alteration and destruction.
                 However, no internet transmission is completely secure, and we cannot guarantee the absolute security of your data.
               </p>
 
-              <h3>10. Cookies and Tracking Technologies</h3>
-              <p>
+              <h3 style={{ fontSize: window.innerWidth <= 768 ? '1.4rem' : undefined }}>10. Cookies and Tracking Technologies</h3>
+              <p style={{ fontSize: window.innerWidth <= 768 ? '1.15rem' : undefined }}>
                 We use cookies and similar tracking technologies to track the activity on our Service and hold certain information.
                 Cookies are files with small amount of data which may include an anonymous unique identifier.
                 You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent. However, if you do not accept cookies, you may not be able to use some portions of our Service.
               </p>
 
-              <h3>11. Contact Us</h3>
-              <p>
+              <h3 style={{ fontSize: window.innerWidth <= 768 ? '1.4rem' : undefined }}>11. Contact Us</h3>
+              <p style={{ fontSize: window.innerWidth <= 768 ? '1.15rem' : undefined }}>
                 If you have any questions about these Terms or our Privacy Policy, please contact us at legal@plugfindr.com.
               </p>
             </div>
-            <button onClick={() => setShowTermsModal(false)} className="close-terms-btn">
+            <button onClick={() => setShowTermsModal(false)} className="close-terms-btn" style={{ fontSize: window.innerWidth <= 768 ? '1.15rem' : undefined }}>
               Close (Terms and Conditions)
             </button>
           </div>

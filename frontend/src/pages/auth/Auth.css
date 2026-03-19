@@ -8,6 +8,7 @@
   position: relative;
   overflow: hidden;
   transition: background-color 0.3s ease;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 /* Removed decorative background animation */
@@ -538,10 +539,16 @@
 
   .auth-button {
     width: 100%;
-    padding: 0.71rem;
-    font-size: 0.71rem;
-    min-height: 3.1rem;
+    padding: 0.9rem 0.9rem;
+    font-size: 1.5rem;
+    min-height: auto;
     box-sizing: border-box;
+    line-height: 2.5;
+    font-weight: 700;
+  }
+
+  .auth-field label {
+    font-size: 0.9rem;
   }
 
   /* Ensure checkbox stays on one line */
@@ -553,7 +560,7 @@
   .auth-field-checkbox label {
     white-space: nowrap !important;
     flex-wrap: nowrap !important;
-    font-size: 0.64rem;
+    font-size: 0.95rem;
   }
 
   .text-link {
@@ -636,7 +643,26 @@
   }
 
   .auth-button {
-    padding: 0.6rem;
-    font-size: 0.68rem;
+    padding: 0.9rem 0.9rem;
+    font-size: 1.1rem;
+    min-height: auto;
+    line-height: 1.5;
+    font-weight: 700;
+  }
+
+  .auth-field label {
+    font-size: 0.9rem;
+  }
+
+  .auth-link {
+    font-size: 1rem;
+  }
+
+  .auth-link a {
+    font-size: 1rem;
+  }
+
+  .phone-input-wrapper select {
+    font-size: 0.95rem !important;
   }
 }

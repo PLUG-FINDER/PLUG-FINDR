@@ -378,7 +378,7 @@ h1, h2, h3, h4, h5, h6, p, span, div {
   }
 
   .auth-title {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     margin-bottom: 1.5rem;
   }
 
@@ -397,9 +397,15 @@ h1, h2, h3, h4, h5, h6, p, span, div {
   /* Buttons */
   .submit-button,
   .auth-button {
-    padding: 0.625rem;
-    font-size: 0.68rem;
-    min-height: 3.1rem;
+    padding: 0.525rem;
+    font-size: 1.4rem;
+    min-height: 2.5rem;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    /* color: rgba(255,255,255,0.5); */
+    color: #ffffff;
+    text-shadow: none;
+    background-color: var(--brand);
   }
 
   /* Cards - tighter */

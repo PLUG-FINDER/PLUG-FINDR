@@ -1,6 +1,17 @@
 import { Request, Response } from "express";
 import axios from "axios";
 import { AuthRequest } from "../middleware/authMiddleware";
+import { PLATFORM_AI_SYSTEM_PROMPT, requiresDatabaseVerification } from "../utils/aiPrompt";
+import {
+  getTotalUserCount,
+  getTotalVendorCount,
+  getTotalProductCount,
+  getTotalReviewCount,
+  getTotalFeedbackCount,
+  getTotalComplaintCount,
+  getSystemStatistics,
+  getVendorCountByStatus,
+} from "../utils/aiDatabaseHelpers";
 
 interface ChatMessage {
   role: "system" | "user" | "assistant";
@@ -37,12 +48,27 @@ export const chatWithAI = async (
       content: m.content.slice(0, 2000),
     }));
 
+    // Check if the latest user message requires database verification
+    const latestUserMessage = trimmedMessages
+      .slice()
+      .reverse()
+      .find((m) => m.role === "user")?.content || "";
+
+    let dataContext = "";
+    if (requiresDatabaseVerification(latestUserMessage)) {
+      try {
+        const stats = await getSystemStatistics();
+        const vendorStatus = await getVendorCountByStatus();
+
+        dataContext = `\n\n[VERIFIED PLATFORM DATA AS OF NOW]\nApproved Vendors: ${stats.totalVendors}\nPending/Unapproved Vendors: ${vendorStatus.pending}\nFrozen Vendors: ${vendorStatus.frozen}\nTotal Products: ${stats.totalProducts}\nTotal Users: ${stats.totalUsers}\nTotal Reviews: ${stats.totalReviews}\nAverage Product Rating: ${stats.averageProductRating}/5\nTotal Feedback Entries: ${stats.totalFeedback}\nTotal Complaints: ${stats.totalComplaints}`;
+      } catch (error) {
+        console.warn("Failed to retrieve database statistics:", error);
+      }
+    }
+
     const systemMessage: ChatMessage = {
       role: "system",
-      content:
-        "You are a helpful, general-purpose AI assistant. " +
-        "Answer questions and help with tasks across any topic in a clear, friendly, and practical way. " +
-        "You must never reveal API keys, secrets, or internal configuration.",
+      content: PLATFORM_AI_SYSTEM_PROMPT + dataContext,
     };
 
     const groqResponse = await axios.post(
