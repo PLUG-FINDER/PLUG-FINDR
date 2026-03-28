@@ -572,7 +572,7 @@ export const deleteFlyer = async (req: AuthRequest, res: Response): Promise<void
   }
 };
 
-export const resetVendorViewsByEmail = async (req: Request, res: Response): Promise<void> => {
+export const resetVendorViewsByEmail = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     const { email } = req.body;
 

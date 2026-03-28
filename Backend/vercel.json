@@ -1,27 +1,5 @@
 {
   "buildCommand": "npm run build",
-  "functions": {
-    "api/index.ts": {
-      "runtime": "nodejs18.x"
-    }
-  },
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/api"
-    }
-  ],
-  "env": [
-    "NODE_ENV",
-    "MONGODB_URI",
-    "FIREBASE_PROJECT_ID",
-    "FIREBASE_PRIVATE_KEY_ID",
-    "FIREBASE_PRIVATE_KEY",
-    "FIREBASE_CLIENT_EMAIL",
-    "FIREBASE_CLIENT_ID",
-    "FIREBASE_AUTH_URI",
-    "FIREBASE_TOKEN_URI",
-    "PORT",
-    "CORS_ORIGIN"
-  ]
+  "outputDirectory": "dist",
+  "installCommand": "npm install"
 }

@@ -38,7 +38,7 @@ if (!admin.apps.length) {
         token_uri: tokenUri,
         auth_provider_x509_cert_url: authProviderX509CertUrl,
         client_x509_cert_url: clientX509CertUrl || `https://www.googleapis.com/robot/v1/metadata/x509/${encodeURIComponent(clientEmail)}`
-      };
+      } as any;
     }
   }
 
