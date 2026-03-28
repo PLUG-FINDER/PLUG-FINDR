@@ -17,6 +17,7 @@ import {
   LocationIcon,
   TimeIcon,
   FeedbackIcon,
+  AIIcon,
   StarsRating
 } from '../utils/svgIcons';
 import Navbar from '../components/Navbar';
@@ -255,6 +256,7 @@ const Landing: React.FC = () => {
     { key: 'Services', label: 'Services', description: 'Tutoring, printing, laundry and more.' },
     { key: 'Tech', label: 'Tech', description: 'Phones, laptops, repairs & accessories.' },
     { key: 'Medicine', label: 'Medicine', description: 'Pharmacy, first‑aid and health services.' },
+    { key: 'Beauty', label: 'Beauty & Personal Care', description: 'Hair, skincare, cosmetics & grooming.' },
   ];
 
   return (
@@ -462,6 +464,11 @@ const Landing: React.FC = () => {
               <div className="feature-icon-wrap"><ChatIcon /></div>
               <h3>Direct Contact</h3>
               <p>Connect instantly via WhatsApp</p>
+            </div>
+            <div className="feature-tile">
+              <div className="feature-icon-wrap"><AIIcon /></div>
+              <h3>AI Chat Assistant</h3>
+              <p>Get instant answers and platform guidance 24/7</p>
             </div>
             <div className="feature-tile">
               <div className="feature-icon-wrap"><MobileIcon /></div>

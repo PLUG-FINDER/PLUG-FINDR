@@ -36,6 +36,12 @@ export const MedicineIcon = () => (
  </svg>
 );
 
+export const BeautyIcon = () => (
+ <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z" />
+ </svg>
+);
+
 // Feature Icons
 export const SearchIcon = () => (
  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" xmlns="http://www.w3.org/2000/svg">
@@ -104,6 +110,12 @@ export const CheckIcon = () => (
  </svg>
 );
 
+export const AIIcon = () => (
+ <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.13 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.87-3.13-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 13.75 7 11.99 7 10c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.99-.8 3.75-2.15 5.1z" />
+ </svg>
+);
+
 /**
  * Render stars component (displays 5 stars)
  */
@@ -127,6 +139,7 @@ export const getCategoryIconComponent = (category: string): React.ReactNode => {
   Services: ServicesIcon,
   Tech: TechIcon,
   Medicine: MedicineIcon,
+  Beauty: BeautyIcon,
  };
 
  const IconComponent = categoryMap[category];
@@ -146,6 +159,7 @@ export const getFeatureIconComponent = (featureName: string): React.ReactNode =>
   location: LocationIcon,
   time: TimeIcon,
   feedback: FeedbackIcon,
+  ai: AIIcon,
  };
 
  const IconComponent = featureMap[featureName.toLowerCase()];
