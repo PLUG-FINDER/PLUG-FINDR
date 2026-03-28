@@ -111,7 +111,7 @@ const About: React.FC = () => {
 
           <h3>6. Contact Us</h3>
           <p>
-            If you have any questions about these Terms or our Privacy Policy, please contact us at legal@plugfindr.com.
+            If you have any questions about these Terms or our Privacy Policy, please contact us at kpetigojoseph4@gmail.com.
           </p>
         </section>
       </div>
