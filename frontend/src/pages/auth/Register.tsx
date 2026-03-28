@@ -606,7 +606,7 @@ const Register: React.FC = () => {
 
               <h3 style={{ fontSize: window.innerWidth <= 768 ? '1.4rem' : undefined }}>11. Contact Us</h3>
               <p style={{ fontSize: window.innerWidth <= 768 ? '1.15rem' : undefined }}>
-                If you have any questions about these Terms or our Privacy Policy, please contact us at legal@plugfindr.com.
+                If you have any questions about these Terms or our Privacy Policy, please contact us at kpetigojoseph4@gmail.com.
               </p>
             </div>
             <button onClick={() => setShowTermsModal(false)} className="close-terms-btn" style={{ fontSize: window.innerWidth <= 768 ? '1.15rem' : undefined }}>
