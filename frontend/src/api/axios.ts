@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { getApiBaseUrl } from '../utils/imageUtils';
 
-const API_BASE_URL = getApiBaseUrl();
+// Get API base URL from environment variable or fallback to getApiBaseUrl()
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || getApiBaseUrl();
 
 // Log the API base URL for debugging
 console.log('API Base URL:', API_BASE_URL);

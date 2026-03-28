@@ -1,6 +1,8 @@
 import { CorsOptions } from "cors";
 
-const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:3000";
+const CLIENT_URL = process.env.CLIENT_URL || 
+                   process.env.CORS_ORIGIN || 
+                   "http://localhost:3000";
 
 // Function to check if origin is allowed
 const isOriginAllowed = (origin: string | undefined): boolean => {
@@ -11,22 +13,36 @@ const isOriginAllowed = (origin: string | undefined): boolean => {
     return true;
   }
   
-  // Allow the configured CLIENT_URL
+  // Allow the configured CLIENT_URL / CORS_ORIGIN
   if (origin === CLIENT_URL) {
     return true;
   }
-  
-  const url = new URL(origin);
-  
-  // Check if it's a local network IP (private IP ranges):
-  // - 192.168.0.0 - 192.168.255.255
-  // - 10.0.0.0 - 10.255.255.255
-  // - 172.16.0.0 - 172.31.255.255 (includes 172.20.x.x like 172.20.10.2)
-  const isLocalNetwork = /^(192\.168\.|10\.|172\.(1[6-9]|2[0-9]|3[01])\.)/.test(url.hostname);
-  
-  // Allow any port for local network IPs (more permissive for network access)
-  if (isLocalNetwork) {
+
+  // Allow Vercel preview deployments
+  if (origin.includes('vercel.app')) {
     return true;
+  }
+
+  // Allow www variants  
+  if (origin === `https://www.${CLIENT_URL}` || origin === `http://www.${CLIENT_URL}`) {
+    return true;
+  }
+  
+  try {
+    const url = new URL(origin);
+    
+    // Check if it's a local network IP (private IP ranges):
+    // - 192.168.0.0 - 192.168.255.255
+    // - 10.0.0.0 - 10.255.255.255
+    // - 172.16.0.0 - 172.31.255.255 (includes 172.20.x.x like 172.20.10.2)
+    const isLocalNetwork = /^(192\.168\.|10\.|172\.(1[6-9]|2[0-9]|3[01])\.)/.test(url.hostname);
+    
+    // Allow any port for local network IPs (more permissive for network access)
+    if (isLocalNetwork) {
+      return true;
+    }
+  } catch (err) {
+    console.error('Error parsing origin URL:', err);
   }
   
   return false;
@@ -48,7 +64,8 @@ export const corsOptions: CorsOptions = {
   },
   credentials: true,
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"]
+  allowedHeaders: ["Content-Type", "Authorization"],
+  optionsSuccessStatus: 200
 };
 
 
