@@ -30,7 +30,7 @@ const knustHallsAndHostels = [
   { value: 'Africa Hall', label: 'Africa Hall', group: 'Other Halls' },
   { value: 'Queen Elizabeth II Hall', label: 'Queen Elizabeth II Hall', group: 'Other Halls' },
   // Accredited Hostels on Campus
-  { value: 'GUSSS Hostels (Brunei)', label: 'GUSSS Hostels (Brunei)', group: 'Accredited Hostels' },
+  { value: 'GUSSS Hostel (Brunei)', label: 'GUSSS Hostel (Brunei)', group: 'Accredited Hostels' },
   { value: 'SRC Hostel (Otumfuo Osei Tutu II Hostel)', label: 'SRC Hostel (Otumfuo Osei Tutu II Hostel)', group: 'Accredited Hostels' },
   { value: 'Engineering Guest House', label: 'Engineering Guest House', group: 'Accredited Hostels' },
   { value: 'SMS Guest House', label: 'SMS Guest House', group: 'Accredited Hostels' },

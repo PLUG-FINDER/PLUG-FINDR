@@ -28,6 +28,19 @@ interface UserLocation {
   lng: number;
 }
 
+const KNOWN_LOCATION_COORDS: Array<{ keys: string[]; lat: number; lng: number }> = [
+  { keys: ['unity hall', 'unity annex'], lat: 6.6766, lng: -1.5755 },
+  { keys: ['republic hall', 'republic annex'], lat: 6.6769, lng: -1.5698 },
+  { keys: ['independence hall', 'independence annex'], lat: 6.6695, lng: -1.5791 },
+  { keys: ['katanga hall', 'katanga annex'], lat: 6.6667, lng: -1.5768 },
+  { keys: ['africa hall'], lat: 6.6713, lng: -1.5665 },
+  { keys: ['queen elizabeth ii hall', 'queen elizabeth'], lat: 6.6722, lng: -1.5639 },
+  { keys: ['gusss hostel', 'gusss hostels', 'brunei'], lat: 6.6748, lng: -1.5594 },
+  { keys: ['src hostel', 'otumfuo osei tutu'], lat: 6.6705, lng: -1.5589 },
+  { keys: ['engineering guest house'], lat: 6.6738, lng: -1.5659 },
+  { keys: ['sms guest house'], lat: 6.6688, lng: -1.5617 }
+];
+
 const Landing: React.FC = () => {
   const { user } = useAuth();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -54,6 +67,15 @@ const Landing: React.FC = () => {
   const getVendorCoordinates = (vendor: VendorProfile): { lat: number; lng: number } => {
     // KNUST campus center coordinates
     const knustCenter = { lat: 6.6720, lng: -1.5710 };
+
+    // Prefer location text mapping for more realistic distance sorting.
+    const locationBlob = `${vendor.hostelName || ''} ${vendor.location || ''}`.toLowerCase();
+    const mappedLocation = KNOWN_LOCATION_COORDS.find((entry) =>
+      entry.keys.some((key) => locationBlob.includes(key))
+    );
+    if (mappedLocation) {
+      return { lat: mappedLocation.lat, lng: mappedLocation.lng };
+    }
     
     // If vendor has exact coordinates (future enhancement), use those
     // For now, we'll use approximate coordinates based on KNUST campus
@@ -72,7 +94,7 @@ const Landing: React.FC = () => {
     // Convert hash to a value between -1 and 1
     const normalizedHash = (hash % 1000) / 1000;
     
-    // Add small variations around KNUST center (within ~1.5km radius)
+    // Fallback: add small deterministic variation around KNUST center (within ~1.5km radius)
     const variation = 0.015; // ~1.5km variation
     return {
       lat: knustCenter.lat + (normalizedHash * variation),

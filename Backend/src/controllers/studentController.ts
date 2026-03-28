@@ -10,6 +10,65 @@ import { Product } from "../models/Product";
 import { Feedback } from "../models/Feedback";
 import { parseQuery, buildSearchFilter, sortByRelevance } from "../utils/searchEngine";
 
+const LOCATION_STOP_WORDS = new Set([
+  "hostel",
+  "hostels",
+  "hall",
+  "annex",
+  "guest",
+  "house"
+]);
+
+const normalizeLocationText = (value: string): string => {
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+};
+
+const buildLocationTokens = (value: string): string[] => {
+  const normalized = normalizeLocationText(value);
+  if (!normalized) return [];
+
+  const rawTokens = normalized
+    .split(" ")
+    .map((token) => token.trim())
+    .filter((token) => token.length > 1 && !LOCATION_STOP_WORDS.has(token));
+
+  const expandedTokens = rawTokens.flatMap((token) => {
+    if (token.endsWith("s") && token.length > 3) {
+      return [token, token.slice(0, -1)];
+    }
+    return [token];
+  });
+
+  return Array.from(new Set(expandedTokens));
+};
+
+const buildFlexibleLocationRegex = (value: string): string => {
+  const tokens = buildLocationTokens(value);
+  if (tokens.length === 0) {
+    const escaped = value.trim().replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    return escaped;
+  }
+  return tokens.join(".*");
+};
+
+const isFlexibleLocationMatch = (hostelName: string, location: string, query: string): boolean => {
+  const normalizedQuery = normalizeLocationText(query);
+  const normalizedVendor = normalizeLocationText(`${hostelName || ""} ${location || ""}`);
+
+  if (!normalizedQuery || !normalizedVendor) return false;
+  if (normalizedVendor.includes(normalizedQuery) || normalizedQuery.includes(normalizedVendor)) {
+    return true;
+  }
+
+  const tokens = buildLocationTokens(query);
+  if (tokens.length === 0) return false;
+  return tokens.every((token) => normalizedVendor.includes(token));
+};
+
 const mapVendorForStudent = async (profile: any) => {
   const vendorId = profile._id;
   
@@ -114,12 +173,21 @@ export const searchVendors = async (req: AuthRequest, res: Response): Promise<vo
     // Build MongoDB filter based on parsed query
     const filter = buildSearchFilter(parsedQuery, category);
     
-    // Add hostel filter if provided - search both hostelName and location fields
+    // Add hostel filter if provided - tolerant matching across hostelName and location fields
     if (hostel.trim()) {
-      filter.$or = [
-        { hostelName: { $regex: hostel.trim(), $options: "i" } },
-        { location: { $regex: hostel.trim(), $options: "i" } }
-      ];
+      const hostelRegex = buildFlexibleLocationRegex(hostel.trim());
+      const hostelFilter = {
+        $or: [
+          { hostelName: { $regex: hostelRegex, $options: "i" } },
+          { location: { $regex: hostelRegex, $options: "i" } }
+        ]
+      };
+
+      if (filter.$and && Array.isArray(filter.$and)) {
+        filter.$and.push(hostelFilter);
+      } else {
+        filter.$and = [hostelFilter];
+      }
     }
     
     // Exclude frozen vendors from search results
@@ -149,17 +217,23 @@ export const getVendorsByHostel = async (req: AuthRequest, res: Response): Promi
       return;
     }
 
-    // Find vendors in the specified hostel - search both hostelName and location fields
+    // First pass: DB filter with tolerant regex matching on both location fields.
+    const locationRegex = buildFlexibleLocationRegex(hostel.trim());
     const vendors = await VendorProfile.find({
       approved: true,
       isFrozen: { $ne: true },
       $or: [
-        { hostelName: { $regex: hostel.trim(), $options: "i" } },
-        { location: { $regex: hostel.trim(), $options: "i" } }
+        { hostelName: { $regex: locationRegex, $options: "i" } },
+        { location: { $regex: locationRegex, $options: "i" } }
       ]
     }).sort({ createdAt: -1 });
 
-    const mapped = await Promise.all(vendors.map((v) => mapVendorForStudent(v)));
+    // Second pass: normalize and verify string-token match for edge cases like punctuation/plurals.
+    const filteredVendors = vendors.filter((vendor) =>
+      isFlexibleLocationMatch(vendor.hostelName || "", vendor.location || "", hostel.trim())
+    );
+
+    const mapped = await Promise.all(filteredVendors.map((v) => mapVendorForStudent(v)));
     res.json(mapped);
   } catch (error) {
     console.error(error);
