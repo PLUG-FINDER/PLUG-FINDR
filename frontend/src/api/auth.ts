@@ -70,37 +70,37 @@ export const authAPI = {
   },
 
   forgotPassword: async (email: string): Promise<{ message: string }> => {
-    const response = await apiClient.post('/auth/forgot-password', { email });
+    const response = await apiClient.post('/api/auth/forgot-password', { email });
     return response.data;
   },
 
   resetPassword: async (token: string, password: string): Promise<{ message: string }> => {
-    const response = await apiClient.post('/auth/reset-password', { token, password });
+    const response = await apiClient.post('/api/auth/reset-password', { token, password });
     return response.data;
   },
 
   resendVerificationEmail: async (email: string): Promise<{ message: string }> => {
-    const response = await apiClient.post('/auth/resend-verification', { email });
+    const response = await apiClient.post('/api/auth/resend-verification', { email });
     return response.data;
   },
 
   syncEmailVerification: async (email: string): Promise<{ message: string; emailVerified: boolean }> => {
-    const response = await apiClient.post('/auth/sync-verification', { email });
+    const response = await apiClient.post('/api/auth/sync-verification', { email });
     return response.data;
   },
 
   checkEmailVerification: async (): Promise<{ emailVerified: boolean }> => {
-    const response = await apiClient.get('/auth/check-verification');
+    const response = await apiClient.get('/api/auth/check-verification');
     return response.data;
   },
 
   getMe: async (): Promise<UserInfo> => {
-    const response = await apiClient.get('/auth/me');
+    const response = await apiClient.get('/api/auth/me');
     return response.data;
   },
 
   updateProfile: async (name: string): Promise<UserInfo> => {
-    const response = await apiClient.put('/auth/profile', { name });
+    const response = await apiClient.put('/api/auth/profile', { name });
     return response.data;
   },
 };
