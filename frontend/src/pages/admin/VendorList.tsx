@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { adminAPI } from '../../api/admin';
 import { VendorProfile } from '../../api/vendor';
 import Loader from '../../components/Loader';
-import BackButton from '../../components/BackButton';
+// import BackButton from '../../components/BackButton';
 import './AdminPages.css';
 
 const VendorList: React.FC = () => {
@@ -35,7 +35,7 @@ const VendorList: React.FC = () => {
     }
   };
 
-  const handleFreezeToggle = async (vendorId: string, currentFreezeStatus: boolean) => {
+  const handleFreezeToggle = async (vendorId: string, _currentFreezeStatus: boolean) => {
     try {
       setFreezing(vendorId);
       await adminAPI.toggleVendorFreeze(vendorId);

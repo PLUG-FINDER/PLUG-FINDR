@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthContext';
-import { useTheme } from '../../contexts/ThemeContext';
 import { vendorAPI, VendorProfile, Product } from '../../api/vendor';
 import { studentAPI, Review } from '../../api/student';
 import Loader from '../../components/Loader';
@@ -21,8 +20,6 @@ const VendorDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { user } = useAuth();
-  const { theme } = useTheme();
-  const isDark = theme === 'dark';
   const [vendor, setVendor] = useState<VendorProfile | null>(null);
   const [products, setProducts] = useState<Product[]>([]);
   const [reviews, setReviews] = useState<any[]>([]);
@@ -46,7 +43,7 @@ const VendorDetail: React.FC = () => {
 
   // Login Prompt State
   const [showLoginPrompt, setShowLoginPrompt] = useState(false);
-  const [pendingAction, setPendingAction] = useState<() => void | null>(null);
+  const [_pendingAction, setPendingAction] = useState<(() => void) | null>(null);
 
   // Feedback Modal State
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);

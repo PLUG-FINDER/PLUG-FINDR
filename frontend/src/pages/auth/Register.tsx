@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate, useSearchParams, Link } from 'react-router-dom';
-import { useAuth } from '../../auth/AuthContext';
+import { useSearchParams, Link } from 'react-router-dom';
 import { authAPI } from '../../api/auth';
 import GoogleSignInButton from '../../components/GoogleSignInButton';
 import { registerSchema, type RegisterFormData } from '../../validation/authSchemas';
@@ -23,8 +22,7 @@ const Register: React.FC = () => {
   const [adminPin, setAdminPin] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [whatsappCountryCode, setWhatsappCountryCode] = useState('+1');
-  const { googleSignUp } = useAuth();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const adminPinInputRef = useRef<HTMLInputElement>(null);
   const authCardRef = useRef<HTMLDivElement>(null);
 
@@ -42,7 +40,7 @@ const Register: React.FC = () => {
     setValue,
     watch,
   } = useForm<RegisterFormData>({
-    resolver: zodResolver(registerSchema),
+    resolver: zodResolver(registerSchema) as any,
     mode: 'onChange',
     defaultValues: {
       role: initialRole as 'STUDENT' | 'VENDOR' | 'ADMIN',
@@ -272,7 +270,7 @@ const Register: React.FC = () => {
     <div className="auth-container" style={{ position: 'relative', minHeight: '100vh' }}>
       <div ref={authCardRef} className="auth-card" style={{ position: 'relative', zIndex: 1 }}>
         <h1 className="auth-title">Register for PlugFindr</h1>
-        <form onSubmit={handleSubmit(onSubmit)} className="auth-form">
+        <form onSubmit={handleSubmit(onSubmit as any)} className="auth-form">
           {error && <div className="auth-error">{error}</div>}
           <div className="auth-field">
             <label htmlFor="name">Name</label>

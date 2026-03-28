@@ -7,7 +7,6 @@ import './Layout.css';
 
 const VendorLayout: React.FC = () => {
   const layoutMainRef = useRef<HTMLElement>(null);
-  const navbarRef = useRef<HTMLElement>(null);
 
   // #region agent log
   useEffect(() => {

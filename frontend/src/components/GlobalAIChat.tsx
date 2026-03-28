@@ -283,30 +283,6 @@ const GlobalAIChat: React.FC = () => {
           {messages.map((message) => {
             const isEditable =
               message.role === 'user' && Date.now() - message.createdAt < 15 * 60 * 1000;
-            let editHandlers: any = {};
-            if (isEditable) {
-              editHandlers = {
-                onContextMenu: (e: React.MouseEvent) => {
-                  e.preventDefault();
-                  setEditingMessageId(message.id);
-                  setEditingContent(message.content);
-                },
-                onTouchStart: (e: React.TouchEvent) => {
-                  let timer: NodeJS.Timeout;
-                  const touchEnd = () => {
-                    clearTimeout(timer);
-                    window.removeEventListener('touchend', touchEnd);
-                    window.removeEventListener('touchmove', touchEnd);
-                  };
-                  timer = setTimeout(() => {
-                    setEditingMessageId(message.id);
-                    setEditingContent(message.content);
-                  }, 600); // 600ms for long-press
-                  window.addEventListener('touchend', touchEnd);
-                  window.addEventListener('touchmove', touchEnd);
-                }
-              };
-            }
             return (
               <div
                 key={message.id}
@@ -335,7 +311,7 @@ const GlobalAIChat: React.FC = () => {
                           setEditingMessageId(message.id);
                           setEditingContent(message.content);
                         },
-                        onTouchStart: (e: React.TouchEvent) => {
+                        onTouchStart: (_e: React.TouchEvent) => {
                           let timer: NodeJS.Timeout;
                           const touchEnd = () => {
                             clearTimeout(timer);

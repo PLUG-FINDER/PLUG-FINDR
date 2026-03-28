@@ -1,5 +1,5 @@
 // Map country codes to ISO country codes for flag emojis
-export const getCountryFlag = (countryCode: string, countryName: string): string => {
+export const getCountryFlag = (countryCode: string, _countryName: string): string => {
   // Map country codes to ISO 3166-1 alpha-2 codes
   const countryCodeMap: Record<string, string> = {
     '+1': 'US', // US/CA - defaulting to US flag

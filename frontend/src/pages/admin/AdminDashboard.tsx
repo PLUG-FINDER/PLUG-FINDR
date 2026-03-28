@@ -34,7 +34,7 @@ const AdminDashboard: React.FC = () => {
       });
 
       setRecentVendors(dashboardStats.recentVendors as any);
-      setRecentFeedbacks(dashboardStats.recentFeedbacks);
+      setRecentFeedbacks(dashboardStats.recentFeedbacks as any);
     } catch (err: any) {
       setError(err.response?.data?.message || 'Failed to load dashboard data.');
     } finally {

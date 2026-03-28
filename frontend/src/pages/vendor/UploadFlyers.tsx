@@ -45,7 +45,7 @@ const UploadFlyers: React.FC = () => {
     setSuccess('');
 
     try {
-      const result = await vendorAPI.uploadFlyers(files);
+      await vendorAPI.uploadFlyers(files);
       setSuccess(`Successfully uploaded ${files.length} file(s)!`);
       setFiles([]);
       loadProfile();

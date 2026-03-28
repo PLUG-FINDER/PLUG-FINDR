@@ -76,12 +76,7 @@ const Reviews: React.FC = () => {
     return 'Unknown Product';
   };
 
-  const getProductId = (review: Review) => {
-    if (typeof review.product === 'object' && review.product?._id) {
-      return review.product._id;
-    }
-    return review.productId || '';
-  };
+  // No need for getProductId - not used in the component
 
   return (
     <div className="page-container">

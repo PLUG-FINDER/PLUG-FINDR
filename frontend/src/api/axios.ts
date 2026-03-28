@@ -25,7 +25,7 @@ apiClient.interceptors.request.use(
       config.headers.Authorization = `Bearer ${token}`;
     }
     // Log the full URL being requested
-    console.log('Making request to:', config.baseURL + config.url);
+    console.log('Making request to:', (config.baseURL || '') + (config.url || ''));
     return config;
   },
   (error) => {

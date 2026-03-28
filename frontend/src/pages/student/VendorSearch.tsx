@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { useAuth } from '../../auth/AuthContext';
 import { vendorAPI, VendorProfile } from '../../api/vendor';
 import VendorCard from '../../components/VendorCard';
 import Loader from '../../components/Loader';
@@ -9,7 +8,7 @@ import BackButton from '../../components/BackButton';
 import './StudentPages.css';
 
 const VendorSearch: React.FC = () => {
-  const { user } = useAuth();
+  // const { user } = useAuth();
   const [searchParams] = useSearchParams();
   const [vendors, setVendors] = useState<VendorProfile[]>([]);
   const [searchQuery, setSearchQuery] = useState('');

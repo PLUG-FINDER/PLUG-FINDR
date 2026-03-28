@@ -45,9 +45,7 @@ export const registerSchema = z.object({
       passwordRegex,
       'Password must be at least 6 characters and contain at least one letter and one number'
     ),
-  role: z.enum(['STUDENT', 'VENDOR', 'ADMIN'], {
-    errorMap: () => ({ message: 'Please select a valid role' }),
-  }),
+  role: z.enum(['STUDENT', 'VENDOR', 'ADMIN']).default('STUDENT'),
   whatsappNumber: z.string().optional(),
 }).refine((data) => {
   if (data.role === 'STUDENT' && !data.whatsappNumber) {

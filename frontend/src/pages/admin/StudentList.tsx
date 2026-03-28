@@ -24,7 +24,7 @@ const StudentList: React.FC = () => {
   const loadStudents = async () => {
     try {
       const data = await adminAPI.getAllStudents();
-      setStudents(data);
+      setStudents(data as any);
     } catch (err: any) {
       setError(err.response?.data?.message || 'Failed to load students.');
     } finally {
@@ -32,7 +32,7 @@ const StudentList: React.FC = () => {
     }
   };
 
-  const handleFreezeToggle = async (studentId: string, currentFreezeStatus: boolean) => {
+  const handleFreezeToggle = async (studentId: string, _currentFreezeStatus: boolean) => {
     try {
       setFreezing(studentId);
       await adminAPI.toggleStudentFreeze(studentId);

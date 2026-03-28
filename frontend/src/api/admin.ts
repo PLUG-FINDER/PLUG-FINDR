@@ -1,6 +1,5 @@
 import apiClient from './axios';
 import { VendorProfile } from './vendor';
-import { Review } from './student';
 import { UserInfo } from './auth';
 
 export interface Feedback {

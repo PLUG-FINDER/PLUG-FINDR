@@ -117,7 +117,7 @@ const VendorProfile: React.FC = () => {
     e.preventDefault();
     
     // Validate description length
-    const trimmedDescription = formData.description.trim();
+    const trimmedDescription = (formData?.description ?? '').trim();
     if (trimmedDescription.length < MIN_DESCRIPTION_LENGTH) {
       setError(`Description must be at least ${MIN_DESCRIPTION_LENGTH} characters (approximately 2-3 lines). Please provide more details about your business.`);
       // Scroll to top to show error
@@ -213,7 +213,7 @@ const VendorProfile: React.FC = () => {
           <textarea
             id="description"
             name="description"
-            value={formData.description}
+            value={formData?.description ?? ''}
             onChange={handleChange}
             required
             rows={4}
@@ -221,11 +221,11 @@ const VendorProfile: React.FC = () => {
             placeholder="Provide a detailed description of your business (minimum 2-3 lines). Include what products or services you offer, your unique selling points, operating hours, special offers, and any other relevant information that would help students understand your business better..."
           />
           <div className="char-count-wrapper">
-            <span className={`char-count ${formData.description.length < MIN_DESCRIPTION_LENGTH ? 'char-count-warning' : 'char-count-success'}`}>
-              {formData.description.length} / {MIN_DESCRIPTION_LENGTH} characters
-              {formData.description.length < MIN_DESCRIPTION_LENGTH && (
+            <span className={`char-count ${(formData?.description ?? '').length < MIN_DESCRIPTION_LENGTH ? 'char-count-warning' : 'char-count-success'}`}>
+              {(formData?.description ?? '').length} / {MIN_DESCRIPTION_LENGTH} characters
+              {(formData?.description ?? '').length < MIN_DESCRIPTION_LENGTH && (
                 <span className="char-count-message">
-                  {' '}({MIN_DESCRIPTION_LENGTH - formData.description.length} more needed)
+                  {' '}({MIN_DESCRIPTION_LENGTH - (formData?.description ?? '').length} more needed)
                 </span>
               )}
             </span>

@@ -5,7 +5,6 @@ import { vendorAPI, VendorProfile } from '../api/vendor';
 import { getApiBaseUrl } from '../utils/imageUtils';
 import {
   getCategoryIconComponent,
-  getFeatureIconComponent,
   StarIcon,
   RocketIcon,
   CheckIcon,
@@ -34,7 +33,7 @@ const Landing: React.FC = () => {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [nearbyVendors, setNearbyVendors] = useState<VendorProfile[]>([]);
   const [userLocation, setUserLocation] = useState<UserLocation | null>(null);
-  const [locationError, setLocationError] = useState<string | null>(null);
+  const [_locationError, setLocationError] = useState<string | null>(null);
   const [loadingVendors, setLoadingVendors] = useState(true);
 
   // Haversine formula to calculate distance between two coordinates in kilometers
