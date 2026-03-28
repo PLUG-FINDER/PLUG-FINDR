@@ -62,61 +62,61 @@ export interface DashboardData {
 
 export const studentAPI = {
   getDashboardData: async (): Promise<DashboardData> => {
-    const response = await apiClient.get('/student/dashboard');
+    const response = await apiClient.get('/api/student/dashboard');
     return response.data;
   },
 
   createReview: async (data: ReviewCreate): Promise<Review> => {
-    const response = await apiClient.post('/student/reviews', data);
+    const response = await apiClient.post('/api/student/reviews', data);
     return response.data;
   },
 
   createProductReview: async (data: ProductReviewCreate): Promise<Review> => {
-    const response = await apiClient.post('/student/reviews/product', data);
+    const response = await apiClient.post('/api/student/reviews/product', data);
     return response.data;
   },
 
   createVendorFeedback: async (data: { vendorId: string; message: string; contactPhone: string }): Promise<any> => {
-    const response = await apiClient.post('/student/vendor-feedback', data);
+    const response = await apiClient.post('/api/student/vendor-feedback', data);
     return response.data;
   },
 
   createGeneralFeedback: async (data: { category: string; message: string; contactPhone: string }): Promise<any> => {
-    const response = await apiClient.post('/student/general-feedback', data);
+    const response = await apiClient.post('/api/student/general-feedback', data);
     return response.data;
   },
 
   getMyGeneralFeedback: async (): Promise<any[]> => {
-    const response = await apiClient.get('/student/general-feedback');
+    const response = await apiClient.get('/api/student/general-feedback');
     return response.data;
   },
 
   getReviews: async (vendorId: string): Promise<Review[]> => {
-    const response = await apiClient.get(`/student/reviews/${vendorId}`);
+    const response = await apiClient.get(`/api/student/reviews/${vendorId}`);
     return response.data;
   },
 
   getProductReviews: async (productId: string): Promise<Review[]> => {
-    const response = await apiClient.get(`/student/reviews/product/${productId}`);
+    const response = await apiClient.get(`/api/student/reviews/product/${productId}`);
     return response.data;
   },
 
   getMyReviews: async (): Promise<Review[]> => {
-    const response = await apiClient.get('/student/my-reviews');
+    const response = await apiClient.get('/api/student/my-reviews');
     return response.data;
   },
 
   deleteReview: async (reviewId: string): Promise<void> => {
-    await apiClient.delete(`/student/reviews/${reviewId}`);
+    await apiClient.delete(`/api/student/reviews/${reviewId}`);
   },
 
   getVendorProducts: async (vendorId: string): Promise<Product[]> => {
-    const response = await apiClient.get(`/student/vendor/${vendorId}/products`);
+    const response = await apiClient.get(`/api/student/vendor/${vendorId}/products`);
     return response.data;
   },
 
   clearRecentSearches: async (): Promise<void> => {
-    await apiClient.delete('/student/dashboard/recent-searches');
+    await apiClient.delete('/api/student/dashboard/recent-searches');
   },
 };
 

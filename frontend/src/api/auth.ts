@@ -50,22 +50,22 @@ export interface UserInfo {
 
 export const authAPI = {
   login: async (credentials: LoginCredentials): Promise<AuthResponse> => {
-    const response = await apiClient.post('/auth/login', credentials);
+    const response = await apiClient.post('/api/auth/login', credentials);
     return response.data;
   },
 
   register: async (data: RegisterData): Promise<{ message: string; user: UserInfo }> => {
-    const response = await apiClient.post('/auth/register', data);
+    const response = await apiClient.post('/api/auth/register', data);
     return response.data;
   },
 
   googleAuth: async (data: GoogleAuthData): Promise<AuthResponse> => {
-    const response = await apiClient.post('/auth/google', data);
+    const response = await apiClient.post('/api/auth/google', data);
     return response.data;
   },
 
   googleRegister: async (data: GoogleRegisterData): Promise<AuthResponse> => {
-    const response = await apiClient.post('/auth/google-register', data);
+    const response = await apiClient.post('/api/auth/google-register', data);
     return response.data;
   },
 

@@ -42,84 +42,84 @@ export interface DashboardStats {
 
 export const adminAPI = {
   getDashboardStats: async (): Promise<DashboardStats> => {
-    const response = await apiClient.get('/admin/dashboard/stats');
+    const response = await apiClient.get('/api/admin/dashboard/stats');
     return response.data;
   },
 
   getPendingVendors: async (): Promise<VendorProfile[]> => {
-    const response = await apiClient.get('/admin/vendors/pending');
+    const response = await apiClient.get('/api/admin/vendors/pending');
     return response.data;
   },
 
   approveVendor: async (vendorId: string): Promise<VendorProfile> => {
-    const response = await apiClient.put(`/admin/vendors/${vendorId}/approve`);
+    const response = await apiClient.put(`/api/admin/vendors/${vendorId}/approve`);
     return response.data;
   },
 
   rejectVendor: async (vendorId: string): Promise<VendorProfile> => {
-    const response = await apiClient.put(`/admin/vendors/${vendorId}/reject`);
+    const response = await apiClient.put(`/api/admin/vendors/${vendorId}/reject`);
     return response.data;
   },
 
   getAllVendors: async (): Promise<VendorProfile[]> => {
-    const response = await apiClient.get('/admin/vendors');
+    const response = await apiClient.get('/api/admin/vendors');
     return response.data;
   },
 
   getRejectedVendors: async (): Promise<VendorProfile[]> => {
-    const response = await apiClient.get('/admin/vendors/rejected');
+    const response = await apiClient.get('/api/admin/vendors/rejected');
     return response.data;
   },
 
   getFeedbacks: async (): Promise<Feedback[]> => {
-    const response = await apiClient.get('/admin/feedbacks');
+    const response = await apiClient.get('/api/admin/feedbacks');
     return response.data;
   },
 
   replyToFeedback: async (feedbackId: string, reply: string): Promise<Feedback> => {
-    const response = await apiClient.put(`/admin/feedbacks/${feedbackId}/reply`, { reply });
+    const response = await apiClient.put(`/api/admin/feedbacks/${feedbackId}/reply`, { reply });
     return response.data;
   },
 
   updateFeedbackStatus: async (feedbackId: string, status: 'PENDING' | 'IN_PROGRESS' | 'RESOLVED'): Promise<Feedback> => {
-    const response = await apiClient.put(`/admin/feedbacks/${feedbackId}/status`, { status });
+    const response = await apiClient.put(`/api/admin/feedbacks/${feedbackId}/status`, { status });
     return response.data;
   },
 
   deleteFeedback: async (feedbackId: string): Promise<void> => {
-    await apiClient.delete(`/admin/feedbacks/${feedbackId}`);
+    await apiClient.delete(`/api/admin/feedbacks/${feedbackId}`);
   },
 
   deleteReview: async (reviewId: string): Promise<void> => {
-    await apiClient.delete(`/admin/reviews/${reviewId}`);
+    await apiClient.delete(`/api/admin/reviews/${reviewId}`);
   },
 
   toggleVendorVerification: async (vendorId: string): Promise<VendorProfile> => {
-    const response = await apiClient.put(`/admin/vendors/${vendorId}/verify`);
+    const response = await apiClient.put(`/api/admin/vendors/${vendorId}/verify`);
     return response.data;
   },
 
   toggleVendorFreeze: async (vendorId: string): Promise<VendorProfile> => {
-    const response = await apiClient.put(`/admin/vendors/${vendorId}/freeze`);
+    const response = await apiClient.put(`/api/admin/vendors/${vendorId}/freeze`);
     return response.data;
   },
 
   deleteVendor: async (vendorId: string): Promise<void> => {
-    await apiClient.delete(`/admin/vendors/${vendorId}`);
+    await apiClient.delete(`/api/admin/vendors/${vendorId}`);
   },
 
   getAllStudents: async (): Promise<UserInfo[]> => {
-    const response = await apiClient.get('/admin/students');
+    const response = await apiClient.get('/api/admin/students');
     return response.data;
   },
 
   toggleStudentFreeze: async (studentId: string): Promise<UserInfo> => {
-    const response = await apiClient.put(`/admin/students/${studentId}/freeze`);
+    const response = await apiClient.put(`/api/admin/students/${studentId}/freeze`);
     return response.data;
   },
 
   deleteStudent: async (studentId: string): Promise<void> => {
-    await apiClient.delete(`/admin/students/${studentId}`);
+    await apiClient.delete(`/api/admin/students/${studentId}`);
   },
 };
 
