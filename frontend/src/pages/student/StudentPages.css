@@ -2257,6 +2257,7 @@
 
   .review-header {
     gap: 0.5rem;
+    flex-wrap: wrap;
   }
 
   .review-comment {

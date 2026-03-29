@@ -664,8 +664,8 @@ const VendorDetail: React.FC = () => {
                                 backgroundColor: 'var(--gray-50)', 
                                 borderRadius: '8px' 
                               }}>
-                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.25rem' }}>
-                                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flex: 1 }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem', flexWrap: 'wrap' }}>
+                                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                                     {renderStars(review.rating)}
                                     {review.student && (
                                       <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
@@ -910,8 +910,8 @@ const VendorDetail: React.FC = () => {
             <div className="reviews-list">
               {reviews.map((review) => (
                 <div key={review._id} className="review-card">
-                  <div className="review-header" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flex: 1 }}>
+                  <div className="review-header" style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '1rem', flexWrap: 'wrap' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                       <div className="review-stars">{renderStars(review.rating)}</div>
                       <span className="review-date">
                         {new Date(review.createdAt).toLocaleDateString('en-US', {
