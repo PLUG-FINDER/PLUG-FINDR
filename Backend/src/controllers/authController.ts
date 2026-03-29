@@ -455,7 +455,7 @@ export const resendVerificationEmail = async (req: Request, res: Response): Prom
     try {
       if (user.firebaseUID) {
         const actionCodeSettings = {
-          url: `${process.env.FRONTEND_URL || "http://localhost:3000"}/verify-email`,
+          url: `${process.env.FRONTEND_URL || "http://localhost:3000"}/auth-action`,
           handleCodeInApp: false,
         };
         const link = await admin.auth().generateEmailVerificationLink(email, actionCodeSettings);

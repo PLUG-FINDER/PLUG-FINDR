@@ -43,7 +43,7 @@ const ResendVerification: React.FC = () => {
         const currentUser = auth.currentUser;
         if (currentUser && currentUser.email === data.email) {
           const actionCodeSettings: ActionCodeSettings = {
-            url: `${window.location.origin}/verify-email`,
+            url: `${window.location.origin}/auth-action`,
             handleCodeInApp: false,
           };
           await sendEmailVerification(currentUser, actionCodeSettings);

@@ -200,7 +200,7 @@ const Register: React.FC = () => {
 
       // Step 2: Send email verification
       const actionCodeSettings: ActionCodeSettings = {
-        url: `${window.location.origin}/verify-email`,
+        url: `${window.location.origin}/auth-action`,
         handleCodeInApp: false,
       };
       await sendEmailVerification(firebaseUser, actionCodeSettings);

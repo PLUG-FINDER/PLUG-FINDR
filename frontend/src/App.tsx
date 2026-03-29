@@ -14,6 +14,7 @@ import Register from './pages/auth/Register';
 import ForgotPassword from './pages/auth/ForgotPassword';
 import ResetPassword from './pages/auth/ResetPassword';
 import VerifyEmail from './pages/auth/VerifyEmail';
+import AuthAction from './pages/auth/AuthAction';
 import ResendVerification from './pages/auth/ResendVerification';
 import Landing from './pages/Landing';
 
@@ -59,6 +60,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/auth-action" element={<AuthAction />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/verify-email" element={<VerifyEmail />} />
           <Route path="/resend-verification" element={<ResendVerification />} />

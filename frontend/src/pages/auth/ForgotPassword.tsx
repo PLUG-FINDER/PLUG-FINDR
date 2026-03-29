@@ -40,8 +40,8 @@ const ForgotPassword: React.FC = () => {
       // Configure the action code settings for password reset
       // This URL will be used in the email link
       const actionCodeSettings: ActionCodeSettings = {
-        // URL you want to redirect back to after password reset
-        url: `${window.location.origin}/reset-password`,
+        // Use a single Firebase action URL and branch by mode in-app
+        url: `${window.location.origin}/auth-action`,
         // This must be true for email link sign-in
         handleCodeInApp: false,
       };
