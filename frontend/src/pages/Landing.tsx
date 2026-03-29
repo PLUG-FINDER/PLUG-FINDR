@@ -199,11 +199,12 @@ const Landing: React.FC = () => {
           // For non-logged-in users, fetch from public endpoint
           try {
             const apiBaseUrl = getApiBaseUrl();
-            const response = await fetch(`${apiBaseUrl}/public/vendors`);
+            const response = await fetch(`${apiBaseUrl}/api/public/vendors`);
             if (response.ok) {
               vendors = await response.json();
+              console.log('✓ Fetched vendors from public endpoint:', vendors.length);
             } else {
-              console.log('Public endpoint not available');
+              console.log('Public endpoint error:', response.status);
               vendors = [];
             }
           } catch (err) {
