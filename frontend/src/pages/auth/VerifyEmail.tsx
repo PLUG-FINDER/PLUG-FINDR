@@ -88,6 +88,9 @@ const VerifyEmail: React.FC = () => {
             <p style={{ color: '#64748b', marginTop: '1rem' }}>
               Please wait while we verify your email...
             </p>
+            <p style={{ color: '#64748b', fontSize: '0.9rem', marginTop: '0.75rem' }}>
+              If you do not see future verification emails, check your spam or junk folder.
+            </p>
           </div>
         </div>
       </div>
@@ -102,6 +105,9 @@ const VerifyEmail: React.FC = () => {
           <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
             <p style={{ color: '#64748b', marginBottom: '1rem' }}>
               Your email has been successfully verified.
+            </p>
+            <p style={{ color: '#64748b', fontSize: '0.9rem', marginBottom: '1rem' }}>
+              If you do not see future emails from us, please check your spam or junk folder.
             </p>
             <p style={{ color: '#64748b', fontSize: '0.9rem' }}>
               Redirecting to login...

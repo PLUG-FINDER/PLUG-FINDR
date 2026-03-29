@@ -96,6 +96,9 @@ const ForgotPassword: React.FC = () => {
         <p style={{ textAlign: 'center', color: '#64748b', marginBottom: '2rem' }}>
           Enter your email address and we'll send you a link to reset your password.
         </p>
+        <p style={{ textAlign: 'center', color: '#64748b', fontSize: '0.9rem', marginBottom: '1.5rem' }}>
+          If you do not see the email, please check your spam or junk folder.
+        </p>
         <form onSubmit={handleSubmit(onSubmit)} className="auth-form">
           {error && <div className="auth-error">{error}</div>}
           <div className="auth-field">
