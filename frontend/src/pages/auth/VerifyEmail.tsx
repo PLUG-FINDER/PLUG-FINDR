@@ -121,6 +121,9 @@ const VerifyEmail: React.FC = () => {
           <p style={{ color: '#64748b', marginBottom: '1rem' }}>
             {error ? 'Verification failed. Please try again.' : 'Verifying your email...'}
           </p>
+          <p style={{ color: '#64748b', fontSize: '0.9rem', marginBottom: '1rem' }}>
+            If you do not see the verification email, check your spam or junk folder.
+          </p>
           <Link to="/resend-verification" style={{ color: 'var(--primary-600)', textDecoration: 'none' }}>
             Resend Verification Email
           </Link>

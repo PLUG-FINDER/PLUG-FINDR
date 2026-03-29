@@ -77,6 +77,9 @@ const ForgotPassword: React.FC = () => {
             <p style={{ color: '#64748b', fontSize: '0.9rem', marginBottom: '1rem' }}>
               Please check your inbox and click the link to reset your password.
             </p>
+            <p style={{ color: '#64748b', fontSize: '0.9rem', marginBottom: '1rem' }}>
+              If you do not see the email, please check your spam or junk folder.
+            </p>
             <Link to="/login" style={{ color: 'var(--primary-600)', textDecoration: 'none' }}>
               Back to Login
             </Link>
