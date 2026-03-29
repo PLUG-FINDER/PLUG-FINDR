@@ -48,6 +48,7 @@ const Landing: React.FC = () => {
   const [userLocation, setUserLocation] = useState<UserLocation | null>(null);
   const [_locationError, setLocationError] = useState<string | null>(null);
   const [loadingVendors, setLoadingVendors] = useState(true);
+  const [retryCount, setRetryCount] = useState(0);
 
   // Haversine formula to calculate distance between two coordinates in kilometers
   const calculateHaversineDistance = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
@@ -131,29 +132,56 @@ const Landing: React.FC = () => {
 
   // Get user location using browser Geolocation API
   useEffect(() => {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setUserLocation({
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          });
-        },
-        (error) => {
-          console.log('Location access denied or unavailable:', error.message);
-          setLocationError('Location access denied. Showing all vendors.');
-          // Continue without location - will show all vendors
-        },
-        {
-          enableHighAccuracy: false,
-          timeout: 5000,
-          maximumAge: 300000 // Cache for 5 minutes
-        }
-      );
-    } else {
-      setLocationError('Geolocation not supported by your browser.');
-    }
-  }, []);
+    const requestGeolocation = () => {
+      if ('geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            console.log('✓ Geolocation successful:', position.coords);
+            setUserLocation({
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            });
+            setLocationError(null); // Clear any previous errors
+          },
+          (error) => {
+            let errorMessage = 'Location access denied. Showing all vendors.';
+            
+            switch (error.code) {
+              case error.PERMISSION_DENIED:
+                errorMessage = 'Location permission denied. Grant permission in browser settings to see nearby vendors.';
+                console.warn('❌ Permission Denied:', error.message);
+                break;
+              case error.POSITION_UNAVAILABLE:
+                errorMessage = 'Location unavailable. Unable to retrieve position.';
+                console.warn('❌ Position Unavailable:', error.message);
+                break;
+              case error.TIMEOUT:
+                errorMessage = 'Location request timed out. Please check your connection.';
+                console.warn('❌ Timeout:', error.message);
+                break;
+              default:
+                console.warn('❌ Geolocation Error:', error.message);
+            }
+            
+            setLocationError(errorMessage);
+            // Continue without location - will show all vendors
+          },
+          {
+            enableHighAccuracy: false,
+            timeout: 10000, // Increased from 5s to 10s
+            maximumAge: 300000 // Cache for 5 minutes
+          }
+        );
+      } else {
+        const msg = 'Geolocation not supported by your browser.';
+        console.warn('❌', msg);
+        setLocationError(msg);
+      }
+    };
+
+    // Request geolocation on mount or when retry is triggered
+    requestGeolocation();
+  }, [retryCount]);
 
   // Fetch vendors when component mounts or when user logs in
   useEffect(() => {
@@ -244,6 +272,11 @@ const Landing: React.FC = () => {
     setOpenFaq(openFaq === index ? null : index);
   };
 
+  const handleRetryGeolocation = () => {
+    setLocationError(null);
+    setRetryCount(prev => prev + 1);
+  };
+
   const faqs = [
     {
       q: "Is PlugFindr free to use?",
@@ -322,6 +355,60 @@ const Landing: React.FC = () => {
                 <span className="pulse-dot"></span>
                 <span>Live Map</span>
               </div>
+              
+              {/* Geolocation Status */}
+              {_locationError && (
+                <div style={{
+                  padding: '0.75rem',
+                  marginBottom: '0.5rem',
+                  backgroundColor: 'rgba(255,152,31,0.15)',
+                  borderLeft: '3px solid var(--electric)',
+                  color: 'rgba(255,255,255,0.85)',
+                  fontSize: '0.85rem',
+                  borderRadius: '4px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center'
+                }}>
+                  <span>📍 {_locationError}</span>
+                  <button
+                    onClick={handleRetryGeolocation}
+                    style={{
+                      background: 'rgba(255,255,255,0.1)',
+                      border: '1px solid rgba(255,255,255,0.2)',
+                      color: 'rgba(255,255,255,0.9)',
+                      padding: '0.4rem 0.8rem',
+                      borderRadius: '4px',
+                      cursor: 'pointer',
+                      fontSize: '0.75rem',
+                      fontWeight: '500',
+                      transition: 'all 0.2s ease'
+                    }}
+                    onMouseOver={(e) => {
+                      (e.target as HTMLButtonElement).style.background = 'rgba(255,255,255,0.15)';
+                    }}
+                    onMouseOut={(e) => {
+                      (e.target as HTMLButtonElement).style.background = 'rgba(255,255,255,0.1)';
+                    }}
+                  >
+                    Retry
+                  </button>
+                </div>
+              )}
+              
+              {userLocation && (
+                <div style={{
+                  padding: '0.75rem',
+                  marginBottom: '0.5rem',
+                  backgroundColor: 'rgba(76,175,80,0.15)',
+                  borderLeft: '3px solid var(--brand)',
+                  color: 'rgba(255,255,255,0.85)',
+                  fontSize: '0.85rem',
+                  borderRadius: '4px'
+                }}>
+                  ✓ Location enabled - Showing nearby vendors
+                </div>
+              )}
               
               <div className="map-canvas">
                 <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
