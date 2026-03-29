@@ -359,38 +359,11 @@ const Landing: React.FC = () => {
               
               {/* Geolocation Status */}
               {_locationError && (
-                <div style={{
-                  padding: '0.75rem',
-                  marginBottom: '0.5rem',
-                  backgroundColor: 'rgba(255,152,31,0.15)',
-                  borderLeft: '3px solid var(--electric)',
-                  color: 'rgba(255,255,255,0.85)',
-                  fontSize: '0.85rem',
-                  borderRadius: '4px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center'
-                }}>
+                <div className="geo-status geo-status-warning">
                   <span>📍 {_locationError}</span>
                   <button
+                    className="geo-status-retry"
                     onClick={handleRetryGeolocation}
-                    style={{
-                      background: 'rgba(255,255,255,0.1)',
-                      border: '1px solid rgba(255,255,255,0.2)',
-                      color: 'rgba(255,255,255,0.9)',
-                      padding: '0.4rem 0.8rem',
-                      borderRadius: '4px',
-                      cursor: 'pointer',
-                      fontSize: '0.75rem',
-                      fontWeight: '500',
-                      transition: 'all 0.2s ease'
-                    }}
-                    onMouseOver={(e) => {
-                      (e.target as HTMLButtonElement).style.background = 'rgba(255,255,255,0.15)';
-                    }}
-                    onMouseOut={(e) => {
-                      (e.target as HTMLButtonElement).style.background = 'rgba(255,255,255,0.1)';
-                    }}
                   >
                     Retry
                   </button>
@@ -398,15 +371,7 @@ const Landing: React.FC = () => {
               )}
               
               {userLocation && (
-                <div style={{
-                  padding: '0.75rem',
-                  marginBottom: '0.5rem',
-                  backgroundColor: 'rgba(76,175,80,0.15)',
-                  borderLeft: '3px solid var(--brand)',
-                  color: 'rgba(255,255,255,0.85)',
-                  fontSize: '0.85rem',
-                  borderRadius: '4px'
-                }}>
+                <div className="geo-status geo-status-success">
                   ✓ Location enabled - Showing nearby vendors
                 </div>
               )}
