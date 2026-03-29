@@ -248,11 +248,13 @@ const VendorDetail: React.FC = () => {
     setProductErrors(prev => ({ ...prev, [productId]: '' }));
 
     try {
+      console.log('Submitting product review:', { productId, rating: productRating, comment: productComment });
       await studentAPI.createProductReview({
         productId,
         rating: productRating,
         comment: productComment
       });
+      console.log('✓ Product review submitted successfully');
       setProductSuccess(prev => ({ ...prev, [productId]: true }));
       setProductRatings(prev => ({ ...prev, [productId]: 0 }));
       setProductComments(prev => ({ ...prev, [productId]: '' }));
@@ -261,7 +263,10 @@ const VendorDetail: React.FC = () => {
         setProductSuccess(prev => ({ ...prev, [productId]: false }));
       }, 3000);
     } catch (err: any) {
-      setProductErrors(prev => ({ ...prev, [productId]: err.response?.data?.message || 'Failed to submit review' }));
+      console.error('❌ Product review submission failed:', err);
+      console.error('Error response:', err.response?.data);
+      const errorMsg = err.response?.data?.message || err.message || 'Failed to submit review';
+      setProductErrors(prev => ({ ...prev, [productId]: errorMsg }));
     } finally {
       setProductSubmitting(prev => ({ ...prev, [productId]: false }));
     }
@@ -323,7 +328,9 @@ const VendorDetail: React.FC = () => {
     setError('');
     setSuccess(false);
     try {
+      console.log('Submitting vendor review:', { vendorId: id, rating, comment });
       await studentAPI.createReview({ vendorId: id, rating, comment });
+      console.log('✓ Vendor review submitted successfully');
       setSuccess(true);
       setComment('');
       setRating(0);
@@ -332,6 +339,8 @@ const VendorDetail: React.FC = () => {
       loadReviews();
       setTimeout(() => setSuccess(false), 5000);
     } catch (err: any) {
+      console.error('❌ Vendor review submission failed:', err);
+      console.error('Error response:', err.response?.data);
       setError(err.response?.data?.message || 'Failed to submit review.');
     } finally {
       setSubmitting(false);
@@ -671,24 +680,26 @@ const VendorDetail: React.FC = () => {
                                         background: 'var(--error)',
                                         color: 'white',
                                         border: 'none',
-                                        borderRadius: '6px',
-                                        padding: '0.3rem 0.6rem',
-                                        fontSize: '0.75rem',
+                                        borderRadius: '4px',
+                                        padding: '0.25rem 0.5rem',
+                                        fontSize: '0.7rem',
                                         cursor: 'pointer',
                                         fontWeight: 600,
                                         transition: 'all 0.2s ease',
-                                        flexShrink: 0
+                                        flexShrink: 0,
+                                        minWidth: 'fit-content',
+                                        whiteSpace: 'nowrap'
                                       }}
                                       onMouseEnter={(e) => {
                                         e.currentTarget.style.opacity = '0.8';
-                                        e.currentTarget.style.transform = 'scale(1.05)';
                                       }}
                                       onMouseLeave={(e) => {
                                         e.currentTarget.style.opacity = '1';
-                                        e.currentTarget.style.transform = 'scale(1)';
                                       }}
                                     >
                                       Delete
+                                    </button>
+                                  )}
                                     </button>
                                   )}
                                 </div>
@@ -917,20 +928,21 @@ const VendorDetail: React.FC = () => {
                           background: 'var(--error)',
                           color: 'white',
                           border: 'none',
-                          borderRadius: '6px',
-                          padding: '0.4rem 0.8rem',
-                          fontSize: '0.8rem',
+                          borderRadius: '4px',
+                          padding: '0.25rem 0.5rem',
+                          fontSize: '0.7rem',
                           cursor: 'pointer',
                           fontWeight: 600,
-                          transition: 'all 0.2s ease'
+                          transition: 'all 0.2s ease',
+                          flexShrink: 0,
+                          minWidth: 'fit-content',
+                          whiteSpace: 'nowrap'
                         }}
                         onMouseEnter={(e) => {
                           e.currentTarget.style.opacity = '0.8';
-                          e.currentTarget.style.transform = 'scale(1.05)';
                         }}
                         onMouseLeave={(e) => {
                           e.currentTarget.style.opacity = '1';
-                          e.currentTarget.style.transform = 'scale(1)';
                         }}
                       >
                         Delete

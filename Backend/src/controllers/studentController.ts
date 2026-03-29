@@ -304,10 +304,16 @@ export const createReview = async (req: AuthRequest, res: Response): Promise<voi
       return;
     }
 
+    // Validate rating is between 1-5
+    if (rating < 1 || rating > 5) {
+      res.status(400).json({ message: "Rating must be between 1 and 5" });
+      return;
+    }
+
     const vendor = await VendorProfile.findById(vendorId);
     // Check if vendor exists, is approved, and is not frozen
     if (!vendor || !vendor.approved || vendor.isFrozen) {
-      res.status(404).json({ message: "Vendor not found" });
+      res.status(403).json({ message: "Vendor is not available for reviews" });
       return;
     }
 
@@ -323,8 +329,16 @@ export const createReview = async (req: AuthRequest, res: Response): Promise<voi
 
     res.status(201).json(review);
   } catch (error: any) {
-    console.error('Error creating review:', error);
-    res.status(500).json({ message: "Server error" });
+    console.error('Error creating vendor review:', error.message);
+    console.error('Stack:', error.stack);
+    
+    // Check for validation errors
+    if (error.name === 'ValidationError') {
+      res.status(400).json({ message: error.message });
+      return;
+    }
+    
+    res.status(500).json({ message: "Failed to create review. Please try again." });
   }
 };
 
@@ -346,6 +360,12 @@ export const createProductReview = async (req: AuthRequest, res: Response): Prom
       return;
     }
 
+    // Validate rating is between 1-5
+    if (rating < 1 || rating > 5) {
+      res.status(400).json({ message: "Rating must be between 1 and 5" });
+      return;
+    }
+
     const product = await Product.findById(productId).populate('vendor');
     if (!product) {
       res.status(404).json({ message: "Product not found" });
@@ -355,7 +375,7 @@ export const createProductReview = async (req: AuthRequest, res: Response): Prom
     // Check if vendor is approved and not frozen
     const vendor = product.vendor as any;
     if (!vendor || !vendor.approved || vendor.isFrozen) {
-      res.status(404).json({ message: "Product vendor not available" });
+      res.status(403).json({ message: "Product vendor is not available for reviews" });
       return;
     }
 
@@ -371,8 +391,16 @@ export const createProductReview = async (req: AuthRequest, res: Response): Prom
 
     res.status(201).json(review);
   } catch (error: any) {
-    console.error('Error creating product review:', error);
-    res.status(500).json({ message: "Server error" });
+    console.error('Error creating product review:', error.message);
+    console.error('Stack:', error.stack);
+    
+    // Check for validation errors
+    if (error.name === 'ValidationError') {
+      res.status(400).json({ message: error.message });
+      return;
+    }
+    
+    res.status(500).json({ message: "Failed to create review. Please try again." });
   }
 };
 
