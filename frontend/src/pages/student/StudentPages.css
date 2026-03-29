@@ -950,6 +950,63 @@
 /* Market Products Grid - Wider than flyers */
 .market-products-grid {
   grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)) !important;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.market-products-grid .flyer-image-wrapper {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.market-product-content {
+  background: #ffffff;
+  border-top: 1px solid var(--gray-200);
+}
+
+.market-product-title {
+  color: var(--text-primary);
+}
+
+.market-product-review-section {
+  border-top: 1px solid var(--gray-200);
+}
+
+.market-product-review-heading {
+  color: var(--text-primary);
+}
+
+.market-product-review-item {
+  background: var(--gray-50);
+}
+
+.market-product-review-textarea {
+  border: 1px solid var(--gray-300);
+  background: #ffffff;
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .market-product-content {
+  background: var(--card-bg);
+  border-top: 1px solid rgba(129, 140, 248, 0.25);
+}
+
+[data-theme="dark"] .market-product-review-section {
+  border-top: 1px solid rgba(129, 140, 248, 0.25);
+}
+
+[data-theme="dark"] .market-product-review-item {
+  background: rgba(15, 23, 42, 0.55);
+  border: 1px solid rgba(129, 140, 248, 0.2);
+}
+
+[data-theme="dark"] .market-product-review-textarea {
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(129, 140, 248, 0.3);
+  color: var(--text-primary);
 }
 
 .flyer-image-wrapper {
@@ -1852,7 +1909,7 @@
   }
 
   .market-products-grid {
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)) !important;
+    grid-template-columns: minmax(0, 1fr) !important;
   }
 
   .dashboard-cards {
@@ -2105,6 +2162,17 @@
   .search-btn {
     padding: 0.875rem;
     font-size: 0.95rem;
+  }
+
+  .market-products-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 1rem;
+  }
+
+  .market-products-grid .flyer-image-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
   }
 
   .report-modal {

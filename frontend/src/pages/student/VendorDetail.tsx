@@ -624,8 +624,8 @@ const VendorDetail: React.FC = () => {
                         console.log(`[Image Success] Loaded product image for ${product.name}:`, getImageUrl(product.image));
                       }}
                     />
-                    <div style={{ padding: '1rem', background: 'white', width: '100%', borderTop: '1px solid #eee' }}>
-                      <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1rem', color: '#333' }}>{product.name}</h3>
+                    <div className="market-product-content" style={{ padding: '1rem', width: '100%' }}>
+                      <h3 className="market-product-title" style={{ margin: '0 0 0.5rem 0', fontSize: '1rem' }}>{product.name}</h3>
                       {product.description && (
                         <p style={{ margin: '0 0 0.5rem 0', color: 'var(--text-secondary)', fontSize: '0.9rem', lineHeight: '1.4' }}>
                           {product.description}
@@ -648,20 +648,19 @@ const VendorDetail: React.FC = () => {
                       )}
 
                       {/* Product Reviews Section */}
-                      <div style={{ marginTop: '1rem', borderTop: '1px solid #eee', paddingTop: '1rem' }}>
-                        <h4 style={{ margin: '0 0 0.75rem 0', fontSize: '0.9rem', fontWeight: 600 }}>
+                      <div className="market-product-review-section" style={{ marginTop: '1rem', paddingTop: '1rem' }}>
+                        <h4 className="market-product-review-heading" style={{ margin: '0 0 0.75rem 0', fontSize: '0.9rem', fontWeight: 600 }}>
                           Reviews ({productReviewList.length})
                         </h4>
                         
                         {isProductReviewsLoading ? (
                           <Loader />
                         ) : productReviewList.length > 0 ? (
-                          <div style={{ marginBottom: '1rem', maxHeight: '200px', overflowY: 'auto' }}>
+                            <div className="market-product-review-list" style={{ marginBottom: '1rem', maxHeight: '200px', overflowY: 'auto' }}>
                             {productReviewList.slice(0, 3).map((review) => (
-                              <div key={review._id} style={{ 
+                              <div key={review._id} className="market-product-review-item" style={{ 
                                 marginBottom: '0.75rem', 
                                 padding: '0.75rem', 
-                                backgroundColor: 'var(--gray-50)', 
                                 borderRadius: '8px' 
                               }}>
                                 <div className="product-review-row" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.25rem' }}>
@@ -795,13 +794,13 @@ const VendorDetail: React.FC = () => {
                               </div>
                               <div style={{ marginBottom: '0.5rem' }}>
                                 <textarea
+                                  className="market-product-review-textarea"
                                   value={productComment}
                                   onChange={(e) => setProductComments(prev => ({ ...prev, [product._id]: e.target.value }))}
                                   placeholder="Write your review..."
                                   style={{
                                     width: '100%',
                                     padding: '0.5rem',
-                                    border: '1px solid #ddd',
                                     borderRadius: '8px',
                                     fontSize: '0.85rem',
                                     minHeight: '60px',
