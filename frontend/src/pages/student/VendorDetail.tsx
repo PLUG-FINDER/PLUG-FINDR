@@ -664,8 +664,8 @@ const VendorDetail: React.FC = () => {
                                 backgroundColor: 'var(--gray-50)', 
                                 borderRadius: '8px' 
                               }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem', flexWrap: 'wrap' }}>
-                                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                <div className="product-review-row" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.25rem' }}>
+                                  <div className="product-review-meta" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flex: 1 }}>
                                     {renderStars(review.rating)}
                                     {review.student && (
                                       <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
@@ -675,6 +675,7 @@ const VendorDetail: React.FC = () => {
                                   </div>
                                   {review.student && user && review.student._id === user._id && (
                                     <button
+                                      className="review-delete-btn"
                                       onClick={() => handleDeleteReview(review._id, product._id)}
                                       style={{
                                         background: 'var(--error)',
@@ -698,8 +699,6 @@ const VendorDetail: React.FC = () => {
                                       }}
                                     >
                                       Delete
-                                    </button>
-                                  )}
                                     </button>
                                   )}
                                 </div>
@@ -910,8 +909,8 @@ const VendorDetail: React.FC = () => {
             <div className="reviews-list">
               {reviews.map((review) => (
                 <div key={review._id} className="review-card">
-                  <div className="review-header" style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '1rem', flexWrap: 'wrap' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <div className="review-header" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <div className="review-meta" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flex: 1 }}>
                       <div className="review-stars">{renderStars(review.rating)}</div>
                       <span className="review-date">
                         {new Date(review.createdAt).toLocaleDateString('en-US', {
@@ -923,6 +922,7 @@ const VendorDetail: React.FC = () => {
                     </div>
                     {review.student && user && review.student._id === user._id && (
                       <button
+                        className="review-delete-btn"
                         onClick={() => handleDeleteReview(review._id)}
                         style={{
                           background: 'var(--error)',
