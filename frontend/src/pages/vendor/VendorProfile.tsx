@@ -72,6 +72,41 @@ const VendorProfile: React.FC = () => {
   const [success, setSuccess] = useState('');
   const MIN_DESCRIPTION_LENGTH = 100; // Minimum 100 characters (roughly 2-3 lines)
 
+  const PHONE_LENGTH = 10;
+
+  const isDigit = (char: string) => {
+    const code = char.charCodeAt(0);
+    return code >= 48 && code <= 57;
+  };
+
+  const sanitizePhoneInput = (value: string) => {
+    let digitsOnly = '';
+    for (let i = 0; i < value.length; i += 1) {
+      const currentChar = value[i];
+      if (isDigit(currentChar)) {
+        digitsOnly += currentChar;
+      }
+      if (digitsOnly.length === PHONE_LENGTH) {
+        break;
+      }
+    }
+    return digitsOnly;
+  };
+
+  const isValidPhoneNumber = (value: string) => {
+    if (value.length !== PHONE_LENGTH) {
+      return false;
+    }
+
+    for (let i = 0; i < value.length; i += 1) {
+      if (!isDigit(value[i])) {
+        return false;
+      }
+    }
+
+    return true;
+  };
+
   useEffect(() => {
     loadProfile();
   }, []);
@@ -115,6 +150,17 @@ const VendorProfile: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const sanitizedContactPhone = sanitizePhoneInput(formData.contactPhone || '');
+    if (!isValidPhoneNumber(sanitizedContactPhone)) {
+      setError('Contact phone must be exactly 10 digits.');
+      setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 100);
+      return;
+    }
+
+    if (sanitizedContactPhone !== formData.contactPhone) {
+      setFormData({ ...formData, contactPhone: sanitizedContactPhone });
+    }
     
     // Validate description length
     const trimmedDescription = (formData?.description ?? '').trim();
@@ -159,6 +205,35 @@ const VendorProfile: React.FC = () => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
+    });
+  };
+
+  const handlePhoneKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const key = e.key;
+    const isSingleChar = key.length === 1;
+    const input = e.currentTarget;
+    const hasSelection = input.selectionStart !== input.selectionEnd;
+    const canAddMore = (input.value || '').length < PHONE_LENGTH;
+
+    if (!isSingleChar) {
+      return;
+    }
+
+    if (!isDigit(key)) {
+      e.preventDefault();
+      return;
+    }
+
+    if (!hasSelection && !canAddMore) {
+      e.preventDefault();
+    }
+  };
+
+  const handlePhoneInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const sanitizedValue = sanitizePhoneInput(e.target.value);
+    setFormData({
+      ...formData,
+      contactPhone: sanitizedValue,
     });
   };
 
@@ -345,9 +420,12 @@ const VendorProfile: React.FC = () => {
             <input
               id="contactPhone"
               name="contactPhone"
-              type="tel"
+              type="text"
               value={formData.contactPhone}
-              onChange={handleChange}
+              onChange={handlePhoneInputChange}
+              onKeyDown={handlePhoneKeyDown}
+              maxLength={PHONE_LENGTH}
+              inputMode="numeric"
               required
               className="location-input"
             />

@@ -9,6 +9,27 @@ import { Feedback } from "../models/Feedback";
 import { User } from "../models/User";
 import { uploadToGridFS, deleteFromGridFS } from "../utils/gridfs";
 
+const PHONE_LENGTH = 10;
+
+const isDigitChar = (char: string): boolean => {
+  const code = char.charCodeAt(0);
+  return code >= 48 && code <= 57;
+};
+
+const isValidTenDigitPhone = (value: string): boolean => {
+  if (value.length !== PHONE_LENGTH) {
+    return false;
+  }
+
+  for (let i = 0; i < value.length; i += 1) {
+    if (!isDigitChar(value[i])) {
+      return false;
+    }
+  }
+
+  return true;
+};
+
 export const addProduct = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     if (!req.user) {
@@ -286,6 +307,12 @@ export const createProfile = async (req: AuthRequest, res: Response): Promise<vo
       return;
     }
 
+    const normalizedContactPhone = (contactPhone || '').trim();
+    if (!isValidTenDigitPhone(normalizedContactPhone)) {
+      res.status(400).json({ message: "Contact phone must be exactly 10 digits." });
+      return;
+    }
+
     // Validate that at least one location field (Hall or Custom Hostel) is provided
     const trimmedHostelName = (hostelName || '').trim();
     const trimmedLocation = (location || '').trim();
@@ -302,7 +329,7 @@ export const createProfile = async (req: AuthRequest, res: Response): Promise<vo
       location: trimmedLocation || '',
       hostelName: trimmedHostelName || '',
       contactEmail,
-      contactPhone,
+      contactPhone: normalizedContactPhone,
       whatsapp,
       instagram,
       snapchat,
@@ -350,6 +377,15 @@ export const updateProfile = async (req: AuthRequest, res: Response): Promise<vo
         });
         return;
       }
+    }
+
+    if (updates.contactPhone !== undefined) {
+      const normalizedContactPhone = (updates.contactPhone || '').trim();
+      if (!isValidTenDigitPhone(normalizedContactPhone)) {
+        res.status(400).json({ message: "Contact phone must be exactly 10 digits." });
+        return;
+      }
+      updates.contactPhone = normalizedContactPhone;
     }
 
     // Validate that at least one location field (Hall or Custom Hostel) is provided
