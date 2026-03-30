@@ -150,7 +150,7 @@ const ResetPassword: React.FC = () => {
                 onClick={togglePasswordVisibility}
                 aria-label={showPassword ? 'Hide password' : 'Show password'}
               >
-                {passwordInputType === 'password' ? (
+                {passwordInputType === 'text' ? (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="20"
@@ -203,7 +203,7 @@ const ResetPassword: React.FC = () => {
                 onClick={toggleConfirmPasswordVisibility}
                 aria-label={showConfirmPassword ? 'Hide password' : 'Show password'}
               >
-                {confirmPasswordInputType === 'password' ? (
+                {confirmPasswordInputType === 'text' ? (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="20"

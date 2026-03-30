@@ -319,9 +319,9 @@ const Register: React.FC = () => {
                 type="button"
                 className="password-toggle-btn"
                 onClick={togglePasswordVisibility}
-                aria-label={showPassword ? 'Hide password' : 'Show password'}
+                aria-label={passwordInputType === 'text' ? 'Hide password' : 'Show password'}
               >
-                {passwordInputType === 'password' ? (
+                {passwordInputType === 'text' ? (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="20"
