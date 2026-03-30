@@ -136,6 +136,7 @@ const Reviews: React.FC = () => {
                     </span>
                   </div>
                   <button
+                    className="review-delete-btn"
                     onClick={() => handleDeleteReview(review._id)}
                     disabled={deleting === review._id}
                     style={{
