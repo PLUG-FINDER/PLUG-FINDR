@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from 'react';
 import { Outlet } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import GlobalAIChat from '../components/GlobalAIChat';
 import './Layout.css';
 
 const VendorLayout: React.FC = () => {
@@ -66,7 +65,6 @@ const VendorLayout: React.FC = () => {
         </main>
         <Footer />
       </div>
-      <GlobalAIChat />
     </div>
   );
 };
